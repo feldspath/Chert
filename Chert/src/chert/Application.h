@@ -11,5 +11,3 @@ namespace chert {
 
     Application* CreateApplication();
 }
-
-

@@ -1,0 +1,3 @@
+[submodule "Chert/external/spdlog"]
+	path = Chert/external/spdlog
+	url = https://github.com/gabime/spdlog

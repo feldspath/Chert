@@ -27,9 +27,15 @@
     <ClInclude Include="src\chert\EntryPoint.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\chert\Log.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\chert\Application.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\chert\Log.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

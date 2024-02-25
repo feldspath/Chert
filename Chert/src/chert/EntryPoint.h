@@ -1,6 +1,6 @@
 #pragma once
 
-#include "chert/Log.h"
+#include "Chert/Log.h"
 
 #ifdef CHERT_PLATFORM_WINDOWS
 

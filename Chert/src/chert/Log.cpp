@@ -1,5 +1,6 @@
 #include "spdlog/sinks/stdout_color_sinks.h"
-#include "Log.h"
+#include "Chert/Log.h"
+#include "Chert/Events/Event.h"
 
 namespace chert {
     std::shared_ptr<spdlog::logger> Log::coreLogger;

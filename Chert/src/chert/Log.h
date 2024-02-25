@@ -1,22 +1,22 @@
 #pragma once
 
-#include <memory>
 #include "spdlog/spdlog.h"
-#include "Core.h"
+#include "spdlog/fmt/ostr.h"
+#include "Chert/Core.h"
 
 namespace chert {
 
     class CHERT_API Log
     {
-    private:
-        static std::shared_ptr<spdlog::logger> coreLogger;
-        static std::shared_ptr<spdlog::logger> appLogger;
-        
     public:
         static void init();
 
         inline static std::shared_ptr<spdlog::logger>& getCoreLogger() { return coreLogger; }
         inline static std::shared_ptr<spdlog::logger>& getAppLogger() { return appLogger; }
+
+    private:
+        static std::shared_ptr<spdlog::logger> coreLogger;
+        static std::shared_ptr<spdlog::logger> appLogger;
     };
 
 }

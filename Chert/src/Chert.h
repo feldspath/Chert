@@ -1,6 +1,12 @@
 #pragma once
 
-#include <stdio.h>
-#include "chert/Application.h"
-#include "chert/EntryPoint.h"
-#include "chert/Log.h"
+#include "Chert/Application.h"
+#include "Chert/EntryPoint.h"
+#include "Chert/Log.h"
+
+// Events
+#include "Chert/Events/Event.h"
+#include "Chert/Events/ApplicationEvent.h"
+#include "Chert/Events/KeyEvent.h"
+#include "Chert/Events/MouseEvent.h"
+

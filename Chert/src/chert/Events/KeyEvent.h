@@ -22,14 +22,14 @@ namespace chert {
         int keycode;
     };
 
-    class CHERT_API KeyPressedEvent : public KeyEvent {
+    class KeyPressedEvent : public KeyEvent {
     public:
         KeyPressedEvent(int keycode) : KeyEvent(keycode) {}
 
         EVENT_CLASS_TYPE(KeyPressed)
     };
 
-    class CHERT_API KeyReleasedEvent : public KeyEvent {
+    class KeyReleasedEvent : public KeyEvent {
     public:
         KeyReleasedEvent(int keycode) : KeyEvent(keycode) {}
 

@@ -7,7 +7,7 @@
 #include "Chert/Events/ApplicationEvent.h"
 
 namespace chert {
-    class CHERT_API Application
+    class Application
     {
     public:
         Application(WindowProps windowProps);

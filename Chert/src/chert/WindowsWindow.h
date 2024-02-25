@@ -7,7 +7,7 @@
 #include "Chert/Window.h"
 
 namespace chert {
-    class CHERT_API WindowsWindow : public Window {
+    class WindowsWindow : public Window {
     public:
         WindowsWindow(WindowProps props);
         ~WindowsWindow() override;

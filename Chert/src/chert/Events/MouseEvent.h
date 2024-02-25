@@ -20,21 +20,21 @@ namespace chert {
         int buttoncode;
     };
 
-    class CHERT_API MouseButtonPressedEvent : public MouseButtonEvent {
+    class MouseButtonPressedEvent : public MouseButtonEvent {
     public:
         MouseButtonPressedEvent(int buttoncode) : MouseButtonEvent(buttoncode) {}
 
         EVENT_CLASS_TYPE(MouseButtonPressed)
     };
 
-    class CHERT_API MouseButtonReleasedEvent : public MouseButtonEvent {
+    class MouseButtonReleasedEvent : public MouseButtonEvent {
     public:
         MouseButtonReleasedEvent(int buttoncode) : MouseButtonEvent(buttoncode) {}
 
         EVENT_CLASS_TYPE(MouseButtonReleased)
     };
 
-    class CHERT_API MouseMovedEvent : public Event {
+    class MouseMovedEvent : public Event {
     public:
         MouseMovedEvent(double xpos, double ypos) : xpos(xpos), ypos(ypos) {}
 

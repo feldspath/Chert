@@ -17,7 +17,7 @@ namespace chert {
             : title(title), width(width), height(height) {}
     };
 
-    class CHERT_API Window {
+    class Window {
     public:
         using EventCallbackFn = std::function<void(Event&)>;
 

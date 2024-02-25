@@ -6,7 +6,7 @@
 
 namespace chert {
 
-    class CHERT_API Log
+    class Log
     {
     public:
         static void init();

@@ -22,7 +22,7 @@ namespace chert {
                                 EventType getEventType() const override { return getStaticType(); }\
                                 const char* getName() const override { return #type "Event"; }
 
-    class CHERT_API Event {
+    class Event {
         friend class EventDispatcher;
 
     public:

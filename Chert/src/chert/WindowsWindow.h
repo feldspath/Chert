@@ -12,8 +12,9 @@ namespace chert {
         WindowsWindow(WindowProps props);
         ~WindowsWindow() override;
         void update() override;
-        unsigned int getWidth() const override;
-        unsigned int getHeight() const override;
+        inline unsigned int getWidth() const override { return data.width; }
+        inline unsigned int getHeight() const override { return data.height; }
+        inline void setEventCallback(const EventCallbackFn& callback) override { data.eventCallback = callback;  }
 
     private:
         void init(const WindowProps& props);
@@ -24,6 +25,7 @@ namespace chert {
         struct WindowData {
             std::string title;
             unsigned int width, height;
+            EventCallbackFn eventCallback;
         };
 
         WindowData data;

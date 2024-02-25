@@ -13,6 +13,8 @@ namespace chert {
             return ss.str();
         }
 
+        int getKeycode() const { return keycode; }
+
     protected:
         KeyEvent(int keycode) : keycode(keycode) {}
 
@@ -22,14 +24,14 @@ namespace chert {
 
     class CHERT_API KeyPressedEvent : public KeyEvent {
     public:
-        KeyPressedEvent(int keycode) : KeyEvent(keycode) { }
+        KeyPressedEvent(int keycode) : KeyEvent(keycode) {}
 
         EVENT_CLASS_TYPE(KeyPressed)
     };
 
     class CHERT_API KeyReleasedEvent : public KeyEvent {
     public:
-        KeyReleasedEvent(int keycode) : KeyEvent(keycode) { }
+        KeyReleasedEvent(int keycode) : KeyEvent(keycode) {}
 
         EVENT_CLASS_TYPE(KeyReleased)
     };

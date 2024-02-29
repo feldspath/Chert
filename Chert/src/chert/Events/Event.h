@@ -29,6 +29,7 @@ namespace chert {
         virtual EventType getEventType() const = 0;
         virtual const char* getName() const = 0;
         virtual std::string toString() const { return getName(); }
+        bool isHandled() const { return handled; }
 
     private:
         bool handled = false;

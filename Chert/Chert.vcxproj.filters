@@ -48,6 +48,12 @@
     <ClInclude Include="src\Chert\WindowsWindow.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Chert\Layer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Chert\LayerStack.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Chert\Application.cpp">
@@ -57,6 +63,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Chert\WindowsWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Chert\LayerStack.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

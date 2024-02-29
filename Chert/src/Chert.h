@@ -3,6 +3,7 @@
 #include "Chert/Application.h"
 #include "Chert/EntryPoint.h"
 #include "Chert/Log.h"
+#include "Chert/Layer.h"
 
 // Events
 #include "Chert/Events/Event.h"

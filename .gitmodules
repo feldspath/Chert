@@ -1,3 +1,6 @@
 [submodule "Chert/external/spdlog"]
 	path = Chert/external/spdlog
 	url = https://github.com/gabime/spdlog
+[submodule "Chert/external/glfw"]
+	path = Chert/external/glfw
+	url = https://github.com/glfw/glfw

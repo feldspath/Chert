@@ -2,15 +2,15 @@
 
 #include <sstream>
 
-#include "Event.h"
+#include "BaseEvent.h"
 
 namespace chert {
-    class WindowCloseEvent : public Event {
+    class WindowCloseEvent : public BaseEvent {
     public:
         EVENT_CLASS_TYPE(WindowClose)
     };
 
-    class WindowResizeEvent : public Event {
+    class WindowResizeEvent : public BaseEvent {
     public:
         WindowResizeEvent(unsigned int width, unsigned int height) : width(width), height(height) {}
 

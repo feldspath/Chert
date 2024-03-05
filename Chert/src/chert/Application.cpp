@@ -16,7 +16,10 @@ namespace chert {
 
         for (auto layerIt = layerStack.end(); layerIt != layerStack.begin(); ) {
             (*--layerIt)->onEvent(e);
-            if (e.isHandled()) {
+            bool handled = std::visit([](auto&& e) -> bool {
+                return e.isHandled();
+                }, e);
+            if (handled) {
                 break;
             }
         }
@@ -42,11 +45,13 @@ namespace chert {
     void Application::pushLayer(std::shared_ptr<Layer> layer)
     {
         layerStack.pushLayer(layer);
+        layer->onAttach();
     }
 
     void Application::pushOverlay(std::shared_ptr<Layer> overlay)
     {
         layerStack.pushOverlay(overlay);
+        overlay->onAttach();
     }
 
 }

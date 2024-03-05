@@ -1,4 +1,3 @@
-#include "spdlog/sinks/stdout_color_sinks.h"
 #include "Chert/Log.h"
 #include "Chert/Events/Event.h"
 

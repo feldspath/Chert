@@ -1,7 +1,16 @@
 #pragma once
 
+// disable warning 4996 due to stdext::checked_array_iterator deprecation used in spdlog
+#ifdef _MSC_VER
+#pragma warning(disable: 4996)
+#endif
 #include "spdlog/spdlog.h"
 #include "spdlog/fmt/ostr.h"
+#include "spdlog/sinks/stdout_color_sinks.h"
+#ifdef _MSC_VER
+#pragma warning(default: 4996)
+#endif
+
 #include "Chert/Core.h"
 
 namespace chert {

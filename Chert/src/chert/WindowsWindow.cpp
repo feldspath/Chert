@@ -53,21 +53,21 @@ namespace chert {
             data.width = width;
             data.height = height;
 
-            WindowResizeEvent e(width, height);
+            Event e = WindowResizeEvent(width, height);
             data.eventCallback(e);
             });
 
         glfwSetWindowCloseCallback(window, [](GLFWwindow* window) {
             WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 
-            WindowCloseEvent e;
+            Event e = WindowCloseEvent();
             data.eventCallback(e);
             });
 
         glfwSetCursorPosCallback(window, [](GLFWwindow* window, double xpos, double ypos) {
             WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 
-            MouseMovedEvent e(xpos, ypos);
+            Event e = MouseMovedEvent(xpos, ypos);
             data.eventCallback(e);
             });
 
@@ -77,13 +77,13 @@ namespace chert {
             {
             case GLFW_PRESS:
             {
-                MouseButtonPressedEvent e(button);
+                Event e = MouseButtonPressedEvent(button);
                 data.eventCallback(e);
                 break;
             }
             case GLFW_RELEASE:
             {
-                MouseButtonReleasedEvent e(button);
+                Event e = MouseButtonReleasedEvent(button);
                 data.eventCallback(e);
                 break;
             }
@@ -98,13 +98,13 @@ namespace chert {
             {
             case GLFW_PRESS:
             {
-                KeyPressedEvent e(key);
+                Event e = KeyPressedEvent(key);
                 data.eventCallback(e);
                 break;
             }
             case GLFW_RELEASE:
             {
-                KeyReleasedEvent e(key);
+                Event e = KeyReleasedEvent(key);
                 data.eventCallback(e);
                 break;
             }

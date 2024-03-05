@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Event.h"
+#include "BaseEvent.h"
 
 namespace chert {
-    class MouseButtonEvent : public Event {
+    class MouseButtonEvent : public BaseEvent {
     public:
         std::string toString() const override {
             std::stringstream ss;
@@ -34,7 +34,7 @@ namespace chert {
         EVENT_CLASS_TYPE(MouseButtonReleased)
     };
 
-    class MouseMovedEvent : public Event {
+    class MouseMovedEvent : public BaseEvent {
     public:
         MouseMovedEvent(double xpos, double ypos) : xpos(xpos), ypos(ypos) {}
 

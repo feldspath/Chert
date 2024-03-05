@@ -4,7 +4,7 @@
 
 #include "Chert/Core.h"
 #include "Chert/Window.h"
-#include "Chert/Events/ApplicationEvent.h"
+#include "Chert/Events/Event.h"
 #include "Chert/LayerStack.h"
 
 namespace chert {

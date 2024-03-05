@@ -3,26 +3,27 @@ add_subdirectory(external/spdlog/)
 add_subdirectory(external/glfw/)
 
 set(CHERT_SRC 
-    src/Chert/Application.cpp
-    src/Chert/LayerStack.cpp
-    src/Chert/Log.cpp
-    src/Chert/WindowsWindow.cpp
+    "src/Chert/Application.cpp"
+    "src/Chert/LayerStack.cpp"
+    "src/Chert/Log.cpp"
+    "src/Chert/WindowsWindow.cpp"
 )
 
 set(CHERT_HEADERS
-    src/Chert.h
-    src/Chert/Application.h
-    src/Chert/Core.h
-    src/Chert/EntryPoint.h
-    src/Chert/Layer.h
-    src/Chert/LayerStack.h
-    src/Chert/Log.h
-    src/Chert/Window.h
-    src/Chert/WindowsWindow.h
-    src/Chert/Events/ApplicationEvent.h
-    src/Chert/Events/Event.h
-    src/Chert/Events/KeyEvent.h
-    src/Chert/Events/MouseEvent.h
+    "src/Chert.h"
+    "src/Chert/Application.h"
+    "src/Chert/Core.h"
+    "src/Chert/EntryPoint.h"
+    "src/Chert/Layer.h"
+    "src/Chert/LayerStack.h"
+    "src/Chert/Log.h"
+    "src/Chert/Window.h"
+    "src/Chert/WindowsWindow.h"
+    "src/Chert/Events/ApplicationEvent.h"
+    "src/Chert/Events/BaseEvent.h"
+    "src/Chert/Events/KeyEvent.h"
+    "src/Chert/Events/MouseEvent.h"
+    "src/Chert/Events/Event.h"
 )
 
 source_group(TREE ${CMAKE_CURRENT_LIST_DIR} FILES ${CHERT_SRC} ${CHERT_HEADERS})

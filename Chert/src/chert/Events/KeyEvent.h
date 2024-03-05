@@ -2,10 +2,10 @@
 
 #include <sstream>
 
-#include "Event.h"
+#include "BaseEvent.h"
 
 namespace chert {
-    class KeyEvent : public Event {
+    class KeyEvent : public BaseEvent {
     public:
         std::string toString() const override {
             std::stringstream ss;

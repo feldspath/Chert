@@ -2,6 +2,7 @@
 
 #include <string>
 
+#include "glad/glad.h"
 #include "GLFW/glfw3.h"
 #include "Chert/Core.h"
 #include "Chert/Window.h"

@@ -1,6 +1,7 @@
 # External dependencies
 add_subdirectory(external/spdlog/)
 add_subdirectory(external/glfw/)
+add_subdirectory(external/glad/)
 
 set(CHERT_SRC 
     "src/Chert/Application.cpp"
@@ -33,11 +34,13 @@ add_library(Chert STATIC ${CHERT_SRC} ${CHERT_HEADERS})
 # Headers
 target_include_directories(Chert PUBLIC external/spdlog/include)
 target_include_directories(Chert PUBLIC external/glfw/include)
+target_include_directories(Chert PUBLIC external/glad/include)
 target_include_directories(Chert PUBLIC src/)
 
 # Libaries
 target_link_libraries(Chert glfw)
 target_link_libraries(Chert spdlog::spdlog)
+target_link_libraries(Chert glad)
 find_package(OpenGL REQUIRED)
 target_link_libraries(Chert ${OPENGL_LIBRARIES})
 

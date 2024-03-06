@@ -1,6 +1,7 @@
 #include "Chert/Application.h"
 #include "Chert/Log.h"
 #include "Chert/Events/ApplicationEvent.h"
+#include "Chert/Input.h"
 
 #include "glad/glad.h"
 
@@ -13,6 +14,7 @@ namespace chert {
         CHERT_CORE_INFO("Lauching Chert...");
         instance = chert::createApplication();
         instance->init();
+        Input::init();
     }
 
     Application::Application(WindowProps windowProps) {

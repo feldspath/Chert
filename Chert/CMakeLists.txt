@@ -8,8 +8,10 @@ set(CHERT_SRC
     "src/Chert/Application.cpp"
     "src/Chert/LayerStack.cpp"
     "src/Chert/Log.cpp"
-    "src/Chert/Platform/Windows/WindowsWindow.cpp"
     "src/Chert/imgui/ImguiBuild.cpp"
+    "src/Chert/Platform/Windows/WindowsWindow.cpp"
+    "src/Chert/Platform/Windows/WindowsInput.cpp"
+    "src/Chert/Input.cpp"
 )
 
 set(CHERT_HEADERS
@@ -21,13 +23,14 @@ set(CHERT_HEADERS
     "src/Chert/LayerStack.h"
     "src/Chert/Log.h"
     "src/Chert/Window.h"
-    "src/Chert/Platform/Windows/WindowsWindow.h"
     "src/Chert/Events/ApplicationEvent.h"
     "src/Chert/Events/BaseEvent.h"
     "src/Chert/Events/KeyEvent.h"
     "src/Chert/Events/MouseEvent.h"
     "src/Chert/Events/Event.h"
     "src/Chert/imgui/ImguiLayer.h"
+    "src/Chert/Platform/Windows/WindowsWindow.h"
+    "src/Chert/Platform/Windows/WindowsInput.h"
 )
 
 source_group(TREE ${CMAKE_CURRENT_LIST_DIR} FILES ${CHERT_SRC} ${CHERT_HEADERS})

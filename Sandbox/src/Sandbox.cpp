@@ -3,7 +3,7 @@
 class TestLayer : public chert::Layer {
 public:
     void onEvent(chert::Event& e) override {
-        CHERT_INFO(e);
+        //CHERT_INFO(e);
     }
     void onAttach() override {
         CHERT_INFO("Attached layer");
@@ -13,6 +13,7 @@ public:
     }
     void update() override {
         //CHERT_INFO("Update");
+        CHERT_DEBUG("{0}, {1}", chert::Input::getMouseX(), chert::Input::getMouseY());
     }
 };
 class Sandbox : public chert::Application {

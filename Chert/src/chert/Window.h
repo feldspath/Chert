@@ -12,8 +12,8 @@ namespace chert {
         unsigned int height;
 
         WindowProps(const std::string& title = "Chert Engine",
-            unsigned int width = 800,
-            unsigned int height = 600)
+            unsigned int width = 1280,
+            unsigned int height = 720)
             : title(title), width(width), height(height) {}
     };
 
@@ -26,8 +26,9 @@ namespace chert {
         virtual unsigned int getWidth() const = 0;
         virtual unsigned int getHeight() const = 0;
         virtual void setEventCallback(const EventCallbackFn& callback) = 0;
+        virtual unsigned int width() const = 0;
+        virtual unsigned int height() const = 0;
 
-
-        static Window* create(const WindowProps& props = WindowProps());
+        static std::unique_ptr<Window> create(const WindowProps& props = WindowProps());
     };
 }

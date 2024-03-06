@@ -16,12 +16,26 @@ public:
     }
 };
 class Sandbox : public chert::Application {
+private:
+    std::shared_ptr<TestLayer> testLayer;
+    std::shared_ptr<chert::ImguiLayer> imguiLayer;
 public:
-    Sandbox() : chert::Application(chert::WindowProps()) {
-        pushLayer(std::make_shared<TestLayer>());
+    Sandbox() : chert::Application(chert::WindowProps()) {}
+
+    ~Sandbox() {
+        detachLayer(testLayer);
+        detachOverlay(imguiLayer);
+    }
+
+    void init() override {
+        testLayer = std::make_shared<TestLayer>();
+        imguiLayer = std::make_shared<chert::ImguiLayer>();
+
+        pushLayer(testLayer);
+        pushOverlay(imguiLayer);
     }
 };
 
-chert::Application* chert::CreateApplication() {
-    return new Sandbox();
+std::unique_ptr<chert::Application> chert::createApplication() {
+    return std::make_unique<Sandbox>();
 }

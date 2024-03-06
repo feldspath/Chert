@@ -4,3 +4,6 @@
 [submodule "Chert/external/glfw"]
 	path = Chert/external/glfw
 	url = https://github.com/glfw/glfw
+[submodule "Chert/external/imgui"]
+	path = Chert/external/imgui
+	url = git@github.com:ocornut/imgui.git

@@ -4,9 +4,14 @@
 #include "Chert/Log.h"
 #include "WindowsWindow.h"
 
+static void glfw_error_callback(int error, const char* description)
+{
+    fprintf(stderr, "GLFW Error %d: %s\n", error, description);
+}
+
 namespace chert {
-    Window* Window::create(const WindowProps& props) {
-        return new WindowsWindow(props);
+    std::unique_ptr<Window> Window::create(const WindowProps& props) {
+        return std::make_unique<WindowsWindow>(props);
     }
 
     static bool isGLFWInitialized = false;
@@ -32,7 +37,12 @@ namespace chert {
         CHERT_CORE_INFO("Creating window {0} ({1}, {2})", props.title, props.width, props.height);
 
         if (!isGLFWInitialized) {
+            glfwSetErrorCallback(glfw_error_callback);
             int success = glfwInit();
+            glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+            glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
+            glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
             CHERT_CORE_ASSERT(success, "Failed to initialized GLFW");
             isGLFWInitialized = true;
         }
@@ -112,6 +122,18 @@ namespace chert {
                 break;
             }
             });
+
+        int success = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+        CHERT_CORE_ASSERT(success, "Failed to initialized GLAD");
+        glViewport(0, 0, data.width, data.height);
+    }
+
+    unsigned int WindowsWindow::width() const {
+        return data.width;
+    }
+
+    unsigned int WindowsWindow::height() const {
+        return data.height;
     }
 
     void WindowsWindow::shutdown() {

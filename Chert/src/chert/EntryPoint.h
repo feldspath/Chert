@@ -1,17 +1,12 @@
 #pragma once
 
-#include "Chert/Log.h"
+#include "Chert/Application.h"
 
 #ifdef CHERT_PLATFORM_WINDOWS
 
-extern chert::Application* chert::CreateApplication();
-
 int main() {
-    chert::Log::init();
-    CHERT_CORE_INFO("Lauching Chert...");
-    auto app = chert::CreateApplication();
-    app->run();
-    delete app;
+    chert::Application::initApplication();
+    chert::Application::get().run();
 }
 
 #endif

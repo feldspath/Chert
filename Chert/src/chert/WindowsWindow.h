@@ -16,6 +16,9 @@ namespace chert {
         inline unsigned int getWidth() const override { return data.width; }
         inline unsigned int getHeight() const override { return data.height; }
         inline void setEventCallback(const EventCallbackFn& callback) override { data.eventCallback = callback;  }
+        inline GLFWwindow* getGlfwWindowPtr() { return window; }
+        unsigned int width() const override;
+        unsigned int height() const override;
 
     private:
         void init(const WindowProps& props);
@@ -25,7 +28,7 @@ namespace chert {
 
         struct WindowData {
             std::string title;
-            unsigned int width, height;
+            unsigned int width = 0, height = 0;
             EventCallbackFn eventCallback;
         };
 

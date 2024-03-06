@@ -2,11 +2,21 @@
 #include "Chert/Log.h"
 #include "Chert/Events/ApplicationEvent.h"
 
-#include "GLFW/glfw3.h"
+#include "glad/glad.h"
 
 namespace chert {
+    std::unique_ptr<Application> Application::instance;
+
+    void Application::initApplication() {
+        chert::Log::init();
+        CHERT_CORE_ASSERT(!instance, "Application is already initialized");
+        CHERT_CORE_INFO("Lauching Chert...");
+        instance = chert::createApplication();
+        instance->init();
+    }
+
     Application::Application(WindowProps windowProps) {
-        window = std::unique_ptr<Window>(Window::create(windowProps));
+        window = Window::create(windowProps);
         window->setEventCallback(std::bind(&Application::onEvent, this, std::placeholders::_1));
     }
 
@@ -27,12 +37,13 @@ namespace chert {
 
     void Application::run() {
         while (running) {
+            glClearColor(0.0f, 0.8f, 0.5f, 1.0f);
+            glClear(GL_COLOR_BUFFER_BIT);
+
             for (auto layer : layerStack) {
                 layer->update();
             }
 
-            glClearColor(0.0f, 0.8f, 0.5f, 1.0f);
-            glClear(GL_COLOR_BUFFER_BIT);
             window->update();
         }
     }
@@ -52,6 +63,18 @@ namespace chert {
     {
         layerStack.pushOverlay(overlay);
         overlay->onAttach();
+    }
+
+    void Application::detachLayer(std::shared_ptr<Layer> layer)
+    {
+        layer->onDetach();
+        layerStack.detachLayer(layer);
+    }
+
+    void Application::detachOverlay(std::shared_ptr<Layer> overlay)
+    {
+        overlay->onDetach();
+        layerStack.detachOverlay(overlay);
     }
 
 }

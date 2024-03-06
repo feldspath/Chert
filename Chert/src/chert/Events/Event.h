@@ -44,4 +44,6 @@ namespace chert {
             }, e);
         return os << s;
     }
+
+#define CHERT_BIND_EVENT_FN(fn) std::bind(&fn, this, std::placeholders::_1)
 }

@@ -3,11 +3,12 @@ add_subdirectory(external/spdlog/)
 add_subdirectory(external/glfw/)
 add_subdirectory(external/glad/)
 
-set(CHERT_SRC 
+set(CHERT_SRC
     "src/Chert/Application.cpp"
     "src/Chert/LayerStack.cpp"
     "src/Chert/Log.cpp"
     "src/Chert/WindowsWindow.cpp"
+    "src/Chert/imgui/ImguiBuild.cpp"
 )
 
 set(CHERT_HEADERS
@@ -25,24 +26,38 @@ set(CHERT_HEADERS
     "src/Chert/Events/KeyEvent.h"
     "src/Chert/Events/MouseEvent.h"
     "src/Chert/Events/Event.h"
+    "src/Chert/imgui/ImguiLayer.h"
 )
 
 source_group(TREE ${CMAKE_CURRENT_LIST_DIR} FILES ${CHERT_SRC} ${CHERT_HEADERS})
 
-add_library(Chert STATIC ${CHERT_SRC} ${CHERT_HEADERS})
+add_library(Chert STATIC ${CHERT_SRC})
 
 # Headers
 target_include_directories(Chert PUBLIC external/spdlog/include)
 target_include_directories(Chert PUBLIC external/glfw/include)
 target_include_directories(Chert PUBLIC external/glad/include)
+target_include_directories(Chert PUBLIC external/imgui/)
 target_include_directories(Chert PUBLIC src/)
 
 # Libaries
+
+# imgui
+set(IMGUI_FILES
+	"external/imgui/imgui.cpp"
+	"external/imgui/imgui_demo.cpp"
+	"external/imgui/imgui_draw.cpp"
+	"external/imgui/imgui_tables.cpp"
+	"external/imgui/imgui_widgets.cpp"
+)
+add_library(imgui STATIC ${IMGUI_FILES})
+
 target_link_libraries(Chert glfw)
 target_link_libraries(Chert spdlog::spdlog)
 target_link_libraries(Chert glad)
 find_package(OpenGL REQUIRED)
 target_link_libraries(Chert ${OPENGL_LIBRARIES})
+target_link_libraries(Chert imgui)
 
 target_compile_definitions(Chert PUBLIC CHERT_PLATFORM_WINDOWS)
 target_compile_definitions(Chert PUBLIC "$<$<CONFIG:Debug>:CHERT_BUILD_DEBUG>")

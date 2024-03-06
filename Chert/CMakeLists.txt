@@ -8,7 +8,7 @@ set(CHERT_SRC
     "src/Chert/Application.cpp"
     "src/Chert/LayerStack.cpp"
     "src/Chert/Log.cpp"
-    "src/Chert/WindowsWindow.cpp"
+    "src/Chert/Platform/Windows/WindowsWindow.cpp"
     "src/Chert/imgui/ImguiBuild.cpp"
 )
 
@@ -21,7 +21,7 @@ set(CHERT_HEADERS
     "src/Chert/LayerStack.h"
     "src/Chert/Log.h"
     "src/Chert/Window.h"
-    "src/Chert/WindowsWindow.h"
+    "src/Chert/Platform/Windows/WindowsWindow.h"
     "src/Chert/Events/ApplicationEvent.h"
     "src/Chert/Events/BaseEvent.h"
     "src/Chert/Events/KeyEvent.h"

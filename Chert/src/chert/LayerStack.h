@@ -18,8 +18,7 @@ namespace chert {
         std::vector<std::shared_ptr<Layer>>::iterator begin() { return layers.begin(); }
         std::vector<std::shared_ptr<Layer>>::iterator end() { return layers.end(); }
     private:
-        void refreshInsertIt();
-        std::vector<std::shared_ptr<Layer>>::iterator layerInsertIt;
+        int layerInsertIndex;
         std::vector<std::shared_ptr<Layer>> layers;
     };
 }

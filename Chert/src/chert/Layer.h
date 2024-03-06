@@ -11,12 +11,6 @@ namespace chert {
         virtual void onEvent(Event& e) {}
         inline virtual bool isOverlay() const { return false; }
     };
-
-    class Overlay : public Layer
-    {
-    public:
-        inline bool isOverlay() const final { return true; }
-    };
 }
 
 

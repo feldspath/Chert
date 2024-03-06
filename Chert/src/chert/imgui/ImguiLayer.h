@@ -7,7 +7,7 @@
 #include "backends/imgui_impl_opengl3.h"
 
 namespace chert {
-    class ImguiLayer : public Overlay {
+    class ImguiLayer : public Layer {
         
     public:
         void onAttach() override {

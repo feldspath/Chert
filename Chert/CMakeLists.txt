@@ -2,6 +2,7 @@
 add_subdirectory(external/spdlog/)
 add_subdirectory(external/glfw/)
 add_subdirectory(external/glad/)
+add_subdirectory(external/glm/)
 
 set(CHERT_SRC
     "src/Chert/Application.cpp"
@@ -38,6 +39,7 @@ target_include_directories(Chert PUBLIC external/spdlog/include)
 target_include_directories(Chert PUBLIC external/glfw/include)
 target_include_directories(Chert PUBLIC external/glad/include)
 target_include_directories(Chert PUBLIC external/imgui/)
+target_include_directories(Chert PUBLIC external/glm/)
 target_include_directories(Chert PUBLIC src/)
 
 # Libaries
@@ -53,8 +55,9 @@ set(IMGUI_FILES
 add_library(imgui STATIC ${IMGUI_FILES})
 
 target_link_libraries(Chert glfw)
-target_link_libraries(Chert spdlog::spdlog)
+target_link_libraries(Chert spdlog)
 target_link_libraries(Chert glad)
+target_link_libraries(Chert glm)
 find_package(OpenGL REQUIRED)
 target_link_libraries(Chert ${OPENGL_LIBRARIES})
 target_link_libraries(Chert imgui)

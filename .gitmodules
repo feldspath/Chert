@@ -7,3 +7,6 @@
 [submodule "Chert/external/imgui"]
 	path = Chert/external/imgui
 	url = git@github.com:ocornut/imgui.git
+[submodule "Chert/external/glm"]
+	path = Chert/external/glm
+	url = git@github.com:g-truc/glm.git

@@ -11,14 +11,12 @@ namespace chert {
         window = dynamic_cast<WindowsWindow&>(Application::get().getWindow()).getGlfwWindowPtr();
     }
 
-
     bool WindowsInput::isKeyPressedImpl(int keycode) {
         return glfwGetKey(window, keycode) == GLFW_PRESS;
     }
      
     bool WindowsInput::isMouseButtonPressedImpl(int button) {
         return glfwGetMouseButton(window, button) == GLFW_PRESS;
-
     }
 
     std::pair<double, double> WindowsInput::getMousePositionImpl() {

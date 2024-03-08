@@ -8,7 +8,7 @@ set(CHERT_SRC
     "src/Chert/Application.cpp"
     "src/Chert/LayerStack.cpp"
     "src/Chert/Log.cpp"
-    "src/Chert/imgui/ImguiBuild.cpp"
+    "src/Chert/Imgui/ImguiBuild.cpp"
     "src/Chert/Platform/Windows/WindowsWindow.cpp"
     "src/Chert/Platform/Windows/WindowsInput.cpp"
     "src/Chert/Input.cpp"
@@ -28,7 +28,7 @@ set(CHERT_HEADERS
     "src/Chert/Events/KeyEvent.h"
     "src/Chert/Events/MouseEvent.h"
     "src/Chert/Events/Event.h"
-    "src/Chert/imgui/ImguiLayer.h"
+    "src/Chert/Imgui/ImguiLayer.h"
     "src/Chert/Platform/Windows/WindowsWindow.h"
     "src/Chert/Platform/Windows/WindowsInput.h"
 )

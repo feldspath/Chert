@@ -9,7 +9,7 @@ namespace chert {
     std::unique_ptr<Application> Application::instance;
 
     void Application::initApplication() {
-        chert::Log::init();
+        Log::init();
         CHERT_CORE_ASSERT(!instance, "Application is already initialized");
         CHERT_CORE_INFO("Lauching Chert...");
         instance = chert::createApplication();
@@ -55,26 +55,22 @@ namespace chert {
         return true;
     }
 
-    void Application::pushLayer(std::shared_ptr<Layer> layer)
-    {
+    void Application::pushLayer(std::shared_ptr<Layer> layer) {
         layerStack.pushLayer(layer);
         layer->onAttach();
     }
 
-    void Application::pushOverlay(std::shared_ptr<Layer> overlay)
-    {
+    void Application::pushOverlay(std::shared_ptr<Layer> overlay) {
         layerStack.pushOverlay(overlay);
         overlay->onAttach();
     }
 
-    void Application::detachLayer(std::shared_ptr<Layer> layer)
-    {
+    void Application::detachLayer(std::shared_ptr<Layer> layer) {
         layer->onDetach();
         layerStack.detachLayer(layer);
     }
 
-    void Application::detachOverlay(std::shared_ptr<Layer> overlay)
-    {
+    void Application::detachOverlay(std::shared_ptr<Layer> overlay) {
         overlay->onDetach();
         layerStack.detachOverlay(overlay);
     }

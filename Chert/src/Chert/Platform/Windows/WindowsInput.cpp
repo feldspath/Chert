@@ -12,16 +12,16 @@ namespace chert {
     }
 
     bool WindowsInput::isKeyPressedImpl(int keycode) {
-        return glfwGetKey(window, keycode) == GLFW_PRESS;
+        return glfwGetKey(window.get(), keycode) == GLFW_PRESS;
     }
      
     bool WindowsInput::isMouseButtonPressedImpl(int button) {
-        return glfwGetMouseButton(window, button) == GLFW_PRESS;
+        return glfwGetMouseButton(window.get(), button) == GLFW_PRESS;
     }
 
     std::pair<double, double> WindowsInput::getMousePositionImpl() {
         double xpos, ypos;
-        glfwGetCursorPos(window, &xpos, &ypos);
+        glfwGetCursorPos(window.get(), &xpos, &ypos);
         return { xpos, ypos };
     }
 

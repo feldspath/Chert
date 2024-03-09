@@ -21,7 +21,7 @@ namespace chert {
 
             const char* glsl_version = "#version 460";
             WindowsWindow& window = dynamic_cast<WindowsWindow&>(Application::get().getWindow());
-            ImGui_ImplGlfw_InitForOpenGL(window.getGlfwWindowPtr(), true);
+            ImGui_ImplGlfw_InitForOpenGL(window.getGlfwWindowPtr().get(), true);
             ImGui_ImplOpenGL3_Init(glsl_version);
         }
 

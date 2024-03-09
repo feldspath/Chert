@@ -1,12 +1,14 @@
+#include "GLFW/glfw3.h"
 #include "Chert/Events/ApplicationEvent.h"
 #include "Chert/Events/KeyEvent.h"
 #include "Chert/Events/MouseEvent.h"
 #include "Chert/Log.h"
+#include "Chert/Platform/OpenGL/OpenGLContext.h"
 #include "WindowsWindow.h"
 
 static void glfw_error_callback(int error, const char* description)
 {
-    fprintf(stderr, "GLFW Error %d: %s\n", error, description);
+    CHERT_CORE_ERROR("GLFW Error {0}: {1}", error, description);
 }
 
 namespace chert {
@@ -26,7 +28,7 @@ namespace chert {
 
     void WindowsWindow::update() {
         glfwPollEvents();
-        glfwSwapBuffers(window);
+        renderingContext->swapBuffers();
     }
 
     void WindowsWindow::init(const WindowProps& props) {
@@ -39,26 +41,19 @@ namespace chert {
         if (!isGLFWInitialized) {
             glfwSetErrorCallback(glfw_error_callback);
             int success = glfwInit();
-            glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-            glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
-            glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
             CHERT_CORE_ASSERT(success, "Failed to initialized GLFW");
             isGLFWInitialized = true;
         }
 
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-        window = glfwCreateWindow(props.width, props.height, props.title.c_str(), NULL, NULL);
+        window = std::shared_ptr<GLFWwindow>(glfwCreateWindow(props.width, props.height, props.title.c_str(), NULL, NULL), glfwDestroyWindow);
         CHERT_CORE_ASSERT(window, "Failed to create GLFW window");
-
-        glfwMakeContextCurrent(window);
-        glfwSetWindowUserPointer(window, &data);
+        
+        renderingContext = std::make_unique<OpenGLContext>(window);
+        renderingContext->init();
 
         // GLFW callbacks
-        glfwSetWindowSizeCallback(window, [](GLFWwindow* window, int width, int height) {
+        glfwSetWindowUserPointer(window.get(), &data);
+        glfwSetWindowSizeCallback(window.get(), [](GLFWwindow* window, int width, int height) {
             WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
             data.width = width;
             data.height = height;
@@ -67,21 +62,21 @@ namespace chert {
             data.eventCallback(e);
             });
 
-        glfwSetWindowCloseCallback(window, [](GLFWwindow* window) {
+        glfwSetWindowCloseCallback(window.get(), [](GLFWwindow* window) {
             WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 
             Event e = WindowCloseEvent();
             data.eventCallback(e);
             });
 
-        glfwSetCursorPosCallback(window, [](GLFWwindow* window, double xpos, double ypos) {
+        glfwSetCursorPosCallback(window.get(), [](GLFWwindow* window, double xpos, double ypos) {
             WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 
             Event e = MouseMovedEvent(xpos, ypos);
             data.eventCallback(e);
             });
 
-        glfwSetMouseButtonCallback(window, [](GLFWwindow* window, int button, int action, int mods) {
+        glfwSetMouseButtonCallback(window.get(), [](GLFWwindow* window, int button, int action, int mods) {
             WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
             switch (action)
             {
@@ -102,7 +97,7 @@ namespace chert {
             }
             });
 
-        glfwSetKeyCallback(window, [](GLFWwindow* window, int key, int scancode, int action, int mods) {
+        glfwSetKeyCallback(window.get(), [](GLFWwindow* window, int key, int scancode, int action, int mods) {
             WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
             switch (action)
             {
@@ -122,10 +117,6 @@ namespace chert {
                 break;
             }
             });
-
-        int success = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-        CHERT_CORE_ASSERT(success, "Failed to initialized GLAD");
-        glViewport(0, 0, data.width, data.height);
     }
 
     unsigned int WindowsWindow::width() const {

@@ -4,6 +4,7 @@
 #include "Chert/Renderer/Shader.h"
 #include "Chert/Renderer/Buffers/VertexBuffer.h"
 #include "Chert/Renderer/Buffers/IndexBuffer.h"
+#include "Chert/Renderer/Buffers/VertexArray.h"
 
 namespace chert {
     class RenderingContext {
@@ -14,5 +15,6 @@ namespace chert {
         virtual std::unique_ptr<Shader> createShader(std::string& vertexShaderSrc, std::string& fragmentShaderSrc) = 0;
         virtual std::unique_ptr<VertexBuffer> createVertexBuffer(float* vertices, unsigned int size) = 0;
         virtual std::unique_ptr<IndexBuffer> createIndexBuffer(unsigned int* indices, unsigned int count) = 0;
+        virtual std::unique_ptr<VertexArray> createVertexArray() = 0;
     };
 }

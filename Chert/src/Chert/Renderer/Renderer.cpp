@@ -1,4 +1,5 @@
 #include "Renderer.h"
+#include "Buffers/BufferLayout.h"
 
 #include "glad/glad.h"
 
@@ -14,11 +15,17 @@ namespace chert {
             0, 1, 2
         };
 
-        vertexBuffer = context->createVertexBuffer(vertices, sizeof(vertices));
-        indexBuffer = context->createIndexBuffer(indices, 3);
+        std::shared_ptr<VertexBuffer> vertexBuffer = context->createVertexBuffer(vertices, sizeof(vertices));
+        std::shared_ptr<IndexBuffer> indexBuffer = context->createIndexBuffer(indices, 3);
 
-        glEnableVertexAttribArray(0);
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+        BufferLayout layout = {
+            {ShaderDataType::Float3, "a_Position"},
+        };
+
+        vertexBuffer->setLayout(layout);
+        vertexArray = context->createVertexArray();
+        vertexArray->setIndexBuffer(indexBuffer);
+        vertexArray->addVertexBuffer(vertexBuffer);
 
         std::string vertexSrc = R"(
             #version 460 core
@@ -42,15 +49,15 @@ namespace chert {
 
         )";
 
-        shader =  context->createShader(vertexSrc, fragmentSrc);
+        shader = context->createShader(vertexSrc, fragmentSrc);
     }
+
     void Renderer::render() {
         glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
         shader->bind();
-        vertexBuffer->bind();
-        indexBuffer->bind();
-        glDrawElements(GL_TRIANGLES, indexBuffer->getCount(), GL_UNSIGNED_INT, 0);
+        vertexArray->bind();
+        glDrawElements(GL_TRIANGLES, vertexArray->getIndexBuffer()->getCount(), GL_UNSIGNED_INT, 0);
     }
 }

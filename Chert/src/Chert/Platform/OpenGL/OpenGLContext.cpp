@@ -5,6 +5,7 @@
 #include "OpenGLShader.h"
 #include "Buffers/OpenGLVertexBuffer.h"
 #include "Buffers/OpenGLIndexBuffer.h"
+#include "Buffers/OpenGLVertexArray.h"
 
 #define GET_OPENGL_STRING(name) std::string(reinterpret_cast<const char*>(glGetString(name)))
 
@@ -46,5 +47,9 @@ namespace chert {
 
     std::unique_ptr<IndexBuffer> OpenGLContext::createIndexBuffer(unsigned int* indices, unsigned int count) {
         return std::make_unique<OpenGLIndexBuffer>(indices, count);
+    }
+
+    std::unique_ptr<VertexArray> OpenGLContext::createVertexArray() {
+        return std::make_unique<OpenGLVertexArray>();
     }
 }

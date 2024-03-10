@@ -21,6 +21,7 @@ set(CHERT_SRC
     "src/Chert/Platform/OpenGL/OpenGLShader.cpp"
     "src/Chert/Platform/OpenGL/Buffers/OpenGLVertexBuffer.cpp"
     "src/Chert/Platform/OpenGL/Buffers/OpenGLIndexBuffer.cpp"
+    "src/Chert/Platform/OpenGL/Buffers/OpenGLVertexArray.cpp"
 
     # Rendering
     "src/Chert/Renderer/Renderer.cpp"
@@ -54,6 +55,7 @@ set(CHERT_HEADERS
     "src/Chert/Platform/OpenGL/OpenGLShader.h"
     "src/Chert/Platform/OpenGL/Buffers/OpenGLVertexBuffer.h"
     "src/Chert/Platform/OpenGL/Buffers/OpenGLIndexBuffer.h"
+    "src/Chert/Platform/OpenGL/Buffers/OpenGLVertexArray.h"
 
     # Renderer
     "src/Chert/Renderer/Renderer.h"
@@ -61,6 +63,8 @@ set(CHERT_HEADERS
     "src/Chert/Renderer/Shader.h"
     "src/Chert/Renderer/Buffers/VertexBuffer.h"
     "src/Chert/Renderer/Buffers/IndexBuffer.h"
+    "src/Chert/Renderer/Buffers/BufferLayout.h"
+    "src/Chert/Renderer/Buffers/VertexArray.h"
 )
 
 source_group(TREE ${CMAKE_CURRENT_LIST_DIR} FILES ${CHERT_SRC} ${CHERT_HEADERS})

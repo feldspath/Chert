@@ -13,7 +13,6 @@ namespace chert {
         std::shared_ptr<RenderingContext> context;
         std::unique_ptr<Shader> shader;
 
-        std::unique_ptr<VertexBuffer> vertexBuffer;
-        std::unique_ptr<IndexBuffer> indexBuffer;
+        std::unique_ptr<VertexArray> vertexArray;
     };
 }

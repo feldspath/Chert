@@ -15,7 +15,8 @@ namespace chert {
     public:
         Application(WindowProps windowProps);
         virtual ~Application() = default;
-        virtual void init();
+        void prepare();
+        virtual void init() {};
         void run();
         void onEvent(Event& e);
         bool onWindowClose(const WindowCloseEvent& e);

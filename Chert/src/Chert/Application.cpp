@@ -11,7 +11,7 @@ namespace chert {
         CHERT_CORE_ASSERT(!instance, "Application is already initialized");
         CHERT_CORE_INFO("Lauching Chert...");
         instance = chert::createApplication();
-        instance->Application::init();
+        instance->prepare();
         Input::init();
         instance->init();
     }
@@ -21,7 +21,7 @@ namespace chert {
         window->setEventCallback(CHERT_BIND_EVENT_FN(Application::onEvent));
     }
 
-    void Application::init() {
+    void Application::prepare() {
         imguiLayer.init();
         
         renderer = std::make_unique<Renderer>(window->getRenderingContext());

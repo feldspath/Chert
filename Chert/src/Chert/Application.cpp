@@ -14,8 +14,8 @@ namespace chert {
         CHERT_CORE_INFO("Lauching Chert...");
         instance = chert::createApplication();
         instance->Application::init();
-        instance->init();
         Input::init();
+        instance->init();
     }
 
     Application::Application(WindowProps windowProps) {
@@ -25,52 +25,8 @@ namespace chert {
 
     void Application::init() {
         imguiLayer.init();
-
-        float vertices[] = {
-            -0.5f, -0.5f, 0.0f,
-            0.5f, -0.5f, 0.0f,
-            0.0f, 0.5f, 0.0f,
-        };
-
-        unsigned int indices[] = {
-            0, 1, 2
-        };
-
-        glGenBuffers(1, &vertexBuffer);
-        glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-        glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-        glGenBuffers(1, &indexBuffer);
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-
-        glEnableVertexAttribArray(0);
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-
-        std::string vertexSrc = R"(
-            #version 460 core
-
-            layout(location = 0) in vec3 a_Position;
-
-            void main() {
-                gl_Position = vec4(a_Position, 1.0);
-            }
-
-        )";
-
-        std::string fragmentSrc = R"(
-            #version 460 core
-
-            layout(location = 0) out vec4 color;
-
-            void main() {
-                color = vec4(0.1, 0.6, 0.3, 1.0);
-            }
-
-        )";
-
-        shader = window->getRenderingContext().createShader(vertexSrc, fragmentSrc);
-        shader->bind();
+        
+        renderer = std::make_unique<Renderer>(window->getRenderingContext());
     }
 
     void Application::onEvent(Event& e) {
@@ -91,17 +47,11 @@ namespace chert {
     void Application::run() {
         while (running) {
             imguiLayer.begin();
-
-            glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-            glClear(GL_COLOR_BUFFER_BIT);
-
-            glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
-
+            renderer->render();
             for (auto layer : layerStack) {
                 layer->update();
             }
             imguiLayer.update();
-
             imguiLayer.end();
 
             window->update();

@@ -7,14 +7,14 @@
 #include "Chert/Events/Event.h"
 #include "Chert/LayerStack.h"
 #include "Chert/Imgui/ImguiLayer.h"
-#include "Chert/Renderer/Shader.h"
+#include "Chert/Renderer/Renderer.h"
 
 namespace chert {
     class Application
     {
     public:
         Application(WindowProps windowProps);
-        ~Application() = default;
+        virtual ~Application() = default;
         virtual void init();
         void run();
         void onEvent(Event& e);
@@ -32,15 +32,14 @@ namespace chert {
 
     private:
         std::unique_ptr<Window> window;
-        bool running = true;
+        std::unique_ptr<Renderer> renderer;
+
         LayerStack layerStack;
+        ImguiLayer imguiLayer;
+        
+        bool running = true;
 
         static std::unique_ptr<Application> instance;
-
-        unsigned int vertexBuffer = 0, indexBuffer = 0;
-        std::unique_ptr<Shader> shader;
-
-        ImguiLayer imguiLayer;
     };
 
     std::unique_ptr<Application> createApplication();

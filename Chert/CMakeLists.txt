@@ -19,6 +19,11 @@ set(CHERT_SRC
     "src/Chert/Platform/Windows/WindowsInput.cpp"
     "src/Chert/Platform/OpenGL/OpenGLContext.cpp"
     "src/Chert/Platform/OpenGL/OpenGLShader.cpp"
+    "src/Chert/Platform/OpenGL/Buffers/OpenGLVertexBuffer.cpp"
+    "src/Chert/Platform/OpenGL/Buffers/OpenGLIndexBuffer.cpp"
+
+    # Rendering
+    "src/Chert/Renderer/Renderer.cpp"
 )
 
 set(CHERT_HEADERS
@@ -47,10 +52,15 @@ set(CHERT_HEADERS
     "src/Chert/Platform/Windows/WindowsInput.h"
     "src/Chert/Platform/OpenGL/OpenGLContext.h"
     "src/Chert/Platform/OpenGL/OpenGLShader.h"
+    "src/Chert/Platform/OpenGL/Buffers/OpenGLVertexBuffer.h"
+    "src/Chert/Platform/OpenGL/Buffers/OpenGLIndexBuffer.h"
 
     # Renderer
+    "src/Chert/Renderer/Renderer.h"
     "src/Chert/Renderer/RenderingContext.h"
     "src/Chert/Renderer/Shader.h"
+    "src/Chert/Renderer/Buffers/VertexBuffer.h"
+    "src/Chert/Renderer/Buffers/IndexBuffer.h"
 )
 
 source_group(TREE ${CMAKE_CURRENT_LIST_DIR} FILES ${CHERT_SRC} ${CHERT_HEADERS})

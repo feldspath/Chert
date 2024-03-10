@@ -3,6 +3,8 @@
 #include "Chert/Core.h"
 #include "OpenGLContext.h"
 #include "OpenGLShader.h"
+#include "Buffers/OpenGLVertexBuffer.h"
+#include "Buffers/OpenGLIndexBuffer.h"
 
 namespace chert {
     OpenGLContext::OpenGLContext(std::shared_ptr<GLFWwindow> window) : window(window) {}
@@ -23,5 +25,13 @@ namespace chert {
 
     std::unique_ptr<Shader> OpenGLContext::createShader(std::string& vertexShaderSrc, std::string& fragmentShaderSrc) {
         return std::make_unique<OpenGLShader>(vertexShaderSrc, fragmentShaderSrc);
+    }
+
+    std::unique_ptr<VertexBuffer> OpenGLContext::createVertexBuffer(float* vertices, unsigned int size) {
+        return std::make_unique<OpenGLVertexBuffer>(vertices, size);
+    }
+
+    std::unique_ptr<IndexBuffer> OpenGLContext::createIndexBuffer(unsigned int* indices, unsigned int count) {
+        return std::make_unique<OpenGLIndexBuffer>(indices, count);
     }
 }

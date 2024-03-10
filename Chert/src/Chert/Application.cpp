@@ -3,8 +3,6 @@
 #include "Chert/Events/ApplicationEvent.h"
 #include "Chert/Input.h"
 
-#include "glad/glad.h"
-
 namespace chert {
     std::unique_ptr<Application> Application::instance;
 

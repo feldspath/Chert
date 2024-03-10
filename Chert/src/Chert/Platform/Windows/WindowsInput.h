@@ -1,10 +1,11 @@
 #pragma once
 
 #include "Chert/Input.h"
-#include "glad/glad.h"
-#include "GLFW/glfw3.h"
+
+struct GLFWwindow;
 
 namespace chert {
+
     class WindowsInput : public Input {
     public:
         WindowsInput();

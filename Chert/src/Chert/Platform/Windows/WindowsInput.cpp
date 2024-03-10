@@ -1,6 +1,7 @@
 #include "WindowsInput.h"
 #include "WindowsWindow.h"
 #include "Chert/Application.h"
+#include "GLFW/glfw3.h"
 
 namespace chert {
     std::unique_ptr<Input> createInputHandler() {

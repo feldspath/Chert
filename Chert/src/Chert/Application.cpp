@@ -19,12 +19,18 @@ namespace chert {
     Application::Application(WindowProps windowProps) {
         window = Window::create(windowProps);
         window->setEventCallback(CHERT_BIND_EVENT_FN(Application::onEvent));
+        imguiLayer = std::make_shared<ImguiLayer>();
     }
 
     void Application::prepare() {
-        imguiLayer.init();
-        
+        pushOverlay(imguiLayer);
         renderer = std::make_unique<Renderer>(window->getRenderingContext());
+    }
+
+    void Application::shutdown() {
+        renderer.reset();
+        layerStack.~LayerStack();
+        window.reset();
     }
 
     void Application::onEvent(Event& e) {
@@ -44,13 +50,14 @@ namespace chert {
 
     void Application::run() {
         while (running) {
-            imguiLayer.begin();
-            renderer->render();
             for (auto layer : layerStack) {
                 layer->update();
             }
-            imguiLayer.update();
-            imguiLayer.end();
+
+            imguiLayer->begin();
+            renderer->render();
+            imguiLayer->render();
+            imguiLayer->end();
 
             window->update();
         }
@@ -63,21 +70,17 @@ namespace chert {
 
     void Application::pushLayer(std::shared_ptr<Layer> layer) {
         layerStack.pushLayer(layer);
-        layer->onAttach();
     }
 
     void Application::pushOverlay(std::shared_ptr<Layer> overlay) {
         layerStack.pushOverlay(overlay);
-        overlay->onAttach();
     }
 
     void Application::detachLayer(std::shared_ptr<Layer> layer) {
-        layer->onDetach();
         layerStack.detachLayer(layer);
     }
 
     void Application::detachOverlay(std::shared_ptr<Layer> overlay) {
-        overlay->onDetach();
         layerStack.detachOverlay(overlay);
     }
 

@@ -15,18 +15,19 @@ namespace chert {
     public:
         Application(WindowProps windowProps);
         virtual ~Application() = default;
+
         void prepare();
-        virtual void init() {};
+        void shutdown();
         void run();
         void onEvent(Event& e);
         bool onWindowClose(const WindowCloseEvent& e);
-
         void pushLayer(std::shared_ptr<Layer> layer);
         void pushOverlay(std::shared_ptr<Layer> overlay);
         void detachLayer(std::shared_ptr<Layer> layer);
         void detachOverlay(std::shared_ptr<Layer> overlay);
-
         inline Window& getWindow() { return *window; }
+
+        virtual void init() {};
 
         static inline Application& get() { return *instance; }
         static void initApplication();
@@ -36,7 +37,7 @@ namespace chert {
         std::unique_ptr<Renderer> renderer;
 
         LayerStack layerStack;
-        ImguiLayer imguiLayer;
+        std::shared_ptr<ImguiLayer> imguiLayer;
         
         bool running = true;
 

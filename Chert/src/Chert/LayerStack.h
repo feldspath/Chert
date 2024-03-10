@@ -9,6 +9,7 @@ namespace chert {
     {
     public:
         LayerStack();
+        ~LayerStack();
 
         void pushLayer(std::shared_ptr<Layer> layer);
         void detachLayer(std::shared_ptr<Layer> layer);

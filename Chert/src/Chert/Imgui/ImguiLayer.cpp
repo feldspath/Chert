@@ -5,7 +5,7 @@
 #include "ImguiLayer.h"
 
 namespace chert {
-    void ImguiLayer::init() {
+    void ImguiLayer::onAttach() {
         IMGUI_CHECKVERSION();
         ImGui::CreateContext();
         ImGui::StyleColorsDark();
@@ -15,14 +15,14 @@ namespace chert {
         io.BackendFlags |= ImGuiBackendFlags_HasSetMousePos;
 
         WindowsWindow& window = dynamic_cast<WindowsWindow&>(Application::get().getWindow());
-        ImGui_ImplGlfw_InitForOpenGL(window.getGlfwWindowPtr().get(), true);
+        ImGui_ImplGlfw_InitForOpenGL(window.getGlfwWindowPtr(), true);
         ImGui_ImplOpenGL3_Init();
     }
 
-
-    void ImguiLayer::update() {
+    void ImguiLayer::render() {
         static bool show_demo_window = true;
         ImGui::ShowDemoWindow(&show_demo_window);
+        ImGui::Render();
     }
 
     void ImguiLayer::begin() {
@@ -32,11 +32,10 @@ namespace chert {
     }
 
     void ImguiLayer::end() {
-        ImGui::Render();
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
     }
 
-    ImguiLayer::~ImguiLayer() {
+    void ImguiLayer::onDetach() {
         ImGui_ImplOpenGL3_Shutdown();
         ImGui_ImplGlfw_Shutdown();
         ImGui::DestroyContext();

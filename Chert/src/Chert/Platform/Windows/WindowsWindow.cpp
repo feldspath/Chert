@@ -45,15 +45,15 @@ namespace chert {
             isGLFWInitialized = true;
         }
 
-        window = std::shared_ptr<GLFWwindow>(glfwCreateWindow(props.width, props.height, props.title.c_str(), NULL, NULL), glfwDestroyWindow);
+        window = glfwCreateWindow(props.width, props.height, props.title.c_str(), NULL, NULL);
         CHERT_CORE_ASSERT(window, "Failed to create GLFW window");
         
         renderingContext = std::make_unique<OpenGLContext>(window);
         renderingContext->init();
 
         // GLFW callbacks
-        glfwSetWindowUserPointer(window.get(), &data);
-        glfwSetWindowSizeCallback(window.get(), [](GLFWwindow* window, int width, int height) {
+        glfwSetWindowUserPointer(window, &data);
+        glfwSetWindowSizeCallback(window, [](GLFWwindow* window, int width, int height) {
             WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
             data.width = width;
             data.height = height;
@@ -62,21 +62,21 @@ namespace chert {
             data.eventCallback(e);
             });
 
-        glfwSetWindowCloseCallback(window.get(), [](GLFWwindow* window) {
+        glfwSetWindowCloseCallback(window, [](GLFWwindow* window) {
             WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 
             Event e = WindowCloseEvent();
             data.eventCallback(e);
             });
 
-        glfwSetCursorPosCallback(window.get(), [](GLFWwindow* window, double xpos, double ypos) {
+        glfwSetCursorPosCallback(window, [](GLFWwindow* window, double xpos, double ypos) {
             WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 
             Event e = MouseMovedEvent(xpos, ypos);
             data.eventCallback(e);
             });
 
-        glfwSetMouseButtonCallback(window.get(), [](GLFWwindow* window, int button, int action, int mods) {
+        glfwSetMouseButtonCallback(window, [](GLFWwindow* window, int button, int action, int mods) {
             WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
             switch (action)
             {
@@ -97,7 +97,7 @@ namespace chert {
             }
             });
 
-        glfwSetKeyCallback(window.get(), [](GLFWwindow* window, int key, int scancode, int action, int mods) {
+        glfwSetKeyCallback(window, [](GLFWwindow* window, int key, int scancode, int action, int mods) {
             WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
             switch (action)
             {
@@ -128,6 +128,7 @@ namespace chert {
     }
 
     void WindowsWindow::shutdown() {
+        glfwDestroyWindow(window);
         glfwTerminate();
     }
 }

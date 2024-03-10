@@ -10,10 +10,10 @@
 #define GET_OPENGL_STRING(name) std::string(reinterpret_cast<const char*>(glGetString(name)))
 
 namespace chert {
-    OpenGLContext::OpenGLContext(std::shared_ptr<GLFWwindow> window) : window(window) {}
+    OpenGLContext::OpenGLContext(GLFWwindow* window) : window(window) {}
 
     void OpenGLContext::init() {
-        glfwMakeContextCurrent(window.get());
+        glfwMakeContextCurrent(window);
         int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
         CHERT_CORE_ASSERT(status, "Failed to initialized GLAD");
 
@@ -34,7 +34,7 @@ namespace chert {
     }
 
     void OpenGLContext::swapBuffers() {
-        glfwSwapBuffers(window.get());
+        glfwSwapBuffers(window);
     }
 
     std::unique_ptr<Shader> OpenGLContext::createShader(std::string& vertexShaderSrc, std::string& fragmentShaderSrc) {

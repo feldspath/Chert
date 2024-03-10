@@ -17,7 +17,7 @@ namespace chert {
         inline unsigned int getWidth() const override { return data.width; }
         inline unsigned int getHeight() const override { return data.height; }
         inline void setEventCallback(const EventCallbackFn& callback) override { data.eventCallback = callback;  }
-        inline std::shared_ptr<GLFWwindow> getGlfwWindowPtr() { return window; }
+        inline GLFWwindow* getGlfwWindowPtr() { return window; }
         inline std::shared_ptr<RenderingContext> getRenderingContext() override { return renderingContext; }
         unsigned int width() const override;
         unsigned int height() const override;
@@ -26,7 +26,7 @@ namespace chert {
         void init(const WindowProps& props);
         void shutdown();
 
-        std::shared_ptr<GLFWwindow> window;
+        GLFWwindow* window;
 
         struct WindowData {
             std::string title;

@@ -1,15 +1,16 @@
 #pragma once
 
+#include "Chert/Layer.h"
+
 namespace chert {
-    class ImguiLayer {
+    class ImguiLayer : public Layer {
         
     public:
-        void init();
-        void update();
+        void onAttach() override;
+        void onDetach() override;
+        void render() override;
         void begin();
         void end();
-
-        ~ImguiLayer();
 
     private:
         float time = 0.0f;

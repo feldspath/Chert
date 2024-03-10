@@ -17,10 +17,6 @@ private:
 public:
     Sandbox() : chert::Application(chert::WindowProps()) {}
 
-    ~Sandbox() {
-        detachLayer(testLayer);
-    }
-
     void init() override {
         testLayer = std::make_shared<TestLayer>();
         pushLayer(testLayer);

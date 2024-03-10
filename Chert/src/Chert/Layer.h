@@ -10,6 +10,7 @@ namespace chert {
         virtual void onDetach() {}
         virtual void update() {}
         virtual void onEvent(Event& e) {}
+        virtual void render() {}
         inline virtual bool isOverlay() const { return false; }
     };
 }

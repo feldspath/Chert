@@ -18,6 +18,6 @@ namespace chert {
         double getMouseXImpl() override;
 
     private:
-        std::shared_ptr<GLFWwindow> window;
+        GLFWwindow* window;
     };
 }

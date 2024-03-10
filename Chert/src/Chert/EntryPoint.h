@@ -7,6 +7,7 @@
 int main() {
     chert::Application::initApplication();
     chert::Application::get().run();
+    chert::Application::get().shutdown();
 }
 
 #endif

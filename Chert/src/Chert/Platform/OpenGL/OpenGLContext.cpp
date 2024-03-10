@@ -6,6 +6,8 @@
 #include "Buffers/OpenGLVertexBuffer.h"
 #include "Buffers/OpenGLIndexBuffer.h"
 
+#define GET_OPENGL_STRING(name) std::string(reinterpret_cast<const char*>(glGetString(name)))
+
 namespace chert {
     OpenGLContext::OpenGLContext(std::shared_ptr<GLFWwindow> window) : window(window) {}
 
@@ -17,6 +19,17 @@ namespace chert {
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
+        auto vendor = GET_OPENGL_STRING(GL_VENDOR);
+        auto version = GET_OPENGL_STRING(GL_VERSION);
+        auto renderer = GET_OPENGL_STRING(GL_RENDERER);
+        auto glslVersion = GET_OPENGL_STRING(GL_SHADING_LANGUAGE_VERSION);
+
+        CHERT_CORE_INFO(R"(OpenGL info: 
+    Vendor:         {}
+    Renderer:       {}
+    OpenGL version: {}
+    GLSL version:   {})", vendor, renderer, version, glslVersion);
     }
 
     void OpenGLContext::swapBuffers() {

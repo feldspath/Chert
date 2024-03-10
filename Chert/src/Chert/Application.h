@@ -14,6 +14,7 @@ namespace chert {
     {
     public:
         Application(WindowProps windowProps);
+        ~Application() = default;
         virtual void init();
         void run();
         void onEvent(Event& e);

@@ -30,6 +30,7 @@ set(CHERT_HEADERS
     "src/Chert/LayerStack.h"
     "src/Chert/Log.h"
     "src/Chert/Window.h"
+    "src/Chert/Input.h"
 
     # Events
     "src/Chert/Events/ApplicationEvent.h"

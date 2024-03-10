@@ -8,6 +8,7 @@ namespace chert {
 
     class Input {
     public:
+        virtual ~Input() = default;
         static void init();
         inline static bool isKeyPressed(int keycode) { return instance->isKeyPressedImpl(keycode); }
         inline static bool isMouseButtonPressed(int button) { return instance->isMouseButtonPressedImpl(button); }

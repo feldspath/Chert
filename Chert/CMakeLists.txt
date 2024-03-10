@@ -8,11 +8,17 @@ set(CHERT_SRC
     "src/Chert/Application.cpp"
     "src/Chert/LayerStack.cpp"
     "src/Chert/Log.cpp"
+    "src/Chert/Input.cpp"
+
+    # Imgui
     "src/Chert/Imgui/ImguiBuild.cpp"
+    "src/Chert/Imgui/ImguiLayer.cpp"
+
+    # Platform specific
     "src/Chert/Platform/Windows/WindowsWindow.cpp"
     "src/Chert/Platform/Windows/WindowsInput.cpp"
     "src/Chert/Platform/OpenGL/OpenGLContext.cpp"
-    "src/Chert/Input.cpp"
+    "src/Chert/Platform/OpenGL/OpenGLShader.cpp"
 )
 
 set(CHERT_HEADERS
@@ -24,16 +30,26 @@ set(CHERT_HEADERS
     "src/Chert/LayerStack.h"
     "src/Chert/Log.h"
     "src/Chert/Window.h"
+
+    # Events
     "src/Chert/Events/ApplicationEvent.h"
     "src/Chert/Events/BaseEvent.h"
     "src/Chert/Events/KeyEvent.h"
     "src/Chert/Events/MouseEvent.h"
     "src/Chert/Events/Event.h"
+
+    # Imgui
     "src/Chert/Imgui/ImguiLayer.h"
+
+    # Platform specific
     "src/Chert/Platform/Windows/WindowsWindow.h"
     "src/Chert/Platform/Windows/WindowsInput.h"
     "src/Chert/Platform/OpenGL/OpenGLContext.h"
+    "src/Chert/Platform/OpenGL/OpenGLShader.h"
+
+    # Renderer
     "src/Chert/Renderer/RenderingContext.h"
+    "src/Chert/Renderer/Shader.h"
 )
 
 source_group(TREE ${CMAKE_CURRENT_LIST_DIR} FILES ${CHERT_SRC} ${CHERT_HEADERS})

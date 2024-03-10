@@ -4,6 +4,7 @@
 #include <string>
 
 #include "Chert/Events/Event.h"
+#include "Chert/Renderer/RenderingContext.h"
 
 namespace chert {
     struct WindowProps {
@@ -28,6 +29,7 @@ namespace chert {
         virtual void setEventCallback(const EventCallbackFn& callback) = 0;
         virtual unsigned int width() const = 0;
         virtual unsigned int height() const = 0;
+        virtual RenderingContext& getRenderingContext() = 0;
 
         static std::unique_ptr<Window> create(const WindowProps& props = WindowProps());
     };

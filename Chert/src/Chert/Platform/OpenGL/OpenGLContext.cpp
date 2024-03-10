@@ -2,6 +2,7 @@
 #include "GLFW/glfw3.h"
 #include "Chert/Core.h"
 #include "OpenGLContext.h"
+#include "OpenGLShader.h"
 
 namespace chert {
     OpenGLContext::OpenGLContext(std::shared_ptr<GLFWwindow> window) : window(window) {}
@@ -18,5 +19,9 @@ namespace chert {
 
     void OpenGLContext::swapBuffers() {
         glfwSwapBuffers(window.get());
+    }
+
+    std::unique_ptr<Shader> OpenGLContext::createShader(std::string& vertexShaderSrc, std::string& fragmentShaderSrc) {
+        return std::make_unique<OpenGLShader>(vertexShaderSrc, fragmentShaderSrc);
     }
 }

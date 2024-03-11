@@ -1,4 +1,5 @@
 # External dependencies
+add_compile_definitions(_SILENCE_STDEXT_ARR_ITERS_DEPRECATION_WARNING)
 add_subdirectory(external/spdlog/)
 add_subdirectory(external/glfw/)
 add_subdirectory(external/glad/)

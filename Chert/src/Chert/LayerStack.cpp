@@ -21,7 +21,7 @@ namespace chert {
 
     void LayerStack::detachLayer(std::shared_ptr<Layer> layer) {
         auto layerIt = std::find(layers.begin(), layers.begin() + layerInsertIndex, layer);
-        if (layerIt != layers.end()) {
+        if (layerIt != layers.begin() + layerInsertIndex) {
             layer->onDetach();
             layers.erase(layerIt);
             layerInsertIndex--;

@@ -6,6 +6,9 @@
 
 namespace chert {
     class RenderAPI {
+    protected:
+        RenderAPI() = default;
+
     public:
         static inline void setClearColor(const glm::vec4& color) { instance->setClearColorImpl(color); }
         static inline void clear() { instance->clearImpl(); }

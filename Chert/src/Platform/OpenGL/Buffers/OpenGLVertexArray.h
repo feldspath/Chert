@@ -19,6 +19,7 @@ namespace chert {
 
     private:
         unsigned int vertexArrayId = 0;
+        unsigned int vertexAttribIndex = 0;
         std::vector <std::shared_ptr<VertexBuffer>> vertexBuffers;
         std::shared_ptr<IndexBuffer> indexBuffer;
     };

@@ -18,6 +18,8 @@ namespace chert {
     class Log
     {
     public:
+        Log() = delete;
+        
         static void init();
 
         inline static std::shared_ptr<spdlog::logger>& getCoreLogger() { return coreLogger; }

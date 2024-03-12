@@ -17,7 +17,7 @@ namespace chert {
         case chert::ShaderDataType::Int4: return GL_INT;
         }
 
-        CHERT_CORE_ASSERT(false, "Unknow ShaderDataType");
+        CHERT_CORE_ASSERT(false, "Unknown ShaderDataType");
         return 0;
     }
 
@@ -44,11 +44,10 @@ namespace chert {
         vertexBuffer->bind();
         vertexBuffers.push_back(vertexBuffer);
         
-        unsigned int index = 0;
         for (const auto& e : vertexBuffer->getLayout()) {
-            glEnableVertexAttribArray(index);
-            glVertexAttribPointer(index, e.primitiveCount, shaderDataTypeToOpenGLType(e.type), GL_FALSE, e.size, (char*)0 + e.offset);
-            index++;
+            glEnableVertexAttribArray(vertexAttribIndex);
+            glVertexAttribPointer(vertexAttribIndex, e.primitiveCount, shaderDataTypeToOpenGLType(e.type), GL_FALSE, e.size, (char*)0 + e.offset);
+            vertexAttribIndex++;
         }
     }
 

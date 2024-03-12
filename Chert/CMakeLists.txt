@@ -16,16 +16,18 @@ set(CHERT_SRC
     "src/Chert/Imgui/ImguiLayer.cpp"
 
     # Platform specific
-    "src/Chert/Platform/Windows/WindowsWindow.cpp"
-    "src/Chert/Platform/Windows/WindowsInput.cpp"
-    "src/Chert/Platform/OpenGL/OpenGLContext.cpp"
-    "src/Chert/Platform/OpenGL/OpenGLShader.cpp"
-    "src/Chert/Platform/OpenGL/Buffers/OpenGLVertexBuffer.cpp"
-    "src/Chert/Platform/OpenGL/Buffers/OpenGLIndexBuffer.cpp"
-    "src/Chert/Platform/OpenGL/Buffers/OpenGLVertexArray.cpp"
+    "src/Platform/Windows/WindowsWindow.cpp"
+    "src/Platform/Windows/WindowsInput.cpp"
+    "src/Platform/OpenGL/OpenGLContext.cpp"
+    "src/Platform/OpenGL/OpenGLShader.cpp"
+    "src/Platform/OpenGL/Buffers/OpenGLVertexBuffer.cpp"
+    "src/Platform/OpenGL/Buffers/OpenGLIndexBuffer.cpp"
+    "src/Platform/OpenGL/Buffers/OpenGLVertexArray.cpp"
+    "src/Platform/OpenGL/OpenGLRenderAPI.cpp"
 
     # Rendering
     "src/Chert/Renderer/Renderer.cpp"
+    "src/Chert/Renderer/RenderAPI.cpp"
 )
 
 set(CHERT_HEADERS
@@ -50,13 +52,14 @@ set(CHERT_HEADERS
     "src/Chert/Imgui/ImguiLayer.h"
 
     # Platform specific
-    "src/Chert/Platform/Windows/WindowsWindow.h"
-    "src/Chert/Platform/Windows/WindowsInput.h"
-    "src/Chert/Platform/OpenGL/OpenGLContext.h"
-    "src/Chert/Platform/OpenGL/OpenGLShader.h"
-    "src/Chert/Platform/OpenGL/Buffers/OpenGLVertexBuffer.h"
-    "src/Chert/Platform/OpenGL/Buffers/OpenGLIndexBuffer.h"
-    "src/Chert/Platform/OpenGL/Buffers/OpenGLVertexArray.h"
+    "src/Platform/Windows/WindowsWindow.h"
+    "src/Platform/Windows/WindowsInput.h"
+    "src/Platform/OpenGL/OpenGLContext.h"
+    "src/Platform/OpenGL/OpenGLShader.h"
+    "src/Platform/OpenGL/Buffers/OpenGLVertexBuffer.h"
+    "src/Platform/OpenGL/Buffers/OpenGLIndexBuffer.h"
+    "src/Platform/OpenGL/Buffers/OpenGLVertexArray.h"
+    "src/Platform/OpenGL/OpenGLRenderAPI.h"
 
     # Renderer
     "src/Chert/Renderer/Renderer.h"
@@ -66,6 +69,7 @@ set(CHERT_HEADERS
     "src/Chert/Renderer/Buffers/IndexBuffer.h"
     "src/Chert/Renderer/Buffers/BufferLayout.h"
     "src/Chert/Renderer/Buffers/VertexArray.h"
+    "src/Chert/Renderer/RenderAPI.h"
 )
 
 source_group(TREE ${CMAKE_CURRENT_LIST_DIR} FILES ${CHERT_SRC} ${CHERT_HEADERS})

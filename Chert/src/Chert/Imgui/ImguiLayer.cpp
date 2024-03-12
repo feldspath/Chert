@@ -1,5 +1,5 @@
 #include "Chert/Application.h"
-#include "Chert/Platform/Windows/WindowsWindow.h"
+#include "Platform/Windows/WindowsWindow.h"
 #include "backends/imgui_impl_glfw.h"
 #include "backends/imgui_impl_opengl3.h"
 #include "ImguiLayer.h"

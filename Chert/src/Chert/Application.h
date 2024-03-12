@@ -30,6 +30,8 @@ namespace chert {
         virtual void init() {};
 
         static inline Application& get() { return *instance; }
+        static inline Renderer& getRenderer() { return *instance->renderer; }
+        static inline RenderingContext& getRenderContext() { return instance->renderer->getRenderContext(); }
         static void initApplication();
 
     private:

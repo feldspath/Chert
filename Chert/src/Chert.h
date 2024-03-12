@@ -9,3 +9,9 @@
 #include "Chert/Events/Event.h"
 #include "Chert/Input.h"
 
+#include "Chert/Renderer/Shader.h"
+#include "Chert/Renderer/Buffers/VertexArray.h"
+#include "Chert/Renderer/Buffers/VertexBuffer.h"
+#include "Chert/Renderer/Buffers/IndexBuffer.h"
+#include "Chert/Renderer/Buffers/BufferLayout.h"
+

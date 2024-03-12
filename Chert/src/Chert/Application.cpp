@@ -2,6 +2,7 @@
 #include "Chert/Log.h"
 #include "Chert/Events/ApplicationEvent.h"
 #include "Chert/Input.h"
+#include "Chert/Renderer/RenderAPI.h"
 
 namespace chert {
     std::unique_ptr<Application> Application::instance;
@@ -10,6 +11,7 @@ namespace chert {
         Log::init();
         CHERT_CORE_ASSERT(!instance, "Application is already initialized");
         CHERT_CORE_INFO("Lauching Chert...");
+        RenderAPI::init();
         instance = chert::createApplication();
         instance->prepare();
         Input::init();
@@ -55,7 +57,6 @@ namespace chert {
             }
 
             imguiLayer->begin();
-            renderer->render();
             imguiLayer->render();
             imguiLayer->end();
 
@@ -83,5 +84,4 @@ namespace chert {
     void Application::detachOverlay(std::shared_ptr<Layer> overlay) {
         layerStack.detachOverlay(overlay);
     }
-
 }

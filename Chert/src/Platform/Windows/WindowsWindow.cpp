@@ -3,7 +3,7 @@
 #include "Chert/Events/KeyEvent.h"
 #include "Chert/Events/MouseEvent.h"
 #include "Chert/Log.h"
-#include "Chert/Platform/OpenGL/OpenGLContext.h"
+#include "Platform/OpenGL/OpenGLContext.h"
 #include "WindowsWindow.h"
 
 static void glfw_error_callback(int error, const char* description)

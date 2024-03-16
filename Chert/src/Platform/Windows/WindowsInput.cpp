@@ -9,8 +9,9 @@ std::unique_ptr<Input> createInputHandler() {
 }
 
 WindowsInput::WindowsInput() {
-    window = dynamic_cast<WindowsWindow &>(Application::get().getWindow())
-                 .getGlfwWindowPtr();
+    window =
+        std::dynamic_pointer_cast<WindowsWindow>(Application::get().getWindow())
+            ->getGlfwWindowPtr();
 }
 
 bool WindowsInput::isKeyPressedImpl(int keycode) {

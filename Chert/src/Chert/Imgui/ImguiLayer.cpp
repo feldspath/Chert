@@ -14,9 +14,9 @@ void ImguiLayer::onAttach() {
     io.BackendFlags |= ImGuiBackendFlags_HasMouseCursors;
     io.BackendFlags |= ImGuiBackendFlags_HasSetMousePos;
 
-    WindowsWindow &window =
-        dynamic_cast<WindowsWindow &>(Application::get().getWindow());
-    ImGui_ImplGlfw_InitForOpenGL(window.getGlfwWindowPtr(), true);
+    auto window = std::dynamic_pointer_cast<WindowsWindow>(
+        Application::get().getWindow());
+    ImGui_ImplGlfw_InitForOpenGL(window->getGlfwWindowPtr(), true);
     ImGui_ImplOpenGL3_Init();
 }
 

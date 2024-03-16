@@ -14,7 +14,7 @@ public:
         instance->setClearColorImpl(color);
     }
     static inline void clear() { instance->clearImpl(); }
-    static inline void drawIndexed(std::shared_ptr<VertexArray> &vertexArray) {
+    static inline void drawIndexed(Ref<VertexArray> &vertexArray) {
         instance->drawIndexedImpl(vertexArray);
     }
     static void init();
@@ -22,8 +22,7 @@ public:
 protected:
     virtual void setClearColorImpl(const glm::vec4 &color) = 0;
     virtual void clearImpl() = 0;
-    virtual void
-    drawIndexedImpl(std::shared_ptr<VertexArray> &vertexBuffer) = 0;
+    virtual void drawIndexedImpl(Ref<VertexArray> &vertexBuffer) = 0;
 
 private:
     static std::unique_ptr<RenderAPI> RenderAPI::instance;

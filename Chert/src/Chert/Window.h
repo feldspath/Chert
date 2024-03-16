@@ -30,7 +30,7 @@ public:
     virtual unsigned int height() const = 0;
     virtual std::shared_ptr<RenderingContext> getRenderingContext() = 0;
 
-    static std::unique_ptr<Window>
+    static std::shared_ptr<Window>
     create(const WindowProps &props = WindowProps());
 };
 } // namespace chert

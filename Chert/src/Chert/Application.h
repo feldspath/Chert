@@ -24,26 +24,25 @@ public:
     void pushOverlay(std::shared_ptr<Layer> overlay);
     void detachLayer(std::shared_ptr<Layer> layer);
     void detachOverlay(std::shared_ptr<Layer> overlay);
-    inline Window &getWindow() { return *window; }
+    inline std::shared_ptr<Window> &getWindow() { return window; }
 
     virtual void init(){};
 
     static inline Application &get() { return *instance; }
-    static inline Renderer &getRenderer() { return *instance->renderer; }
-    static inline RenderingContext &getRenderContext() {
+    static inline std::shared_ptr<Renderer> &getRenderer() {
+        return instance->renderer;
+    }
+    static inline std::shared_ptr<RenderingContext> &getRenderContext() {
         return instance->renderer->getRenderContext();
     }
     static void initApplication();
 
 private:
-    std::unique_ptr<Window> window;
-    std::unique_ptr<Renderer> renderer;
-
     LayerStack layerStack;
+    std::shared_ptr<Window> window;
+    std::shared_ptr<Renderer> renderer;
     std::shared_ptr<ImguiLayer> imguiLayer;
-
     bool running = true;
-
     float previousTime = 0.0f;
 
     static std::unique_ptr<Application> instance;

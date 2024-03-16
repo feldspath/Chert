@@ -11,8 +11,8 @@ static void glfw_error_callback(int error, const char *description) {
 }
 
 namespace chert {
-std::unique_ptr<Window> Window::create(const WindowProps &props) {
-    return std::make_unique<WindowsWindow>(props);
+std::shared_ptr<Window> Window::create(const WindowProps &props) {
+    return std::make_shared<WindowsWindow>(props);
 }
 
 static bool isGLFWInitialized = false;

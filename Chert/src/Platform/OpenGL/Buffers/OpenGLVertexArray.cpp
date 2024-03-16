@@ -40,8 +40,7 @@ void OpenGLVertexArray::bind() { glBindVertexArray(vertexArrayId); }
 
 void OpenGLVertexArray::unbind() { glBindVertexArray(0); }
 
-void OpenGLVertexArray::addVertexBuffer(
-    std::shared_ptr<VertexBuffer> vertexBuffer) {
+void OpenGLVertexArray::addVertexBuffer(Ref<VertexBuffer> vertexBuffer) {
     CHERT_CORE_ASSERT(vertexBuffer->getLayout().isInitialized(),
                       "Layout is uninitialized");
 
@@ -58,8 +57,7 @@ void OpenGLVertexArray::addVertexBuffer(
     }
 }
 
-void OpenGLVertexArray::setIndexBuffer(
-    std::shared_ptr<IndexBuffer> indexBuffer) {
+void OpenGLVertexArray::setIndexBuffer(Ref<IndexBuffer> indexBuffer) {
     glBindVertexArray(vertexArrayId);
     indexBuffer->bind();
     this->indexBuffer = indexBuffer;

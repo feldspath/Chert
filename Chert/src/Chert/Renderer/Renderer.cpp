@@ -39,10 +39,10 @@ void Renderer::setClearColor(const glm::vec4 &color) {
 
 void Renderer::clear() { RenderAPI::clear(); }
 
-void Renderer::beginScene(const Camera &camera) {
+void Renderer::beginScene(Ref<Camera> &camera) {
     CHERT_ASSERT(!sceneInProgress, "Scene already in progress, call endScene "
                                    "before calling beginScene again");
-    sceneData.viewProjectionMatrix = camera.getViewProjectionMatrix();
+    sceneData.viewProjectionMatrix = camera->getViewProjectionMatrix();
     sceneInProgress = true;
 }
 
@@ -53,8 +53,8 @@ void Renderer::endScene() {
     sceneInProgress = false;
 }
 
-void Renderer::submit(std::shared_ptr<VertexArray> &vertexArray,
-                      std::shared_ptr<Shader> shader, glm::mat4 tranform) {
+void Renderer::submit(Ref<VertexArray> &vertexArray, Ref<Shader> &shader,
+                      glm::mat4 tranform) {
     vertexArray->bind();
     shader->bind();
     shader->setUniform("viewProjectionMatrix", sceneData.viewProjectionMatrix);

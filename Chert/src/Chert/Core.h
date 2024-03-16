@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 #ifndef CHERT_PLATFORM_WINDOWS
 #error Chert only supports Windows...
 #endif
@@ -15,3 +17,7 @@
         CHERT_ERROR(__VA_ARGS__);                                              \
         std::abort();                                                          \
     }
+
+namespace chert {
+template <typename T> using Ref = std::shared_ptr<T>;
+} // namespace chert

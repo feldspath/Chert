@@ -4,7 +4,6 @@
 
 namespace chert {
 class VertexBuffer {
-
 public:
     virtual ~VertexBuffer() = default;
     virtual void bind() = 0;

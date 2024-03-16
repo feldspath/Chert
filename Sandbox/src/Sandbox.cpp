@@ -13,17 +13,17 @@ public:
         unsigned int indices[] = {0, 1, 2, 1, 2, 3};
 
         auto &renderContext = chert::Application::getRenderContext();
-        std::shared_ptr<chert::VertexBuffer> vertexBuffer =
-            renderContext.createVertexBuffer(vertices, sizeof(vertices));
-        std::shared_ptr<chert::IndexBuffer> indexBuffer =
-            renderContext.createIndexBuffer(indices, 6);
+        chert::Ref<chert::VertexBuffer> vertexBuffer =
+            renderContext->createVertexBuffer(vertices, sizeof(vertices));
+        chert::Ref<chert::IndexBuffer> indexBuffer =
+            renderContext->createIndexBuffer(indices, 6);
 
         chert::BufferLayout layout = {
             {chert::ShaderDataType::Float3, "a_Position"},
         };
 
         vertexBuffer->setLayout(layout);
-        vertexArray = renderContext.createVertexArray();
+        vertexArray = renderContext->createVertexArray();
         vertexArray->setIndexBuffer(indexBuffer);
         vertexArray->addVertexBuffer(vertexBuffer);
 
@@ -49,16 +49,16 @@ public:
         }
 
         auto &renderer = chert::Application::getRenderer();
-        renderer.setClearColor({0.1f, 0.1f, 0.1f, 1.0f});
-        renderer.clear();
-        renderer.beginScene(*camera);
-        renderer.submit(vertexArray, renderer.defaultShader);
-        renderer.endScene();
+        renderer->setClearColor({0.1f, 0.1f, 0.1f, 1.0f});
+        renderer->clear();
+        renderer->beginScene(camera);
+        renderer->submit(vertexArray, renderer->defaultShader);
+        renderer->endScene();
     }
 
 private:
-    std::shared_ptr<chert::VertexArray> vertexArray;
-    std::shared_ptr<chert::Camera> camera;
+    chert::Ref<chert::VertexArray> vertexArray;
+    chert::Ref<chert::Camera> camera;
 };
 
 class Sandbox : public chert::Application {

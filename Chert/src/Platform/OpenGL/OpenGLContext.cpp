@@ -39,23 +39,22 @@ void OpenGLContext::init() {
 
 void OpenGLContext::swapBuffers() { glfwSwapBuffers(window); }
 
-std::unique_ptr<Shader>
-OpenGLContext::createShader(std::string &vertexShaderSrc,
-                            std::string &fragmentShaderSrc) {
+Ref<Shader> OpenGLContext::createShader(std::string &vertexShaderSrc,
+                                        std::string &fragmentShaderSrc) {
     return std::make_unique<OpenGLShader>(vertexShaderSrc, fragmentShaderSrc);
 }
 
-std::unique_ptr<VertexBuffer>
-OpenGLContext::createVertexBuffer(float *vertices, unsigned int size) {
+Ref<VertexBuffer> OpenGLContext::createVertexBuffer(float *vertices,
+                                                    unsigned int size) {
     return std::make_unique<OpenGLVertexBuffer>(vertices, size);
 }
 
-std::unique_ptr<IndexBuffer>
-OpenGLContext::createIndexBuffer(unsigned int *indices, unsigned int count) {
+Ref<IndexBuffer> OpenGLContext::createIndexBuffer(unsigned int *indices,
+                                                  unsigned int count) {
     return std::make_unique<OpenGLIndexBuffer>(indices, count);
 }
 
-std::unique_ptr<VertexArray> OpenGLContext::createVertexArray() {
+Ref<VertexArray> OpenGLContext::createVertexArray() {
     return std::make_unique<OpenGLVertexArray>();
 }
 } // namespace chert

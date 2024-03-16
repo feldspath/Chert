@@ -5,9 +5,11 @@
 #include "Chert/Log.h"
 #include "Chert/Layer.h"
 #include "Chert/Imgui/ImguiLayer.h"
-
 #include "Chert/Events/Event.h"
+
 #include "Chert/Input.h"
+#include "Chert/Keycodes.h"
+#include "Chert/MouseButtons.h"
 
 #include "Chert/Renderer/Shader.h"
 #include "Chert/Renderer/Buffers/VertexArray.h"

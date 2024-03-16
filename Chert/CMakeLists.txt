@@ -40,6 +40,8 @@ set(CHERT_HEADERS
     "src/Chert/Log.h"
     "src/Chert/Window.h"
     "src/Chert/Input.h"
+    "src/Chert/Keycodes.h"
+    "src/Chert/MouseButtons.h"
 
     # Events
     "src/Chert/Events/ApplicationEvent.h"

@@ -1,5 +1,4 @@
 #include "Chert.h"
-#include "GLFW/glfw3.h"
 
 class ExampleLayer : public chert::Layer {
 public:
@@ -38,19 +37,17 @@ public:
     }
 
     void update(float timestep) override {
-        CHERT_TRACE(timestep);
-
         float speed = 3.0f;
-        if (chert::Input::isKeyPressed(GLFW_KEY_W)) {
+        if (chert::Input::isKeyPressed(CHERT_KEY_W)) {
             camera->position.y += speed * timestep;
         }
-        if (chert::Input::isKeyPressed(GLFW_KEY_S)) {
+        if (chert::Input::isKeyPressed(CHERT_KEY_S)) {
             camera->position.y -= speed * timestep;
         }
-        if (chert::Input::isKeyPressed(GLFW_KEY_D)) {
+        if (chert::Input::isKeyPressed(CHERT_KEY_D)) {
             camera->position.x += speed * timestep;
         }
-        if (chert::Input::isKeyPressed(GLFW_KEY_A)) {
+        if (chert::Input::isKeyPressed(CHERT_KEY_A)) {
             camera->position.x -= speed * timestep;
         }
 

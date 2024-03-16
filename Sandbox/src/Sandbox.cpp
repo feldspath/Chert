@@ -2,24 +2,21 @@
 
 class ExampleLayer : public chert::Layer {
 public:
-    void onEvent(chert::Event& e) override {
-    }
+    void onEvent(chert::Event &e) override {}
 
     void onAttach() override {
         float vertices[] = {
-            -0.5f, 0.0f, -0.5f,
-            0.5f, 0.0f, -0.5f,
-            -0.5f, 0.0f, 0.5f,
-            0.5f, 0.0f, 0.5f,
+            -0.5f, 0.0f, -0.5f, 0.5f, 0.0f, -0.5f,
+            -0.5f, 0.0f, 0.5f,  0.5f, 0.0f, 0.5f,
         };
 
-        unsigned int indices[] = {
-            0, 1, 2, 1, 2, 3
-        };
+        unsigned int indices[] = {0, 1, 2, 1, 2, 3};
 
-        auto& renderContext = chert::Application::getRenderContext();
-        std::shared_ptr<chert::VertexBuffer> vertexBuffer = renderContext.createVertexBuffer(vertices, sizeof(vertices));
-        std::shared_ptr<chert::IndexBuffer> indexBuffer = renderContext.createIndexBuffer(indices, 6);
+        auto &renderContext = chert::Application::getRenderContext();
+        std::shared_ptr<chert::VertexBuffer> vertexBuffer =
+            renderContext.createVertexBuffer(vertices, sizeof(vertices));
+        std::shared_ptr<chert::IndexBuffer> indexBuffer =
+            renderContext.createIndexBuffer(indices, 6);
 
         chert::BufferLayout layout = {
             {chert::ShaderDataType::Float3, "a_Position"},
@@ -30,11 +27,11 @@ public:
         vertexArray->setIndexBuffer(indexBuffer);
         vertexArray->addVertexBuffer(vertexBuffer);
 
-        camera = std::make_shared<chert::PerspectiveCamera>(glm::vec3{ 0.0f, -5.0f, 0.0f }, glm::quat());
+        camera = std::make_shared<chert::PerspectiveCamera>(
+            glm::vec3{0.0f, -5.0f, 0.0f}, glm::quat());
     }
 
-    void onDetach() override {
-    }
+    void onDetach() override {}
 
     void update(float timestep) override {
         float speed = 3.0f;
@@ -51,8 +48,8 @@ public:
             camera->position.x -= speed * timestep;
         }
 
-        auto& renderer = chert::Application::getRenderer();
-        renderer.setClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
+        auto &renderer = chert::Application::getRenderer();
+        renderer.setClearColor({0.1f, 0.1f, 0.1f, 1.0f});
         renderer.clear();
         renderer.beginScene(*camera);
         renderer.submit(vertexArray);
@@ -67,6 +64,7 @@ private:
 class Sandbox : public chert::Application {
 private:
     std::shared_ptr<ExampleLayer> layer;
+
 public:
     Sandbox() : chert::Application(chert::WindowProps()) {}
 

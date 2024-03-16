@@ -1,12 +1,12 @@
 #pragma once
 
 namespace chert {
-    class IndexBuffer {
+class IndexBuffer {
 
-    public:
-        virtual ~IndexBuffer() = default;
-        virtual void bind() = 0;
-        virtual void unbind() = 0;
-        virtual unsigned int getCount() const = 0;
-    };
-}
+public:
+    virtual ~IndexBuffer() = default;
+    virtual void bind() = 0;
+    virtual void unbind() = 0;
+    virtual unsigned int getCount() const = 0;
+};
+} // namespace chert

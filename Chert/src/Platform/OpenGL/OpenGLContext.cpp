@@ -3,9 +3,11 @@
 #include "Buffers/OpenGLVertexArray.h"
 #include "Buffers/OpenGLVertexBuffer.h"
 #include "Chert/Core.h"
-#include "GLFW/glfw3.h"
 #include "OpenGLShader.h"
+// clang-format off
 #include "glad/glad.h"
+#include "GLFW/glfw3.h"
+// clang-format on
 
 #define GET_OPENGL_STRING(name)                                                \
     std::string(reinterpret_cast<const char *>(glGetString(name)))

@@ -14,13 +14,16 @@ public:
     void clear();
     void beginScene(const Camera &camera);
     void endScene();
-    void submit(std::shared_ptr<VertexArray> &vertexArray);
+    void submit(std::shared_ptr<VertexArray> &vertexArray,
+                std::shared_ptr<Shader> shader,
+                glm::mat4 tranform = glm::mat4(1.0f));
 
     inline RenderingContext &getRenderContext() { return *context; }
 
+    std::shared_ptr<Shader> defaultShader;
+
 private:
     std::shared_ptr<RenderingContext> context;
-    std::unique_ptr<Shader> shader;
     bool sceneInProgress = false;
 
     struct SceneData {

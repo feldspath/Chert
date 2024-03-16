@@ -2,6 +2,8 @@
 #include "Buffers/BufferLayout.h"
 #include "RenderAPI.h"
 
+#include "glm/gtc/type_ptr.hpp"
+
 namespace chert {
 Renderer::Renderer(std::shared_ptr<RenderingContext> context)
     : context(context) {
@@ -10,10 +12,10 @@ Renderer::Renderer(std::shared_ptr<RenderingContext> context)
 
             layout(location = 0) in vec3 a_Position;
 
-            uniform mat4 viewProjectionMatrix;
+            uniform mat4 viewProjectionMatrix, modelMatrix;
 
             void main() {
-                gl_Position = viewProjectionMatrix * vec4(a_Position, 1.0);
+                gl_Position = viewProjectionMatrix * modelMatrix * vec4(a_Position, 1.0);
             }
         )";
 
@@ -27,7 +29,8 @@ Renderer::Renderer(std::shared_ptr<RenderingContext> context)
             }
         )";
 
-    shader = context->createShader(vertexSrc, fragmentSrc);
+    defaultShader = context->createShader(vertexSrc, fragmentSrc);
+    sceneData.viewProjectionMatrix = glm::mat4();
 }
 
 void Renderer::setClearColor(const glm::vec4 &color) {
@@ -39,9 +42,7 @@ void Renderer::clear() { RenderAPI::clear(); }
 void Renderer::beginScene(const Camera &camera) {
     CHERT_ASSERT(!sceneInProgress, "Scene already in progress, call endScene "
                                    "before calling beginScene again");
-    shader->bind();
     sceneData.viewProjectionMatrix = camera.getViewProjectionMatrix();
-    shader->setUniform("viewProjectionMatrix", sceneData.viewProjectionMatrix);
     sceneInProgress = true;
 }
 
@@ -52,8 +53,12 @@ void Renderer::endScene() {
     sceneInProgress = false;
 }
 
-void Renderer::submit(std::shared_ptr<VertexArray> &vertexArray) {
+void Renderer::submit(std::shared_ptr<VertexArray> &vertexArray,
+                      std::shared_ptr<Shader> shader, glm::mat4 tranform) {
     vertexArray->bind();
+    shader->bind();
+    shader->setUniform("viewProjectionMatrix", sceneData.viewProjectionMatrix);
+    shader->setUniform("modelMatrix", tranform);
     RenderAPI::drawIndexed(vertexArray);
 }
 } // namespace chert

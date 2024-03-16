@@ -52,7 +52,7 @@ public:
         renderer.setClearColor({0.1f, 0.1f, 0.1f, 1.0f});
         renderer.clear();
         renderer.beginScene(*camera);
-        renderer.submit(vertexArray);
+        renderer.submit(vertexArray, renderer.defaultShader);
         renderer.endScene();
     }
 

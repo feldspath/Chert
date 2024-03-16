@@ -14,4 +14,5 @@
 #include "Chert/Renderer/Buffers/VertexBuffer.h"
 #include "Chert/Renderer/Buffers/IndexBuffer.h"
 #include "Chert/Renderer/Buffers/BufferLayout.h"
+#include "Chert/Renderer/PerspectiveCamera.h"
 

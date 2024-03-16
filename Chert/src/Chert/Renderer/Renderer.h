@@ -3,6 +3,7 @@
 #include <memory>
 #include "glm/glm.hpp"
 #include "RenderingContext.h"
+#include "Camera.h"
 
 namespace chert {
     class Renderer {
@@ -11,7 +12,7 @@ namespace chert {
         
         void setClearColor(const glm::vec4& color);
         void clear();
-        void beginScene();
+        void beginScene(const Camera& camera);
         void endScene();
         void submit(std::shared_ptr<VertexArray>& vertexArray);
 
@@ -21,5 +22,11 @@ namespace chert {
         std::shared_ptr<RenderingContext> context;
         std::unique_ptr<Shader> shader;
         bool sceneInProgress = false;
+
+        struct SceneData {
+            glm::mat4 viewProjectionMatrix;
+        };
+
+        SceneData sceneData;
     };
 }

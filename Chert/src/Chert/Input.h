@@ -4,8 +4,6 @@
 #include "Chert/Log.h"
 
 namespace chert {
-    class Input;
-
     class Input {
     public:
         Input(const Input&) = delete;

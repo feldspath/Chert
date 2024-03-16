@@ -70,6 +70,8 @@ set(CHERT_HEADERS
     "src/Chert/Renderer/Buffers/BufferLayout.h"
     "src/Chert/Renderer/Buffers/VertexArray.h"
     "src/Chert/Renderer/RenderAPI.h"
+    "src/Chert/Renderer/Camera.h"
+    "src/Chert/Renderer/PerspectiveCamera.h"
 )
 
 source_group(TREE ${CMAKE_CURRENT_LIST_DIR} FILES ${CHERT_SRC} ${CHERT_HEADERS})

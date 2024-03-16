@@ -3,6 +3,8 @@
 #include "Chert/Core.h"
 #include "glad/glad.h"
 
+#include "glm/gtc/type_ptr.hpp"
+
 namespace chert {
 
     OpenGLShader::OpenGLShader(std::string& vertexShaderSrc, std::string& fragmentShaderSrc) {
@@ -83,4 +85,10 @@ namespace chert {
     void OpenGLShader::unbind() {
 		glUseProgram(0);
     }
+
+	void OpenGLShader::setUniform(const std::string& name, const glm::mat4& mat) {
+		glUseProgram(programId);
+		auto uniformLocation = glGetUniformLocation(programId, name.c_str());
+		glUniformMatrix4fv(uniformLocation, 1, GL_FALSE, glm::value_ptr(mat));
+	}
 }

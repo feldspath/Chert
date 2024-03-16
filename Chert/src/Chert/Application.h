@@ -43,6 +43,8 @@ namespace chert {
         
         bool running = true;
 
+        float previousTime = 0.0f;
+
         static std::unique_ptr<Application> instance;
     };
 

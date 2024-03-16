@@ -4,6 +4,8 @@
 #include "Chert/Input.h"
 #include "Chert/Renderer/RenderAPI.h"
 
+#include "GLFW/glfw3.h"
+
 namespace chert {
     std::unique_ptr<Application> Application::instance;
 
@@ -51,9 +53,14 @@ namespace chert {
     }
 
     void Application::run() {
+        previousTime = glfwGetTime();
         while (running) {
+            float time = glfwGetTime();
+            float timestep = time - previousTime;
+            previousTime = time;
+
             for (auto layer : layerStack) {
-                layer->update();
+                layer->update(timestep);
             }
 
             imguiLayer->begin();

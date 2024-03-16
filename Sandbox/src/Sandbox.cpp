@@ -1,16 +1,17 @@
 #include "Chert.h"
+#include "GLFW/glfw3.h"
 
-class TestLayer : public chert::Layer {
+class ExampleLayer : public chert::Layer {
 public:
     void onEvent(chert::Event& e) override {
     }
 
     void onAttach() override {
         float vertices[] = {
-            -0.5f, -0.5f, 0.0f,
-            0.5f, -0.5f, 0.0f,
-            -0.5f, 0.5f, 0.0f,
-            0.5f, 0.5f, 0.0f,
+            -0.5f, 0.0f, -0.5f,
+            0.5f, 0.0f, -0.5f,
+            -0.5f, 0.0f, 0.5f,
+            0.5f, 0.0f, 0.5f,
         };
 
         unsigned int indices[] = {
@@ -29,34 +30,52 @@ public:
         vertexArray = renderContext.createVertexArray();
         vertexArray->setIndexBuffer(indexBuffer);
         vertexArray->addVertexBuffer(vertexBuffer);
+
+        camera = std::make_shared<chert::PerspectiveCamera>(glm::vec3{ 0.0f, -5.0f, 0.0f }, glm::quat());
     }
 
     void onDetach() override {
     }
 
-    void update() override {
-        auto& renderer = chert::Application::getRenderer();
+    void update(float timestep) override {
+        CHERT_TRACE(timestep);
 
+        float speed = 3.0f;
+        if (chert::Input::isKeyPressed(GLFW_KEY_W)) {
+            camera->position.y += speed * timestep;
+        }
+        if (chert::Input::isKeyPressed(GLFW_KEY_S)) {
+            camera->position.y -= speed * timestep;
+        }
+        if (chert::Input::isKeyPressed(GLFW_KEY_D)) {
+            camera->position.x += speed * timestep;
+        }
+        if (chert::Input::isKeyPressed(GLFW_KEY_A)) {
+            camera->position.x -= speed * timestep;
+        }
+
+        auto& renderer = chert::Application::getRenderer();
         renderer.setClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
         renderer.clear();
-        renderer.beginScene();
+        renderer.beginScene(*camera);
         renderer.submit(vertexArray);
         renderer.endScene();
     }
 
 private:
     std::shared_ptr<chert::VertexArray> vertexArray;
+    std::shared_ptr<chert::Camera> camera;
 };
 
 class Sandbox : public chert::Application {
 private:
-    std::shared_ptr<TestLayer> testLayer;
+    std::shared_ptr<ExampleLayer> layer;
 public:
     Sandbox() : chert::Application(chert::WindowProps()) {}
 
     void init() override {
-        testLayer = std::make_shared<TestLayer>();
-        pushLayer(testLayer);
+        layer = std::make_shared<ExampleLayer>();
+        pushLayer(layer);
     }
 };
 

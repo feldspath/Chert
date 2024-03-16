@@ -13,7 +13,8 @@ namespace chert {
 
         void bind() override;
         void unbind() override;
-
+        void setUniform(const std::string& name, const glm::mat4& mat) override;
+        
     private:
         unsigned int programId = 0;
     };

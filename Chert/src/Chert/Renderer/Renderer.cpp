@@ -9,8 +9,10 @@ namespace chert {
 
             layout(location = 0) in vec3 a_Position;
 
+            uniform mat4 viewProjectionMatrix;
+
             void main() {
-                gl_Position = vec4(a_Position, 1.0);
+                gl_Position = viewProjectionMatrix * vec4(a_Position, 1.0);
             }
         )";
 
@@ -35,9 +37,11 @@ namespace chert {
         RenderAPI::clear();
     }
 
-    void Renderer::beginScene() {
+    void Renderer::beginScene(const Camera& camera) {
         CHERT_ASSERT(!sceneInProgress, "Scene already in progress, call endScene before calling beginScene again");
         shader->bind();
+        sceneData.viewProjectionMatrix = camera.getViewProjectionMatrix();
+        shader->setUniform("viewProjectionMatrix", sceneData.viewProjectionMatrix);
         sceneInProgress = true;
     }
 

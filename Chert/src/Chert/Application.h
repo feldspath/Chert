@@ -29,9 +29,7 @@ public:
     virtual void init(){};
 
     static inline Application &get() { return *instance; }
-    static inline std::shared_ptr<Renderer> &getRenderer() {
-        return instance->renderer;
-    }
+    static inline std::shared_ptr<Renderer> &getRenderer() { return instance->renderer; }
     static inline std::shared_ptr<RenderingContext> &getRenderContext() {
         return instance->renderer->getRenderContext();
     }

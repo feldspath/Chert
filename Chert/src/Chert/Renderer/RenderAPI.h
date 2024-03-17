@@ -10,9 +10,7 @@ protected:
     RenderAPI() = default;
 
 public:
-    static inline void setClearColor(const glm::vec4 &color) {
-        instance->setClearColorImpl(color);
-    }
+    static inline void setClearColor(const glm::vec4 &color) { instance->setClearColorImpl(color); }
     static inline void clear() { instance->clearImpl(); }
     static inline void drawIndexed(Ref<VertexArray> &vertexArray) {
         instance->drawIndexedImpl(vertexArray);

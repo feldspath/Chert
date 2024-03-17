@@ -39,13 +39,11 @@ void Application::shutdown() {
 
 void Application::onEvent(Event &e) {
     EventDispatcher dispatcher(e);
-    dispatcher.dispatch<WindowCloseEvent>(
-        CHERT_BIND_EVENT_FN(Application::onWindowClose));
+    dispatcher.dispatch<WindowCloseEvent>(CHERT_BIND_EVENT_FN(Application::onWindowClose));
 
     for (auto layerIt = layerStack.end(); layerIt != layerStack.begin();) {
         (*--layerIt)->onEvent(e);
-        bool handled =
-            std::visit([](auto &&e) -> bool { return e.isHandled(); }, e);
+        bool handled = std::visit([](auto &&e) -> bool { return e.isHandled(); }, e);
         if (handled) {
             break;
         }
@@ -76,17 +74,11 @@ bool Application::onWindowClose(const WindowCloseEvent &e) {
     return true;
 }
 
-void Application::pushLayer(std::shared_ptr<Layer> layer) {
-    layerStack.pushLayer(layer);
-}
+void Application::pushLayer(std::shared_ptr<Layer> layer) { layerStack.pushLayer(layer); }
 
-void Application::pushOverlay(std::shared_ptr<Layer> overlay) {
-    layerStack.pushOverlay(overlay);
-}
+void Application::pushOverlay(std::shared_ptr<Layer> overlay) { layerStack.pushOverlay(overlay); }
 
-void Application::detachLayer(std::shared_ptr<Layer> layer) {
-    layerStack.detachLayer(layer);
-}
+void Application::detachLayer(std::shared_ptr<Layer> layer) { layerStack.detachLayer(layer); }
 
 void Application::detachOverlay(std::shared_ptr<Layer> overlay) {
     layerStack.detachOverlay(overlay);

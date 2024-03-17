@@ -4,14 +4,11 @@
 #include "WindowsWindow.h"
 
 namespace chert {
-std::unique_ptr<Input> createInputHandler() {
-    return std::make_unique<WindowsInput>();
-}
+std::unique_ptr<Input> createInputHandler() { return std::make_unique<WindowsInput>(); }
 
 WindowsInput::WindowsInput() {
-    window =
-        std::dynamic_pointer_cast<WindowsWindow>(Application::get().getWindow())
-            ->getGlfwWindowPtr();
+    window = std::dynamic_pointer_cast<WindowsWindow>(Application::get().getWindow())
+                 ->getGlfwWindowPtr();
 }
 
 bool WindowsInput::isKeyPressedImpl(int keycode) {

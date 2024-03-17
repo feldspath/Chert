@@ -31,8 +31,7 @@ void WindowsWindow::init(const WindowProps &props) {
     data.height = props.height;
     data.width = props.width;
 
-    CHERT_CORE_INFO("Creating window {0} ({1}, {2})", props.title, props.width,
-                    props.height);
+    CHERT_CORE_INFO("Creating window {0} ({1}, {2})", props.title, props.width, props.height);
 
     if (!isGLFWInitialized) {
         glfwSetErrorCallback(glfw_error_callback);
@@ -41,8 +40,7 @@ void WindowsWindow::init(const WindowProps &props) {
         isGLFWInitialized = true;
     }
 
-    window = glfwCreateWindow(props.width, props.height, props.title.c_str(),
-                              NULL, NULL);
+    window = glfwCreateWindow(props.width, props.height, props.title.c_str(), NULL, NULL);
     CHERT_CORE_ASSERT(window, "Failed to create GLFW window");
 
     renderingContext = std::make_unique<OpenGLContext>(window);
@@ -50,15 +48,14 @@ void WindowsWindow::init(const WindowProps &props) {
 
     // GLFW callbacks
     glfwSetWindowUserPointer(window, &data);
-    glfwSetWindowSizeCallback(
-        window, [](GLFWwindow *window, int width, int height) {
-            WindowData &data = *(WindowData *)glfwGetWindowUserPointer(window);
-            data.width = width;
-            data.height = height;
+    glfwSetWindowSizeCallback(window, [](GLFWwindow *window, int width, int height) {
+        WindowData &data = *(WindowData *)glfwGetWindowUserPointer(window);
+        data.width = width;
+        data.height = height;
 
-            Event e = WindowResizeEvent(width, height);
-            data.eventCallback(e);
-        });
+        Event e = WindowResizeEvent(width, height);
+        data.eventCallback(e);
+    });
 
     glfwSetWindowCloseCallback(window, [](GLFWwindow *window) {
         WindowData &data = *(WindowData *)glfwGetWindowUserPointer(window);
@@ -67,35 +64,32 @@ void WindowsWindow::init(const WindowProps &props) {
         data.eventCallback(e);
     });
 
-    glfwSetCursorPosCallback(
-        window, [](GLFWwindow *window, double xpos, double ypos) {
-            WindowData &data = *(WindowData *)glfwGetWindowUserPointer(window);
+    glfwSetCursorPosCallback(window, [](GLFWwindow *window, double xpos, double ypos) {
+        WindowData &data = *(WindowData *)glfwGetWindowUserPointer(window);
 
-            Event e = MouseMovedEvent(xpos, ypos);
+        Event e = MouseMovedEvent(xpos, ypos);
+        data.eventCallback(e);
+    });
+
+    glfwSetMouseButtonCallback(window, [](GLFWwindow *window, int button, int action, int mods) {
+        WindowData &data = *(WindowData *)glfwGetWindowUserPointer(window);
+        switch (action) {
+        case GLFW_PRESS: {
+            Event e = MouseButtonPressedEvent(button);
             data.eventCallback(e);
-        });
+            break;
+        }
+        case GLFW_RELEASE: {
+            Event e = MouseButtonReleasedEvent(button);
+            data.eventCallback(e);
+            break;
+        }
+        default:
+            break;
+        }
+    });
 
-    glfwSetMouseButtonCallback(
-        window, [](GLFWwindow *window, int button, int action, int mods) {
-            WindowData &data = *(WindowData *)glfwGetWindowUserPointer(window);
-            switch (action) {
-            case GLFW_PRESS: {
-                Event e = MouseButtonPressedEvent(button);
-                data.eventCallback(e);
-                break;
-            }
-            case GLFW_RELEASE: {
-                Event e = MouseButtonReleasedEvent(button);
-                data.eventCallback(e);
-                break;
-            }
-            default:
-                break;
-            }
-        });
-
-    glfwSetKeyCallback(window, [](GLFWwindow *window, int key, int scancode,
-                                  int action, int mods) {
+    glfwSetKeyCallback(window, [](GLFWwindow *window, int key, int scancode, int action, int mods) {
         WindowData &data = *(WindowData *)glfwGetWindowUserPointer(window);
         switch (action) {
         case GLFW_PRESS: {

@@ -7,9 +7,8 @@
 #include "Chert/Events/MouseEvent.h"
 
 namespace chert {
-using Event = std::variant<WindowCloseEvent, WindowResizeEvent, KeyPressedEvent,
-                           KeyReleasedEvent, MouseButtonPressedEvent,
-                           MouseButtonReleasedEvent, MouseMovedEvent>;
+using Event = std::variant<WindowCloseEvent, WindowResizeEvent, KeyPressedEvent, KeyReleasedEvent,
+                           MouseButtonPressedEvent, MouseButtonReleasedEvent, MouseMovedEvent>;
 
 class EventDispatcher {
     template <typename T> using EventDispatcherFn = std::function<bool(T &)>;
@@ -31,8 +30,7 @@ private:
 };
 
 inline std::ostream &operator<<(std::ostream &os, const Event &e) {
-    std::string s =
-        std::visit([](auto &&e) -> std::string { return e.toString(); }, e);
+    std::string s = std::visit([](auto &&e) -> std::string { return e.toString(); }, e);
     return os << s;
 }
 

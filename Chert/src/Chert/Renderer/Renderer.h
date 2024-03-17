@@ -17,9 +17,7 @@ public:
     void submit(Ref<VertexArray> &vertexArray, Ref<Shader> &shader,
                 glm::mat4 tranform = glm::mat4(1.0f));
 
-    inline std::shared_ptr<RenderingContext> &getRenderContext() {
-        return context;
-    }
+    inline std::shared_ptr<RenderingContext> &getRenderContext() { return context; }
 
     Ref<Shader> defaultShader;
 

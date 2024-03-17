@@ -7,8 +7,7 @@
 
 namespace chert {
 
-OpenGLShader::OpenGLShader(std::string &vertexShaderSrc,
-                           std::string &fragmentShaderSrc) {
+OpenGLShader::OpenGLShader(std::string &vertexShaderSrc, std::string &fragmentShaderSrc) {
     // Vertex shader compilation
     unsigned int vertexShader = glCreateShader(GL_VERTEX_SHADER);
     const char *source = vertexShaderSrc.c_str();
@@ -24,8 +23,7 @@ OpenGLShader::OpenGLShader(std::string &vertexShaderSrc,
         glGetShaderInfoLog(vertexShader, maxLength, &maxLength, infoLog.data());
 
         glDeleteShader(vertexShader);
-        CHERT_CORE_ASSERT(false, "Failed to compile vertex shader: {0}",
-                          infoLog.data());
+        CHERT_CORE_ASSERT(false, "Failed to compile vertex shader: {0}", infoLog.data());
         return;
     }
 
@@ -40,13 +38,11 @@ OpenGLShader::OpenGLShader(std::string &vertexShaderSrc,
         int maxLength = 128;
         glGetShaderiv(fragmentShader, GL_INFO_LOG_LENGTH, &maxLength);
         std::vector<GLchar> infoLog(maxLength);
-        glGetShaderInfoLog(fragmentShader, maxLength, &maxLength,
-                           infoLog.data());
+        glGetShaderInfoLog(fragmentShader, maxLength, &maxLength, infoLog.data());
 
         glDeleteShader(fragmentShader);
         glDeleteShader(vertexShader);
-        CHERT_CORE_ASSERT(false, "Failed to compile fragment shader: {0}",
-                          infoLog.data());
+        CHERT_CORE_ASSERT(false, "Failed to compile fragment shader: {0}", infoLog.data());
         return;
     }
 
@@ -67,8 +63,7 @@ OpenGLShader::OpenGLShader(std::string &vertexShaderSrc,
         glDeleteProgram(programId);
         glDeleteShader(vertexShader);
         glDeleteShader(fragmentShader);
-        CHERT_CORE_CRITICAL("Failed to link shader program: {0}",
-                            infoLog.data());
+        CHERT_CORE_CRITICAL("Failed to link shader program: {0}", infoLog.data());
         return;
     }
 

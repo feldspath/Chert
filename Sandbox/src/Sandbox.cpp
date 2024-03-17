@@ -6,8 +6,7 @@ public:
 
     void onAttach() override {
         float vertices[] = {
-            -0.5f, 0.0f, -0.5f, 0.5f, 0.0f, -0.5f,
-            -0.5f, 0.0f, 0.5f,  0.5f, 0.0f, 0.5f,
+            -0.5f, 0.0f, -0.5f, 0.5f, 0.0f, -0.5f, -0.5f, 0.0f, 0.5f, 0.5f, 0.0f, 0.5f,
         };
 
         unsigned int indices[] = {0, 1, 2, 1, 2, 3};
@@ -15,8 +14,7 @@ public:
         auto &renderContext = chert::Application::getRenderContext();
         chert::Ref<chert::VertexBuffer> vertexBuffer =
             renderContext->createVertexBuffer(vertices, sizeof(vertices));
-        chert::Ref<chert::IndexBuffer> indexBuffer =
-            renderContext->createIndexBuffer(indices, 6);
+        chert::Ref<chert::IndexBuffer> indexBuffer = renderContext->createIndexBuffer(indices, 6);
 
         chert::BufferLayout layout = {
             {chert::ShaderDataType::Float3, "a_Position"},
@@ -27,8 +25,8 @@ public:
         vertexArray->setIndexBuffer(indexBuffer);
         vertexArray->addVertexBuffer(vertexBuffer);
 
-        camera = std::make_shared<chert::PerspectiveCamera>(
-            glm::vec3{0.0f, -5.0f, 0.0f}, glm::quat());
+        camera =
+            std::make_shared<chert::PerspectiveCamera>(glm::vec3{0.0f, -5.0f, 0.0f}, glm::quat());
     }
 
     void onDetach() override {}

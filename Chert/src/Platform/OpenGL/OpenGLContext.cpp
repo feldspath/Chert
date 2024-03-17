@@ -9,8 +9,7 @@
 #include "GLFW/glfw3.h"
 // clang-format on
 
-#define GET_OPENGL_STRING(name)                                                \
-    std::string(reinterpret_cast<const char *>(glGetString(name)))
+#define GET_OPENGL_STRING(name) std::string(reinterpret_cast<const char *>(glGetString(name)))
 
 namespace chert {
 OpenGLContext::OpenGLContext(GLFWwindow *window) : window(window) {}
@@ -44,13 +43,11 @@ Ref<Shader> OpenGLContext::createShader(std::string &vertexShaderSrc,
     return std::make_unique<OpenGLShader>(vertexShaderSrc, fragmentShaderSrc);
 }
 
-Ref<VertexBuffer> OpenGLContext::createVertexBuffer(float *vertices,
-                                                    unsigned int size) {
+Ref<VertexBuffer> OpenGLContext::createVertexBuffer(float *vertices, unsigned int size) {
     return std::make_unique<OpenGLVertexBuffer>(vertices, size);
 }
 
-Ref<IndexBuffer> OpenGLContext::createIndexBuffer(unsigned int *indices,
-                                                  unsigned int count) {
+Ref<IndexBuffer> OpenGLContext::createIndexBuffer(unsigned int *indices, unsigned int count) {
     return std::make_unique<OpenGLIndexBuffer>(indices, count);
 }
 

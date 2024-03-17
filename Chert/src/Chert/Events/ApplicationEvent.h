@@ -12,8 +12,7 @@ public:
 
 class WindowResizeEvent : public BaseEvent {
 public:
-    WindowResizeEvent(unsigned int width, unsigned int height)
-        : width(width), height(height) {}
+    WindowResizeEvent(unsigned int width, unsigned int height) : width(width), height(height) {}
 
     std::string toString() const override {
         std::stringstream ss;

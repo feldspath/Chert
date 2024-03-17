@@ -91,8 +91,7 @@ struct BufferElement {
 class BufferLayout {
 public:
     BufferLayout() {}
-    BufferLayout(std::initializer_list<BufferElement> elements)
-        : elements(elements) {
+    BufferLayout(std::initializer_list<BufferElement> elements) : elements(elements) {
         unsigned int offset = 0;
         for (auto &e : this->elements) {
             e.offset = offset;
@@ -103,12 +102,8 @@ public:
 
     bool isInitialized() const { return totalSize != 0; }
 
-    std::vector<BufferElement>::const_iterator begin() const {
-        return elements.cbegin();
-    }
-    std::vector<BufferElement>::const_iterator end() const {
-        return elements.cend();
-    }
+    std::vector<BufferElement>::const_iterator begin() const { return elements.cbegin(); }
+    std::vector<BufferElement>::const_iterator end() const { return elements.cend(); }
 
 private:
     std::vector<BufferElement> elements;

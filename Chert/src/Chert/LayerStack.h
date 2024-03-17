@@ -15,9 +15,7 @@ public:
     void pushOverlay(std::shared_ptr<Layer> overlay);
     void detachOverlay(std::shared_ptr<Layer> overlay);
 
-    std::vector<std::shared_ptr<Layer>>::iterator begin() {
-        return layers.begin();
-    }
+    std::vector<std::shared_ptr<Layer>>::iterator begin() { return layers.begin(); }
     std::vector<std::shared_ptr<Layer>>::iterator end() { return layers.end(); }
 
 private:

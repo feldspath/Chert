@@ -14,8 +14,7 @@ void ImguiLayer::onAttach() {
     io.BackendFlags |= ImGuiBackendFlags_HasMouseCursors;
     io.BackendFlags |= ImGuiBackendFlags_HasSetMousePos;
 
-    auto window = std::dynamic_pointer_cast<WindowsWindow>(
-        Application::get().getWindow());
+    auto window = std::dynamic_pointer_cast<WindowsWindow>(Application::get().getWindow());
     ImGui_ImplGlfw_InitForOpenGL(window->getGlfwWindowPtr(), true);
     ImGui_ImplOpenGL3_Init();
 }
@@ -32,9 +31,7 @@ void ImguiLayer::begin() {
     ImGui::NewFrame();
 }
 
-void ImguiLayer::end() {
-    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-}
+void ImguiLayer::end() { ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData()); }
 
 void ImguiLayer::onDetach() {
     ImGui_ImplOpenGL3_Shutdown();

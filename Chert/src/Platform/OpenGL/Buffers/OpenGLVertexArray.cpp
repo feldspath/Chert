@@ -32,17 +32,14 @@ static GLenum shaderDataTypeToOpenGLType(ShaderDataType type) {
 
 OpenGLVertexArray::OpenGLVertexArray() { glGenVertexArrays(1, &vertexArrayId); }
 
-OpenGLVertexArray::~OpenGLVertexArray() {
-    glDeleteVertexArrays(1, &vertexArrayId);
-}
+OpenGLVertexArray::~OpenGLVertexArray() { glDeleteVertexArrays(1, &vertexArrayId); }
 
 void OpenGLVertexArray::bind() { glBindVertexArray(vertexArrayId); }
 
 void OpenGLVertexArray::unbind() { glBindVertexArray(0); }
 
 void OpenGLVertexArray::addVertexBuffer(Ref<VertexBuffer> vertexBuffer) {
-    CHERT_CORE_ASSERT(vertexBuffer->getLayout().isInitialized(),
-                      "Layout is uninitialized");
+    CHERT_CORE_ASSERT(vertexBuffer->getLayout().isInitialized(), "Layout is uninitialized");
 
     glBindVertexArray(vertexArrayId);
     vertexBuffer->bind();
@@ -51,8 +48,8 @@ void OpenGLVertexArray::addVertexBuffer(Ref<VertexBuffer> vertexBuffer) {
     for (const auto &e : vertexBuffer->getLayout()) {
         glEnableVertexAttribArray(vertexAttribIndex);
         glVertexAttribPointer(vertexAttribIndex, e.primitiveCount,
-                              shaderDataTypeToOpenGLType(e.type), GL_FALSE,
-                              e.size, (char *)0 + e.offset);
+                              shaderDataTypeToOpenGLType(e.type), GL_FALSE, e.size,
+                              (char *)0 + e.offset);
         vertexAttribIndex++;
     }
 }

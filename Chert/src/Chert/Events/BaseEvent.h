@@ -18,9 +18,9 @@ enum class EventType {
     KeyReleased
 };
 
-#define EVENT_CLASS_TYPE(type)                                                 \
-    static EventType getStaticType() { return EventType::##type; }             \
-    EventType getEventType() const override { return getStaticType(); }        \
+#define EVENT_CLASS_TYPE(type)                                                                     \
+    static EventType getStaticType() { return EventType::##type; }                                 \
+    EventType getEventType() const override { return getStaticType(); }                            \
     const char *getName() const override { return #type "Event"; }
 
 class BaseEvent {

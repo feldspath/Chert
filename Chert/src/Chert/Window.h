@@ -12,8 +12,8 @@ struct WindowProps {
     unsigned int width;
     unsigned int height;
 
-    WindowProps(const std::string &title = "Chert Engine",
-                unsigned int width = 1280, unsigned int height = 720)
+    WindowProps(const std::string &title = "Chert Engine", unsigned int width = 1280,
+                unsigned int height = 720)
         : title(title), width(width), height(height) {}
 };
 
@@ -30,7 +30,6 @@ public:
     virtual unsigned int height() const = 0;
     virtual std::shared_ptr<RenderingContext> getRenderingContext() = 0;
 
-    static std::shared_ptr<Window>
-    create(const WindowProps &props = WindowProps());
+    static std::shared_ptr<Window> create(const WindowProps &props = WindowProps());
 };
 } // namespace chert

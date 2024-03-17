@@ -17,8 +17,7 @@ void LayerStack::pushLayer(std::shared_ptr<Layer> layer) {
 }
 
 void LayerStack::detachLayer(std::shared_ptr<Layer> layer) {
-    auto layerIt =
-        std::find(layers.begin(), layers.begin() + layerInsertIndex, layer);
+    auto layerIt = std::find(layers.begin(), layers.begin() + layerInsertIndex, layer);
     if (layerIt != layers.begin() + layerInsertIndex) {
         layer->onDetach();
         layers.erase(layerIt);
@@ -32,8 +31,7 @@ void LayerStack::pushOverlay(std::shared_ptr<Layer> overlay) {
 }
 
 void LayerStack::detachOverlay(std::shared_ptr<Layer> overlay) {
-    auto layerIt =
-        std::find(layers.begin() + layerInsertIndex, layers.end(), overlay);
+    auto layerIt = std::find(layers.begin() + layerInsertIndex, layers.end(), overlay);
     if (layerIt != layers.end()) {
         overlay->onDetach();
         layers.erase(layerIt);

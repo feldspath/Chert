@@ -5,8 +5,7 @@
 #include "glm/gtc/type_ptr.hpp"
 
 namespace chert {
-Renderer::Renderer(std::shared_ptr<RenderingContext> context)
-    : context(context) {
+Renderer::Renderer(std::shared_ptr<RenderingContext> context) : context(context) {
     std::string vertexSrc = R"(
             #version 460 core
 
@@ -33,9 +32,7 @@ Renderer::Renderer(std::shared_ptr<RenderingContext> context)
     sceneData.viewProjectionMatrix = glm::mat4();
 }
 
-void Renderer::setClearColor(const glm::vec4 &color) {
-    RenderAPI::setClearColor(color);
-}
+void Renderer::setClearColor(const glm::vec4 &color) { RenderAPI::setClearColor(color); }
 
 void Renderer::clear() { RenderAPI::clear(); }
 
@@ -47,14 +44,12 @@ void Renderer::beginScene(Ref<Camera> &camera) {
 }
 
 void Renderer::endScene() {
-    CHERT_ASSERT(
-        sceneInProgress,
-        "Scene not in progress, call beginScene to start rendering a scene");
+    CHERT_ASSERT(sceneInProgress,
+                 "Scene not in progress, call beginScene to start rendering a scene");
     sceneInProgress = false;
 }
 
-void Renderer::submit(Ref<VertexArray> &vertexArray, Ref<Shader> &shader,
-                      glm::mat4 tranform) {
+void Renderer::submit(Ref<VertexArray> &vertexArray, Ref<Shader> &shader, glm::mat4 tranform) {
     vertexArray->bind();
     shader->bind();
     shader->setUniform("viewProjectionMatrix", sceneData.viewProjectionMatrix);

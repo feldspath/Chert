@@ -105,6 +105,8 @@ public:
     std::vector<BufferElement>::const_iterator begin() const { return elements.cbegin(); }
     std::vector<BufferElement>::const_iterator end() const { return elements.cend(); }
 
+    inline unsigned int getTotalSize() const { return totalSize; }
+
 private:
     std::vector<BufferElement> elements;
     unsigned int totalSize = 0;

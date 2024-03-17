@@ -62,6 +62,9 @@ void Application::run() {
         }
 
         imguiLayer->begin();
+        for (auto layer : layerStack) {
+            layer->renderGui();
+        }
         imguiLayer->render();
         imguiLayer->end();
 

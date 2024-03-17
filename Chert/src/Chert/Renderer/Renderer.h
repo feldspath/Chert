@@ -2,8 +2,11 @@
 
 #include "Camera.h"
 #include "RenderingContext.h"
+#include "Scene/DirLight.h"
 #include "glm/glm.hpp"
 #include <memory>
+
+#define CHERT_MAX_DIR_LIGHT (size_t)10
 
 namespace chert {
 class Renderer {
@@ -12,7 +15,7 @@ public:
 
     void setClearColor(const glm::vec4 &color);
     void clear();
-    void beginScene(Ref<Camera> &camera);
+    void beginScene(const Ref<Camera> &camera, const std::vector<Ref<DirLight>> &dirLights);
     void endScene();
     void submit(Ref<VertexArray> &vertexArray, Ref<Shader> &shader,
                 glm::mat4 tranform = glm::mat4(1.0f));
@@ -27,6 +30,7 @@ private:
 
     struct SceneData {
         glm::mat4 viewProjectionMatrix;
+        std::vector<Ref<DirLight>> dirLights;
     };
 
     SceneData sceneData;

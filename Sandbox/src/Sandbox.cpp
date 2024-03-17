@@ -1,4 +1,6 @@
 #include "Chert.h"
+#include "glm/gtc/type_ptr.hpp"
+#include "imgui.h"
 
 class ExampleLayer : public chert::Layer {
 public:
@@ -6,7 +8,8 @@ public:
 
     void onAttach() override {
         float vertices[] = {
-            -0.5f, 0.0f, -0.5f, 0.5f, 0.0f, -0.5f, -0.5f, 0.0f, 0.5f, 0.5f, 0.0f, 0.5f,
+            -0.5f, 0.0f, -0.5f, 0.0f, -1.0f, 0.0f, 0.5f, 0.0f, -0.5f, 0.0f, -1.0f, 0.0f,
+            -0.5f, 0.0f, 0.5f,  0.0f, -1.0f, 0.0f, 0.5f, 0.0f, 0.5f,  0.0f, -1.0f, 0.0f,
         };
 
         unsigned int indices[] = {0, 1, 2, 1, 2, 3};
@@ -18,6 +21,7 @@ public:
 
         chert::BufferLayout layout = {
             {chert::ShaderDataType::Float3, "a_Position"},
+            {chert::ShaderDataType::Float3, "a_Normal"},
         };
 
         vertexBuffer->setLayout(layout);
@@ -27,6 +31,9 @@ public:
 
         camera =
             std::make_shared<chert::PerspectiveCamera>(glm::vec3{0.0f, -5.0f, 0.0f}, glm::quat());
+
+        light = std::make_shared<chert::DirLight>(glm::vec3(0.0f, 1.0f, 0.0f),
+                                                  glm::vec3(1.0f, 1.0f, 1.0f));
     }
 
     void onDetach() override {}
@@ -49,14 +56,20 @@ public:
         auto &renderer = chert::Application::getRenderer();
         renderer->setClearColor({0.1f, 0.1f, 0.1f, 1.0f});
         renderer->clear();
-        renderer->beginScene(camera);
+        renderer->beginScene(camera, {light});
         renderer->submit(vertexArray, renderer->defaultShader);
         renderer->endScene();
+    }
+
+    void renderGui() override {
+        ImGui::ColorEdit3("Light Color", glm::value_ptr(light->color));
+        ImGui::SliderFloat3("Light Direction", glm::value_ptr(light->direction), -1.0f, 1.0f);
     }
 
 private:
     chert::Ref<chert::VertexArray> vertexArray;
     chert::Ref<chert::Camera> camera;
+    chert::Ref<chert::DirLight> light;
 };
 
 class Sandbox : public chert::Application {

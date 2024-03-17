@@ -19,11 +19,7 @@ void ImguiLayer::onAttach() {
     ImGui_ImplOpenGL3_Init();
 }
 
-void ImguiLayer::render() {
-    static bool show_demo_window = true;
-    ImGui::ShowDemoWindow(&show_demo_window);
-    ImGui::Render();
-}
+void ImguiLayer::render() { ImGui::Render(); }
 
 void ImguiLayer::begin() {
     ImGui_ImplOpenGL3_NewFrame();

@@ -76,6 +76,10 @@ set(CHERT_HEADERS
     "src/Chert/Renderer/RenderAPI.h"
     "src/Chert/Renderer/Camera.h"
     "src/Chert/Renderer/PerspectiveCamera.h"
+
+    # Scene
+    "src/Chert/Renderer/Scene/Light.h"
+    "src/Chert/Renderer/Scene/DirLight.h"
 )
 
 source_group(TREE ${CMAKE_CURRENT_LIST_DIR} FILES ${CHERT_SRC} ${CHERT_HEADERS})

@@ -45,10 +45,12 @@ void OpenGLVertexArray::addVertexBuffer(Ref<VertexBuffer> vertexBuffer) {
     vertexBuffer->bind();
     vertexBuffers.push_back(vertexBuffer);
 
-    for (const auto &e : vertexBuffer->getLayout()) {
+    auto &layout = vertexBuffer->getLayout();
+
+    for (const auto &e : layout) {
         glEnableVertexAttribArray(vertexAttribIndex);
         glVertexAttribPointer(vertexAttribIndex, e.primitiveCount,
-                              shaderDataTypeToOpenGLType(e.type), GL_FALSE, e.size,
+                              shaderDataTypeToOpenGLType(e.type), GL_FALSE, layout.getTotalSize(),
                               (char *)0 + e.offset);
         vertexAttribIndex++;
     }

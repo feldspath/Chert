@@ -82,4 +82,19 @@ void OpenGLShader::setUniform(const std::string &name, const glm::mat4 &mat) {
     auto uniformLocation = glGetUniformLocation(programId, name.c_str());
     glUniformMatrix4fv(uniformLocation, 1, GL_FALSE, glm::value_ptr(mat));
 }
+void OpenGLShader::setUniform(const std::string &name, const glm::vec3 &vec) {
+    glUseProgram(programId);
+    auto uniformLocation = glGetUniformLocation(programId, name.c_str());
+    glUniform3fv(uniformLocation, 1, glm::value_ptr(vec));
+}
+void OpenGLShader::setUniform(const std::string &name, const glm::vec4 &vec) {
+    glUseProgram(programId);
+    auto uniformLocation = glGetUniformLocation(programId, name.c_str());
+    glUniform4fv(uniformLocation, 1, glm::value_ptr(vec));
+}
+void OpenGLShader::setUniform(const std::string &name, int value) {
+    glUseProgram(programId);
+    auto uniformLocation = glGetUniformLocation(programId, name.c_str());
+    glUniform1i(uniformLocation, value);
+}
 } // namespace chert

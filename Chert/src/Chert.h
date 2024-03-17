@@ -1,15 +1,16 @@
 #pragma once
 
-#include "Chert/Application.h"
-#include "Chert/EntryPoint.h"
+#include "Chert/Core/Application.h"
+#include "Chert/Core/EntryPoint.h"
+#include "Chert/Core/Layer.h"
+#include "Chert/Core/Log.h"
+
+#include "Chert/Core/Input.h"
+#include "Chert/Core/Keycodes.h"
+#include "Chert/Core/MouseButtons.h"
+
 #include "Chert/Events/Event.h"
 #include "Chert/Imgui/ImguiLayer.h"
-#include "Chert/Layer.h"
-#include "Chert/Log.h"
-
-#include "Chert/Input.h"
-#include "Chert/Keycodes.h"
-#include "Chert/MouseButtons.h"
 
 #include "Chert/Renderer/Buffers/BufferLayout.h"
 #include "Chert/Renderer/Buffers/IndexBuffer.h"

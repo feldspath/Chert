@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Chert/Log.h"
+#include "Chert/Core/Log.h"
 #include <memory>
 
 namespace chert {

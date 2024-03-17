@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Chert/Application.h"
+#include "Chert/Core/Application.h"
 
 #ifdef CHERT_PLATFORM_WINDOWS
 

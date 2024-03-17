@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Chert/Input.h"
+#include "Chert/Core/Input.h"
 
 struct GLFWwindow;
 

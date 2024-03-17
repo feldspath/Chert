@@ -2,12 +2,12 @@
 
 #include <memory>
 
-#include "Chert/Core.h"
+#include "Chert/Core/Core.h"
+#include "Chert/Core/LayerStack.h"
+#include "Chert/Core/Window.h"
 #include "Chert/Events/Event.h"
 #include "Chert/Imgui/ImguiLayer.h"
-#include "Chert/LayerStack.h"
 #include "Chert/Renderer/Renderer.h"
-#include "Chert/Window.h"
 
 namespace chert {
 class Application {

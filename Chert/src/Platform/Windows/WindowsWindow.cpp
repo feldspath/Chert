@@ -1,8 +1,8 @@
 #include "WindowsWindow.h"
+#include "Chert/Core/Log.h"
 #include "Chert/Events/ApplicationEvent.h"
 #include "Chert/Events/KeyEvent.h"
 #include "Chert/Events/MouseEvent.h"
-#include "Chert/Log.h"
 #include "GLFW/glfw3.h"
 #include "Platform/OpenGL/OpenGLContext.h"
 

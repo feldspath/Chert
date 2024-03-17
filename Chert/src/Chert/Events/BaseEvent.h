@@ -4,7 +4,7 @@
 #include <ostream>
 #include <string>
 
-#include "Chert/Core.h"
+#include "Chert/Core/Core.h"
 
 namespace chert {
 enum class EventType {

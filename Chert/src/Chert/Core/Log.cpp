@@ -1,4 +1,4 @@
-#include "Chert/Log.h"
+#include "Chert/Core/Log.h"
 #include "Chert/Events/Event.h"
 
 namespace chert {

@@ -2,7 +2,7 @@
 #include "Buffers/OpenGLIndexBuffer.h"
 #include "Buffers/OpenGLVertexArray.h"
 #include "Buffers/OpenGLVertexBuffer.h"
-#include "Chert/Core.h"
+#include "Chert/Core/Core.h"
 #include "OpenGLShader.h"
 // clang-format off
 #include "glad/glad.h"

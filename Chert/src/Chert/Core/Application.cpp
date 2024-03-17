@@ -1,7 +1,7 @@
-#include "Chert/Application.h"
+#include "Chert/Core/Application.h"
+#include "Chert/Core/Input.h"
+#include "Chert/Core/Log.h"
 #include "Chert/Events/ApplicationEvent.h"
-#include "Chert/Input.h"
-#include "Chert/Log.h"
 #include "Chert/Renderer/RenderAPI.h"
 
 #include "GLFW/glfw3.h"

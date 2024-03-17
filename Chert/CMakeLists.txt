@@ -6,10 +6,10 @@ add_subdirectory(external/glad/)
 add_subdirectory(external/glm/)
 
 set(CHERT_SRC
-    "src/Chert/Application.cpp"
-    "src/Chert/LayerStack.cpp"
-    "src/Chert/Log.cpp"
-    "src/Chert/Input.cpp"
+    "src/Chert/Core/Application.cpp"
+    "src/Chert/Core/LayerStack.cpp"
+    "src/Chert/Core/Log.cpp"
+    "src/Chert/Core/Input.cpp"
 
     # Imgui
     "src/Chert/Imgui/ImguiBuild.cpp"
@@ -32,16 +32,18 @@ set(CHERT_SRC
 
 set(CHERT_HEADERS
     "src/Chert.h"
-    "src/Chert/Application.h"
-    "src/Chert/Core.h"
-    "src/Chert/EntryPoint.h"
-    "src/Chert/Layer.h"
-    "src/Chert/LayerStack.h"
-    "src/Chert/Log.h"
-    "src/Chert/Window.h"
-    "src/Chert/Input.h"
-    "src/Chert/Keycodes.h"
-    "src/Chert/MouseButtons.h"
+
+    # Core
+    "src/Chert/Core/Application.h"
+    "src/Chert/Core/Core.h"
+    "src/Chert/Core/EntryPoint.h"
+    "src/Chert/Core/Layer.h"
+    "src/Chert/Core/LayerStack.h"
+    "src/Chert/Core/Log.h"
+    "src/Chert/Core/Window.h"
+    "src/Chert/Core/Input.h"
+    "src/Chert/Core/Keycodes.h"
+    "src/Chert/Core/MouseButtons.h"
 
     # Events
     "src/Chert/Events/ApplicationEvent.h"

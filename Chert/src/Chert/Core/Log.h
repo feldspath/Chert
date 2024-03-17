@@ -12,7 +12,7 @@
 #pragma warning(default : 4996)
 #endif
 
-#include "Chert/Core.h"
+#include "Chert/Core/Core.h"
 
 namespace chert {
 

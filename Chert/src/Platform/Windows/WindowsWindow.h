@@ -2,9 +2,9 @@
 
 #include <string>
 
-#include "Chert/Core.h"
+#include "Chert/Core/Core.h"
+#include "Chert/Core/Window.h"
 #include "Chert/Renderer/RenderingContext.h"
-#include "Chert/Window.h"
 
 struct GLFWwindow;
 

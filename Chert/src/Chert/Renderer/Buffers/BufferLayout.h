@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-#include "Chert/Core.h"
+#include "Chert/Core/Core.h"
 
 namespace chert {
 enum class ShaderDataType {

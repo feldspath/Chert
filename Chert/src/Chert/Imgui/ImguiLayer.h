@@ -8,7 +8,6 @@ class ImguiLayer : public Layer {
 public:
     void onAttach() override;
     void onDetach() override;
-    void render() override;
     void begin();
     void end();
 

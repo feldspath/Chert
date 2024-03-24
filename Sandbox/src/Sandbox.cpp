@@ -61,8 +61,10 @@ public:
     }
 
     void renderGui() override {
-        ImGui::ColorEdit3("Light Color", glm::value_ptr(light->color));
-        ImGui::SliderFloat3("Light Direction", glm::value_ptr(light->direction), -1.0f, 1.0f);
+        // ImGui::ColorEdit3("Light Color", glm::value_ptr(light->color));
+        // ImGui::SliderFloat3("Light Direction", glm::value_ptr(light->direction), -1.0f, 1.0f);
+        static bool showDemo = true;
+        ImGui::ShowDemoWindow(&showDemo);
     }
 
     bool onWindowResize(const chert::WindowResizeEvent &e) {

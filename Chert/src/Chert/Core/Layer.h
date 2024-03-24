@@ -9,7 +9,6 @@ public:
     virtual void onDetach() {}
     virtual void update(float timestep) {}
     virtual void onEvent(Event &e) {}
-    virtual void render() {}
     virtual void renderGui() {}
     inline virtual bool isOverlay() const { return false; }
 };

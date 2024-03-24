@@ -66,7 +66,6 @@ void Application::run() {
         for (auto layer : layerStack) {
             layer->renderGui();
         }
-        imguiLayer->render();
         imguiLayer->end();
 
         window->update();

@@ -1,6 +1,7 @@
 #include <algorithm>
 
 #include "Buffers/BufferLayout.h"
+#include "Chert/Events/Event.h"
 #include "RenderAPI.h"
 #include "Renderer.h"
 
@@ -89,5 +90,9 @@ void Renderer::submit(Ref<VertexArray> &vertexArray, Ref<Shader> &shader, glm::m
     }
     shader->setUniform("dirLightCount", dirLightCount);
     RenderAPI::drawIndexed(vertexArray);
+}
+
+void Renderer::onWindowResize(const WindowResizeEvent &e) {
+    context->setViewport(0, 0, e.getWidth(), e.getHeight());
 }
 } // namespace chert

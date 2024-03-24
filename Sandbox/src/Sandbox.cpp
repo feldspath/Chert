@@ -4,8 +4,6 @@
 
 class ExampleLayer : public chert::Layer {
 public:
-    void onEvent(chert::Event &e) override {}
-
     void onAttach() override {
         float vertices[] = {
             -0.5f, 0.0f, -0.5f, 0.0f, -1.0f, 0.0f, 0.5f, 0.0f, -0.5f, 0.0f, -1.0f, 0.0f,
@@ -14,7 +12,7 @@ public:
 
         unsigned int indices[] = {0, 1, 2, 1, 2, 3};
 
-        auto &renderContext = chert::Application::getRenderContext();
+        auto &renderContext = chert::Application::get().getRenderContext();
         chert::Ref<chert::VertexBuffer> vertexBuffer =
             renderContext->createVertexBuffer(vertices, sizeof(vertices));
         chert::Ref<chert::IndexBuffer> indexBuffer = renderContext->createIndexBuffer(indices, 6);
@@ -29,8 +27,9 @@ public:
         vertexArray->setIndexBuffer(indexBuffer);
         vertexArray->addVertexBuffer(vertexBuffer);
 
-        camera =
-            std::make_shared<chert::PerspectiveCamera>(glm::vec3{0.0f, -5.0f, 0.0f}, glm::quat());
+        const auto &window = chert::Application::get().getWindow();
+        camera = std::make_shared<chert::PerspectiveCamera>(glm::vec3{0.0f, -5.0f, 0.0f},
+                                                            glm::quat(), window->aspectRatio());
 
         light = std::make_shared<chert::DirLight>(glm::vec3(0.0f, 1.0f, 0.0f),
                                                   glm::vec3(1.0f, 1.0f, 1.0f));
@@ -53,7 +52,7 @@ public:
             camera->position.x -= speed * timestep;
         }
 
-        auto &renderer = chert::Application::getRenderer();
+        auto &renderer = chert::Application::get().getRenderer();
         renderer->setClearColor({0.1f, 0.1f, 0.1f, 1.0f});
         renderer->clear();
         renderer->beginScene(camera, {light});
@@ -64,6 +63,18 @@ public:
     void renderGui() override {
         ImGui::ColorEdit3("Light Color", glm::value_ptr(light->color));
         ImGui::SliderFloat3("Light Direction", glm::value_ptr(light->direction), -1.0f, 1.0f);
+    }
+
+    bool onWindowResize(const chert::WindowResizeEvent &e) {
+        const auto &window = chert::Application::get().getWindow();
+        camera->setAspectRatio(window->aspectRatio());
+        return true;
+    }
+
+    void onEvent(chert::Event &e) override {
+        chert::EventDispatcher dispatcher(e);
+        dispatcher.dispatch<chert::WindowResizeEvent>(
+            CHERT_BIND_EVENT_FN(ExampleLayer::onWindowResize));
     }
 
 private:

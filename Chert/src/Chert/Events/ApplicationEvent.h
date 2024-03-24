@@ -20,6 +20,9 @@ public:
         return ss.str();
     }
 
+    inline unsigned int getWidth() const { return width; }
+    inline unsigned int getHeight() const { return height; }
+
     EVENT_CLASS_TYPE(WindowResize)
 
 private:

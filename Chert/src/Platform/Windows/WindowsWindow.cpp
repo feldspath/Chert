@@ -108,10 +108,6 @@ void WindowsWindow::init(const WindowProps &props) {
     });
 }
 
-unsigned int WindowsWindow::width() const { return data.width; }
-
-unsigned int WindowsWindow::height() const { return data.height; }
-
 void WindowsWindow::shutdown() {
     glfwDestroyWindow(window);
     glfwTerminate();

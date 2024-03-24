@@ -40,13 +40,14 @@ void Application::shutdown() {
 void Application::onEvent(Event &e) {
     EventDispatcher dispatcher(e);
     dispatcher.dispatch<WindowCloseEvent>(CHERT_BIND_EVENT_FN(Application::onWindowClose));
+    dispatcher.dispatch<WindowResizeEvent>(CHERT_BIND_EVENT_FN(Application::onWindowResize));
 
     for (auto layerIt = layerStack.end(); layerIt != layerStack.begin();) {
-        (*--layerIt)->onEvent(e);
         bool handled = std::visit([](auto &&e) -> bool { return e.isHandled(); }, e);
         if (handled) {
             break;
         }
+        (*--layerIt)->onEvent(e);
     }
 }
 
@@ -75,6 +76,11 @@ void Application::run() {
 bool Application::onWindowClose(const WindowCloseEvent &e) {
     running = false;
     return true;
+}
+
+bool Application::onWindowResize(const WindowResizeEvent &e) {
+    renderer->onWindowResize(e);
+    return false;
 }
 
 void Application::pushLayer(std::shared_ptr<Layer> layer) { layerStack.pushLayer(layer); }

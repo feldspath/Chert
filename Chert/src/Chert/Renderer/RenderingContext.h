@@ -17,5 +17,7 @@ public:
     virtual Ref<VertexBuffer> createVertexBuffer(float *vertices, unsigned int size) = 0;
     virtual Ref<IndexBuffer> createIndexBuffer(unsigned int *indices, unsigned int count) = 0;
     virtual Ref<VertexArray> createVertexArray() = 0;
+    virtual void setViewport(unsigned int x, unsigned int y, unsigned int width,
+                             unsigned int height) = 0;
 };
 } // namespace chert

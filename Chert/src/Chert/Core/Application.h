@@ -20,6 +20,7 @@ public:
     void run();
     void onEvent(Event &e);
     bool onWindowClose(const WindowCloseEvent &e);
+    bool onWindowResize(const WindowResizeEvent &e);
     void pushLayer(std::shared_ptr<Layer> layer);
     void pushOverlay(std::shared_ptr<Layer> overlay);
     void detachLayer(std::shared_ptr<Layer> layer);
@@ -29,9 +30,9 @@ public:
     virtual void init(){};
 
     static inline Application &get() { return *instance; }
-    static inline std::shared_ptr<Renderer> &getRenderer() { return instance->renderer; }
-    static inline std::shared_ptr<RenderingContext> &getRenderContext() {
-        return instance->renderer->getRenderContext();
+    inline std::shared_ptr<Renderer> &getRenderer() { return renderer; }
+    inline std::shared_ptr<RenderingContext> &getRenderContext() {
+        return renderer->getRenderContext();
     }
     static void initApplication();
 

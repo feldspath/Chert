@@ -14,6 +14,8 @@ public:
     Ref<VertexBuffer> createVertexBuffer(float *vertices, unsigned int size) override;
     Ref<IndexBuffer> createIndexBuffer(unsigned int *indices, unsigned int count) override;
     Ref<VertexArray> createVertexArray() override;
+    void setViewport(unsigned int x, unsigned int y, unsigned int width,
+                     unsigned int height) override;
 
 private:
     GLFWwindow *window;

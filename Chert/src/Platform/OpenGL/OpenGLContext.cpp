@@ -54,4 +54,8 @@ Ref<IndexBuffer> OpenGLContext::createIndexBuffer(unsigned int *indices, unsigne
 Ref<VertexArray> OpenGLContext::createVertexArray() {
     return std::make_unique<OpenGLVertexArray>();
 }
+void OpenGLContext::setViewport(unsigned int x, unsigned int y, unsigned int width,
+                                unsigned int height) {
+    glViewport(x, y, width, height);
+}
 } // namespace chert

@@ -9,6 +9,7 @@ public:
     Camera(const glm::vec3 &position, const glm::quat &rotation)
         : position(position), rotation(rotation) {}
     virtual glm::mat4 getViewProjectionMatrix() const = 0;
+    virtual void setAspectRatio(float aspectRatio) = 0;
 
     glm::vec3 position;
     glm::quat rotation;

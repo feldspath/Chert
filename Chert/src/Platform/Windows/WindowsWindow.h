@@ -14,8 +14,6 @@ public:
     WindowsWindow(WindowProps props);
     ~WindowsWindow() override;
     void update() override;
-    inline unsigned int getWidth() const override { return data.width; }
-    inline unsigned int getHeight() const override { return data.height; }
     inline void setEventCallback(const EventCallbackFn &callback) override {
         data.eventCallback = callback;
     }
@@ -23,8 +21,11 @@ public:
     inline std::shared_ptr<RenderingContext> getRenderingContext() override {
         return renderingContext;
     }
-    unsigned int width() const override;
-    unsigned int height() const override;
+    inline unsigned int width() const override { return data.width; }
+    inline unsigned int height() const override { return data.height; }
+    inline float aspectRatio() const {
+        return static_cast<float>(data.width) / static_cast<float>(data.height);
+    }
 
 private:
     void init(const WindowProps &props);

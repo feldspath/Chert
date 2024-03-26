@@ -1,0 +1,5 @@
+BasedOnStyle: LLVM
+AccessModifierOffset: '-4'
+AlignConsecutiveMacros: 'true'
+ColumnLimit: '100'
+IndentWidth: '4'

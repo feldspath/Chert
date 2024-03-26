@@ -12,12 +12,11 @@ public:
     virtual ~RenderingContext() = default;
     virtual void init() = 0;
     virtual void swapBuffers() = 0;
-    virtual Ref<Shader> createShader(std::string &vertexShaderSrc,
-                                     std::string &fragmentShaderSrc) = 0;
+    virtual Ref<Shader>
+    createShader(const std::array<std::string, Shader::shaderTypeCount()> &sources) = 0;
+    virtual Ref<Shader> createShader(const std::string &shaderFilePath) = 0;
     virtual Ref<VertexBuffer> createVertexBuffer(float *vertices, unsigned int size) = 0;
     virtual Ref<IndexBuffer> createIndexBuffer(unsigned int *indices, unsigned int count) = 0;
     virtual Ref<VertexArray> createVertexArray() = 0;
-    virtual void setViewport(unsigned int x, unsigned int y, unsigned int width,
-                             unsigned int height) = 0;
 };
 } // namespace chert

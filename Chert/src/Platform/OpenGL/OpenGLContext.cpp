@@ -38,24 +38,25 @@ void OpenGLContext::init() {
 
 void OpenGLContext::swapBuffers() { glfwSwapBuffers(window); }
 
-Ref<Shader> OpenGLContext::createShader(std::string &vertexShaderSrc,
-                                        std::string &fragmentShaderSrc) {
-    return std::make_unique<OpenGLShader>(vertexShaderSrc, fragmentShaderSrc);
+Ref<Shader>
+OpenGLContext::createShader(const std::array<std::string, Shader::shaderTypeCount()> &sources) {
+
+    return std::make_shared<OpenGLShader>(sources);
+}
+
+Ref<Shader> OpenGLContext::createShader(const std::string &shaderFilePath) {
+    return std::make_shared<OpenGLShader>(shaderFilePath);
 }
 
 Ref<VertexBuffer> OpenGLContext::createVertexBuffer(float *vertices, unsigned int size) {
-    return std::make_unique<OpenGLVertexBuffer>(vertices, size);
+    return std::make_shared<OpenGLVertexBuffer>(vertices, size);
 }
 
 Ref<IndexBuffer> OpenGLContext::createIndexBuffer(unsigned int *indices, unsigned int count) {
-    return std::make_unique<OpenGLIndexBuffer>(indices, count);
+    return std::make_shared<OpenGLIndexBuffer>(indices, count);
 }
 
 Ref<VertexArray> OpenGLContext::createVertexArray() {
-    return std::make_unique<OpenGLVertexArray>();
-}
-void OpenGLContext::setViewport(unsigned int x, unsigned int y, unsigned int width,
-                                unsigned int height) {
-    glViewport(x, y, width, height);
+    return std::make_shared<OpenGLVertexArray>();
 }
 } // namespace chert

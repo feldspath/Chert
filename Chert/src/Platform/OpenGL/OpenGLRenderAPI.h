@@ -8,5 +8,7 @@ protected:
     void setClearColorImpl(const glm::vec4 &color) override;
     void clearImpl() override;
     void drawIndexedImpl(Ref<VertexArray> &vertexArray) override;
+    void setViewportImpl(unsigned int x, unsigned int y, unsigned int width,
+                         unsigned int height) override;
 };
 } // namespace chert

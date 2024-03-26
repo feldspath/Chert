@@ -6,7 +6,8 @@
 namespace chert {
 class OpenGLShader : public Shader {
 public:
-    OpenGLShader(std::string &vertexShaderSrc, std::string &fragmentShaderSrc);
+    OpenGLShader(const std::array<std::string, shaderTypeCount()> &sources);
+    OpenGLShader(const std::string &shaderFilePath);
     ~OpenGLShader();
     OpenGLShader(const Shader &) = delete;
     OpenGLShader &operator=(const Shader &) = delete;

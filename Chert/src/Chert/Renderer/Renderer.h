@@ -2,8 +2,10 @@
 
 #include <memory>
 
+#include "Chert/Core/Core.h"
 #include "Chert/Scene/Camera.h"
 #include "Chert/Scene/Components/Light.h"
+#include "Chert/Scene/Components/Transform.h"
 #include "Chert/Scene/Model/Model.h"
 #include "RenderingContext.h"
 
@@ -20,7 +22,7 @@ public:
     void clear();
     void beginScene(const Ref<Scene> scene);
     void endScene();
-    void submit(Ref<Model> &vertexArray, Ref<Shader> &shader, glm::mat4 tranform = glm::mat4(1.0f));
+    void submit(Ref<Model> &vertexArray, Ref<Shader> &shader, const glm::mat4 &transform);
     void onWindowResize(const WindowResizeEvent &e);
 
     inline std::shared_ptr<RenderingContext> &getRenderContext() { return context; }

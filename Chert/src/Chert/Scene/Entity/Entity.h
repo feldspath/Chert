@@ -12,7 +12,14 @@ public:
     Entity(entt::entity entityHandle, std::weak_ptr<Scene> scene)
         : handle(entityHandle), scene(scene) {}
 
+    inline void checkInitialization() {
+        CHERT_ASSERT(isInitialized(), "The entity is not initialized");
+    }
+
+    inline bool isInitialized() { return handle != entt::null; }
+
     template <typename T, typename... Args> T &addComponent(Args &&...args) {
+        checkInitialization();
         auto sceneRef = scene.lock();
         CHERT_ASSERT(!hasComponent<T>(),
                      "The entity already has the component, cannot add it multiple times");
@@ -20,12 +27,23 @@ public:
     }
 
     template <typename T> void removeComponent() {
+        checkInitialization();
         auto sceneRef = scene.lock();
         CHERT_ASSERT(hasComponent<T>(), "The entity does not have the component, cannot remove it");
         sceneRef->registry.remove<T>(handle);
     }
 
-    template <typename T> bool hasComponent() { return scene.lock()->registry.all_of<T>(handle); }
+    template <typename T> bool hasComponent() {
+        checkInitialization();
+        return scene.lock()->registry.all_of<T>(handle);
+    }
+
+    template <typename T> T &getComponent() {
+        checkInitialization();
+        auto sceneRef = scene.lock();
+        CHERT_ASSERT(hasComponent<T>(), "The entity does not have the component");
+        return sceneRef->registry.get<T>(handle);
+    }
 
 private:
     entt::entity handle = entt::null;

@@ -22,7 +22,7 @@ public:
             chert::ResourceManager::loadModel("Sandbox/assets/monke.obj");
 
         // Create a mesh from obj file
-        chert::Entity mesh = scene->createEntity();
+        mesh = scene->createEntity();
         mesh.addComponent<chert::MeshComponent>(model);
     }
 
@@ -43,6 +43,10 @@ public:
         if (chert::Input::isKeyPressed(CHERT_KEY_A)) {
             camera->position.x -= speed * timestep;
         }
+
+        mesh.getComponent<chert::TransformComponent>().rotation =
+            glm::rotate(mesh.getComponent<chert::TransformComponent>().rotation,
+                        glm::radians(90.0f * timestep), glm::vec3(0.0f, 1.0f, 0.0f));
 
         scene->update();
     }
@@ -68,6 +72,7 @@ public:
 
 private:
     chert::Ref<chert::Scene> scene;
+    chert::Entity mesh;
 };
 
 class Sandbox : public chert::Application {

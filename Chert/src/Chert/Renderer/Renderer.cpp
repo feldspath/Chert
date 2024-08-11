@@ -48,10 +48,10 @@ void Renderer::endScene() {
     sceneInProgress = false;
 }
 
-void Renderer::submit(Ref<Model> &model, Ref<Shader> &shader, glm::mat4 tranform) {
+void Renderer::submit(Ref<Model> &model, Ref<Shader> &shader, const glm::mat4 &transform) {
     shader->bind();
     shader->setUniform("viewProjectionMatrix", sceneData.viewProjectionMatrix);
-    shader->setUniform("modelMatrix", tranform);
+    shader->setUniform("modelMatrix", transform);
 
     int dirLightCount = std::min(CHERT_MAX_DIR_LIGHT, sceneData.dirLights.size());
     for (int i = 0; i < dirLightCount; ++i) {

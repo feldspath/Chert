@@ -21,7 +21,7 @@ void Scene::update() {
     auto meshesView = registry.view<TransformComponent, MeshComponent>();
     for (auto &entity : meshesView) {
         auto [transform, mesh] = meshesView.get<TransformComponent, MeshComponent>(entity);
-        renderer->submit(mesh.vertexArray, renderer->defaultShader);
+        renderer->submit(mesh.model, renderer->defaultShader);
     }
 
     renderer->endScene();

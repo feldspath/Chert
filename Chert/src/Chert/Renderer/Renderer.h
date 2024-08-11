@@ -4,8 +4,8 @@
 
 #include "Chert/Scene/Camera.h"
 #include "Chert/Scene/Components/Light.h"
+#include "Chert/Scene/Model/Model.h"
 #include "RenderingContext.h"
-#include "glm/glm.hpp"
 
 #define CHERT_MAX_DIR_LIGHT (size_t)10
 
@@ -20,8 +20,7 @@ public:
     void clear();
     void beginScene(const Ref<Scene> scene);
     void endScene();
-    void submit(Ref<VertexArray> &vertexArray, Ref<Shader> &shader,
-                glm::mat4 tranform = glm::mat4(1.0f));
+    void submit(Ref<Model> &vertexArray, Ref<Shader> &shader, glm::mat4 tranform = glm::mat4(1.0f));
     void onWindowResize(const WindowResizeEvent &e);
 
     inline std::shared_ptr<RenderingContext> &getRenderContext() { return context; }

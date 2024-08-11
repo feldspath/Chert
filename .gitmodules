@@ -14,3 +14,6 @@
 [submodule "Chert/external/entt"]
 	path = Chert/external/entt
 	url = https://github.com/skypjack/entt
+[submodule "Chert/external/assimp"]
+	path = Chert/external/assimp
+	url = https://github.com/assimp/assimp.git

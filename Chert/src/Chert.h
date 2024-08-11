@@ -24,3 +24,5 @@
 #include "Chert/Scene/Entity/Entity.h"
 #include "Chert/Scene/PerspectiveCamera.h"
 #include "Chert/Scene/Scene.h"
+
+#include "Chert/Resources/ResourceManager.h"

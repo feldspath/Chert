@@ -5,6 +5,12 @@ add_subdirectory(external/glfw/)
 add_subdirectory(external/glad/)
 add_subdirectory(external/glm/)
 
+set(ASSIMP_BUILD_ASSIMP_TOOLS OFF)
+set(ASSIMP_INSTALL OFF)
+set(ASSIMP_BUILD_TESTS OFF)
+set(BUILD_SHARED_LIBS OFF)
+add_subdirectory(external/assimp/)
+
 set(CHERT_SRC
     "src/Chert/Core/Application.cpp"
     "src/Chert/Core/LayerStack.cpp"
@@ -31,6 +37,9 @@ set(CHERT_SRC
 
     # Scene
     "src/Chert/Scene/Scene.cpp"
+
+    # Resources
+    "src/Chert/Resources/ResourceManager.cpp"
 )
 
 set(CHERT_HEADERS
@@ -85,6 +94,11 @@ set(CHERT_HEADERS
     "src/Chert/Scene/Components/Mesh.h"
     "src/Chert/Scene/Camera.h"
     "src/Chert/Scene/PerspectiveCamera.h"
+    "src/Chert/Scene/Model/Mesh.h"
+    "src/Chert/Scene/Model/Model.h"
+
+    # Resources
+    "src/Chert/Resources/ResourceManager.h"
 )
 
 source_group(TREE ${CMAKE_CURRENT_LIST_DIR} FILES ${CHERT_SRC} ${CHERT_HEADERS})
@@ -96,8 +110,8 @@ target_include_directories(Chert PUBLIC external/spdlog/include)
 target_include_directories(Chert PUBLIC external/glfw/include)
 target_include_directories(Chert PUBLIC external/glad/include)
 target_include_directories(Chert PUBLIC external/imgui/)
-target_include_directories(Chert PUBLIC external/glm/)
 target_include_directories(Chert PUBLIC external/entt/src)
+target_include_directories(Chert PUBLIC external/assimp/include)
 target_include_directories(Chert PUBLIC src/)
 
 # Libaries
@@ -116,6 +130,7 @@ target_link_libraries(Chert glfw)
 target_link_libraries(Chert spdlog)
 target_link_libraries(Chert glad)
 target_link_libraries(Chert glm)
+target_link_libraries(Chert assimp)
 find_package(OpenGL REQUIRED)
 target_link_libraries(Chert ${OPENGL_LIBRARIES})
 target_link_libraries(Chert imgui)

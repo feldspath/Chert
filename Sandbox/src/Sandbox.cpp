@@ -5,43 +5,25 @@
 class ExampleLayer : public chert::Layer {
 public:
     void onAttach() override {
-        float vertices[] = {
-            -0.5f, 0.0f, -0.5f, 0.0f, -1.0f, 0.0f, 0.5f, 0.0f, -0.5f, 0.0f, -1.0f, 0.0f,
-            -0.5f, 0.0f, 0.5f,  0.0f, -1.0f, 0.0f, 0.5f, 0.0f, 0.5f,  0.0f, -1.0f, 0.0f,
-        };
-
-        unsigned int indices[] = {0, 1, 2, 1, 2, 3};
-
-        auto &renderContext = chert::Application::get().getRenderContext();
-        chert::Ref<chert::VertexBuffer> vertexBuffer =
-            renderContext->createVertexBuffer(vertices, sizeof(vertices));
-        chert::Ref<chert::IndexBuffer> indexBuffer = renderContext->createIndexBuffer(indices, 6);
-
-        chert::BufferLayout layout = {
-            {chert::ShaderDataType::Float3, "a_Position"},
-            {chert::ShaderDataType::Float3, "a_Normal"},
-        };
-
-        vertexBuffer->setLayout(layout);
-        auto vertexArray = renderContext->createVertexArray();
-        vertexArray->setIndexBuffer(indexBuffer);
-        vertexArray->addVertexBuffer(vertexBuffer);
-
         // Create scene
-        scene = std::make_shared<chert::Scene>();
+        scene = chert::makeRef<chert::Scene>();
 
         // Camera is not an entity
         scene->camera =
-            std::make_shared<chert::PerspectiveCamera>(glm::vec3{0.0f, -5.0f, 0.0f}, glm::quat());
+            chert::makeRef<chert::PerspectiveCamera>(glm::vec3{0.0f, -5.0f, 0.0f}, glm::quat());
 
         // Create light
         chert::Entity light = scene->createEntity();
         light.addComponent<chert::DirLightComponent>(glm::vec3(0.0f, 1.0f, 0.0f),
                                                      glm::vec3(1.0f, 1.0f, 1.0f));
 
-        // Create a mesh from vertex array
+        // Load object from file
+        chert::Ref<chert::Model> model =
+            chert::ResourceManager::loadModel("Sandbox/assets/monke.obj");
+
+        // Create a mesh from obj file
         chert::Entity mesh = scene->createEntity();
-        mesh.addComponent<chert::MeshComponent>(vertexArray);
+        mesh.addComponent<chert::MeshComponent>(model);
     }
 
     void onDetach() override {}

@@ -1,11 +1,11 @@
 #pragma once
 
-#include "Chert/Renderer/Buffers/VertexArray.h"
+#include "Chert/Scene/Model/Model.h"
 
 namespace chert {
 struct MeshComponent {
     MeshComponent() = default;
-    MeshComponent(Ref<VertexArray> vertexArray) : vertexArray(vertexArray) {}
-    Ref<VertexArray> vertexArray;
+    MeshComponent(Ref<Model> model) : model(model) {}
+    Ref<Model> model;
 };
 } // namespace chert

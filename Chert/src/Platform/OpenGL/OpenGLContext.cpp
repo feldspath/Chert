@@ -34,6 +34,8 @@ void OpenGLContext::init() {
     OpenGL version: {}
     GLSL version:   {})",
                     vendor, renderer, version, glslVersion);
+
+    glEnable(GL_DEPTH_TEST);
 }
 
 void OpenGLContext::swapBuffers() { glfwSwapBuffers(window); }

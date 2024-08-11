@@ -48,8 +48,7 @@ void Renderer::endScene() {
     sceneInProgress = false;
 }
 
-void Renderer::submit(Ref<VertexArray> &vertexArray, Ref<Shader> &shader, glm::mat4 tranform) {
-    vertexArray->bind();
+void Renderer::submit(Ref<Model> &model, Ref<Shader> &shader, glm::mat4 tranform) {
     shader->bind();
     shader->setUniform("viewProjectionMatrix", sceneData.viewProjectionMatrix);
     shader->setUniform("modelMatrix", tranform);
@@ -62,7 +61,11 @@ void Renderer::submit(Ref<VertexArray> &vertexArray, Ref<Shader> &shader, glm::m
         shader->setUniform("dirLights[" + std::to_string(i) + "].intensity", dirLight.intensity);
     }
     shader->setUniform("dirLightCount", dirLightCount);
-    RenderAPI::drawIndexed(vertexArray);
+
+    for (auto &mesh : model->getMeshes()) {
+        mesh->vertexArray->bind();
+        RenderAPI::drawIndexed(mesh->vertexArray);
+    }
 }
 
 void Renderer::onWindowResize(const WindowResizeEvent &e) {

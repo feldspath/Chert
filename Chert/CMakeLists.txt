@@ -28,6 +28,9 @@ set(CHERT_SRC
     # Rendering
     "src/Chert/Renderer/Renderer.cpp"
     "src/Chert/Renderer/RenderAPI.cpp"
+
+    # Scene
+    "src/Chert/Scene/Scene.cpp"
 )
 
 set(CHERT_HEADERS
@@ -74,12 +77,14 @@ set(CHERT_HEADERS
     "src/Chert/Renderer/Buffers/BufferLayout.h"
     "src/Chert/Renderer/Buffers/VertexArray.h"
     "src/Chert/Renderer/RenderAPI.h"
-    "src/Chert/Renderer/Camera.h"
-    "src/Chert/Renderer/PerspectiveCamera.h"
-
+    
     # Scene
-    "src/Chert/Renderer/Scene/Light.h"
-    "src/Chert/Renderer/Scene/DirLight.h"
+    "src/Chert/Scene/Scene.h"
+    "src/Chert/Scene/Entity/Entity.h"
+    "src/Chert/Scene/Components/Transform.h"
+    "src/Chert/Scene/Components/Mesh.h"
+    "src/Chert/Scene/Camera.h"
+    "src/Chert/Scene/PerspectiveCamera.h"
 )
 
 source_group(TREE ${CMAKE_CURRENT_LIST_DIR} FILES ${CHERT_SRC} ${CHERT_HEADERS})
@@ -92,6 +97,7 @@ target_include_directories(Chert PUBLIC external/glfw/include)
 target_include_directories(Chert PUBLIC external/glad/include)
 target_include_directories(Chert PUBLIC external/imgui/)
 target_include_directories(Chert PUBLIC external/glm/)
+target_include_directories(Chert PUBLIC external/entt/src)
 target_include_directories(Chert PUBLIC src/)
 
 # Libaries

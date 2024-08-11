@@ -32,6 +32,7 @@ public:
     virtual void setUniform(const std::string &name, const glm::vec3 &vec) = 0;
     virtual void setUniform(const std::string &name, const glm::vec4 &vec) = 0;
     virtual void setUniform(const std::string &name, int value) = 0;
+    virtual void setUniform(const std::string &name, float value) = 0;
 
     /// Input must be lowercase
     static ShaderType shaderTypeFromString(const std::string &shaderType) {

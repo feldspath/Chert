@@ -6,9 +6,8 @@ namespace chert {
 
 class PerspectiveCamera : public Camera {
 public:
-    PerspectiveCamera(glm::vec3 position, glm::quat rotation, float aspectRatio)
-        : Camera(position, rotation) {
-        projectionMatrix = glm::perspective(glm::radians(45.0f), aspectRatio, 0.1f, 100.0f);
+    PerspectiveCamera(glm::vec3 position, glm::quat rotation) : Camera(position, rotation) {
+        setAspectRatio(chert::Application::get().getWindow()->aspectRatio());
     }
 
     glm::mat4 getViewProjectionMatrix() const override {

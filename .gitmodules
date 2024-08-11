@@ -11,3 +11,6 @@
 [submodule "Chert/external/glm"]
 	path = Chert/external/glm
 	url = git@github.com:g-truc/glm.git
+[submodule "Chert/external/entt"]
+	path = Chert/external/entt
+	url = https://github.com/skypjack/entt

@@ -147,4 +147,9 @@ void OpenGLShader::setUniform(const std::string &name, int value) {
     auto uniformLocation = glGetUniformLocation(programId, name.c_str());
     glUniform1i(uniformLocation, value);
 }
+void OpenGLShader::setUniform(const std::string &name, float value) {
+    glUseProgram(programId);
+    auto uniformLocation = glGetUniformLocation(programId, name.c_str());
+    glUniform1f(uniformLocation, value);
+}
 } // namespace chert

@@ -23,21 +23,31 @@ public:
         };
 
         vertexBuffer->setLayout(layout);
-        vertexArray = renderContext->createVertexArray();
+        auto vertexArray = renderContext->createVertexArray();
         vertexArray->setIndexBuffer(indexBuffer);
         vertexArray->addVertexBuffer(vertexBuffer);
 
-        const auto &window = chert::Application::get().getWindow();
-        camera = std::make_shared<chert::PerspectiveCamera>(glm::vec3{0.0f, -5.0f, 0.0f},
-                                                            glm::quat(), window->aspectRatio());
+        // Create scene
+        scene = std::make_shared<chert::Scene>();
 
-        light = std::make_shared<chert::DirLight>(glm::vec3(0.0f, 1.0f, 0.0f),
-                                                  glm::vec3(1.0f, 1.0f, 1.0f));
+        // Camera is not an entity
+        scene->camera =
+            std::make_shared<chert::PerspectiveCamera>(glm::vec3{0.0f, -5.0f, 0.0f}, glm::quat());
+
+        // Create light
+        chert::Entity light = scene->createEntity();
+        light.addComponent<chert::DirLightComponent>(glm::vec3(0.0f, 1.0f, 0.0f),
+                                                     glm::vec3(1.0f, 1.0f, 1.0f));
+
+        // Create a mesh from vertex array
+        chert::Entity mesh = scene->createEntity();
+        mesh.addComponent<chert::MeshComponent>(vertexArray);
     }
 
     void onDetach() override {}
 
     void update(float timestep) override {
+        auto &camera = scene->camera;
         float speed = 3.0f;
         if (chert::Input::isKeyPressed(CHERT_KEY_W)) {
             camera->position.y += speed * timestep;
@@ -52,12 +62,7 @@ public:
             camera->position.x -= speed * timestep;
         }
 
-        auto &renderer = chert::Application::get().getRenderer();
-        renderer->setClearColor({0.1f, 0.1f, 0.1f, 1.0f});
-        renderer->clear();
-        renderer->beginScene(camera, {light});
-        renderer->submit(vertexArray, renderer->defaultShader);
-        renderer->endScene();
+        scene->update();
     }
 
     void renderGui() override {
@@ -69,7 +74,7 @@ public:
 
     bool onWindowResize(const chert::WindowResizeEvent &e) {
         const auto &window = chert::Application::get().getWindow();
-        camera->setAspectRatio(window->aspectRatio());
+        scene->camera->setAspectRatio(window->aspectRatio());
         return true;
     }
 
@@ -80,9 +85,7 @@ public:
     }
 
 private:
-    chert::Ref<chert::VertexArray> vertexArray;
-    chert::Ref<chert::Camera> camera;
-    chert::Ref<chert::DirLight> light;
+    chert::Ref<chert::Scene> scene;
 };
 
 class Sandbox : public chert::Application {

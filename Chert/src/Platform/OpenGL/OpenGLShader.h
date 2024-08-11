@@ -18,6 +18,7 @@ public:
     void setUniform(const std::string &name, const glm::vec3 &vec) override;
     void setUniform(const std::string &name, const glm::vec4 &vec) override;
     void setUniform(const std::string &name, int value) override;
+    void setUniform(const std::string &name, float value) override;
 
 private:
     unsigned int programId = 0;

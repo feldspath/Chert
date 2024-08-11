@@ -53,13 +53,11 @@ Ref<Mesh> ResourceManager::processMesh(aiMesh *mesh, const aiScene *scene) {
         }
     }
 
-    auto &renderContext = Application::get().getRenderContext();
-
-    auto vertexBuffer = renderContext->createVertexBuffer((float *)vertices.data(),
-                                                          sizeof(Vertex) * vertices.size());
+    auto vertexBuffer =
+        VertexBuffer::create((float *)vertices.data(), sizeof(Vertex) * vertices.size());
     vertexBuffer->setLayout(Vertex::getLayout());
-    auto indexBuffer = renderContext->createIndexBuffer(indices.data(), indices.size());
-    auto vertexArray = renderContext->createVertexArray();
+    auto indexBuffer = IndexBuffer::create(indices.data(), indices.size());
+    auto vertexArray = VertexArray::create();
     vertexArray->setIndexBuffer(indexBuffer);
     vertexArray->addVertexBuffer(vertexBuffer);
 

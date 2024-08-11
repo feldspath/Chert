@@ -34,6 +34,7 @@ set(CHERT_SRC
     # Rendering
     "src/Chert/Renderer/Renderer.cpp"
     "src/Chert/Renderer/RenderAPI.cpp"
+    "src/Chert/Renderer/Buffers/Buffers.cpp"
 
     # Scene
     "src/Chert/Scene/Scene.cpp"

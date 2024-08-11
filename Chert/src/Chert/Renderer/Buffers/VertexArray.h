@@ -12,5 +12,7 @@ public:
     virtual void addVertexBuffer(Ref<VertexBuffer> vertexBuffer) = 0;
     virtual void setIndexBuffer(Ref<IndexBuffer> indexBuffer) = 0;
     virtual Ref<IndexBuffer> &getIndexBuffer() = 0;
+
+    static Ref<VertexArray> create();
 };
 } // namespace chert

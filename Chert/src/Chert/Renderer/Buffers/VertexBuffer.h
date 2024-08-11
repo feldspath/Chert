@@ -10,5 +10,7 @@ public:
     virtual void unbind() = 0;
     virtual void setLayout(const BufferLayout &layout) = 0;
     virtual const BufferLayout &getLayout() = 0;
+
+    static Ref<VertexBuffer> create(float *vertices, unsigned int count);
 };
 } // namespace chert

@@ -89,6 +89,14 @@ void WindowsWindow::init(const WindowProps &props) {
         }
     });
 
+    // mouse scroll callback
+    glfwSetScrollCallback(window, [](GLFWwindow *window, double xoffset, double yoffset) {
+        WindowData &data = *(WindowData *)glfwGetWindowUserPointer(window);
+
+        Event e = MouseScrolledEvent(xoffset, yoffset);
+        data.eventCallback(e);
+    });
+
     glfwSetKeyCallback(window, [](GLFWwindow *window, int key, int scancode, int action, int mods) {
         WindowData &data = *(WindowData *)glfwGetWindowUserPointer(window);
         switch (action) {

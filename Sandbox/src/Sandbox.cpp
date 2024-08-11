@@ -64,10 +64,17 @@ public:
         return true;
     }
 
+    bool onMouseScrolled(const chert::MouseScrolledEvent &e) {
+        CHERT_DEBUG("Mouse scrolled: {0}, {1}", e.getXOffset(), e.getYOffset());
+        return true;
+    }
+
     void onEvent(chert::Event &e) override {
         chert::EventDispatcher dispatcher(e);
         dispatcher.dispatch<chert::WindowResizeEvent>(
             CHERT_BIND_EVENT_FN(ExampleLayer::onWindowResize));
+        dispatcher.dispatch<chert::MouseScrolledEvent>(
+            CHERT_BIND_EVENT_FN(ExampleLayer::onMouseScrolled));
     }
 
 private:

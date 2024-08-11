@@ -52,4 +52,23 @@ public:
 private:
     double xpos, ypos;
 };
+
+class MouseScrolledEvent : public BaseEvent {
+public:
+    MouseScrolledEvent(double xoffset, double yoffset) : xoffset(xoffset), yoffset(yoffset) {}
+
+    std::string toString() const override {
+        std::stringstream ss;
+        ss << getName() << ": " << xoffset << ", " << yoffset;
+        return ss.str();
+    }
+
+    double getXOffset() const { return xoffset; }
+    double getYOffset() const { return yoffset; }
+
+    EVENT_CLASS_TYPE(MouseScrolled)
+
+private:
+    double xoffset, yoffset;
+};
 } // namespace chert

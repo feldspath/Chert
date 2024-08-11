@@ -8,7 +8,8 @@
 
 namespace chert {
 using Event = std::variant<WindowCloseEvent, WindowResizeEvent, KeyPressedEvent, KeyReleasedEvent,
-                           MouseButtonPressedEvent, MouseButtonReleasedEvent, MouseMovedEvent>;
+                           MouseButtonPressedEvent, MouseButtonReleasedEvent, MouseMovedEvent,
+                           MouseScrolledEvent>;
 
 class EventDispatcher {
     template <typename T> using EventDispatcherFn = std::function<bool(T &)>;

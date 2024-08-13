@@ -9,6 +9,10 @@ public:
     PerspectiveCamera(glm::vec3 position, glm::quat rotation) : Camera(position, rotation) {
         setAspectRatio(chert::Application::get().getWindow()->aspectRatio());
     }
+    PerspectiveCamera(glm::vec3 position, glm::vec3 target) : Camera(position) {
+        transform.lookAt(target);
+        setAspectRatio(chert::Application::get().getWindow()->aspectRatio());
+    }
 
     glm::mat4 getViewProjectionMatrix() const override {
         return projectionMatrix * getViewMatrix();

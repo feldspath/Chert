@@ -9,8 +9,8 @@ public:
         scene = chert::makeRef<chert::Scene>();
 
         // Camera is not an entity
-        scene->camera =
-            chert::makeRef<chert::PerspectiveCamera>(glm::vec3{0.0f, -5.0f, 0.0f}, glm::quat());
+        scene->camera = chert::makeRef<chert::PerspectiveCamera>(glm::vec3{0.0f, -5.0f, 0.0f},
+                                                                 glm::vec3{0.0f, 0.0f, 0.0f});
 
         // Create light
         chert::Entity light = scene->createEntity();
@@ -32,28 +32,22 @@ public:
         auto &camera = scene->camera;
         float speed = 3.0f;
         if (chert::Input::isKeyPressed(CHERT_KEY_W)) {
-            camera->position.y += speed * timestep;
+            camera->transform.position.y += speed * timestep;
         }
         if (chert::Input::isKeyPressed(CHERT_KEY_S)) {
-            camera->position.y -= speed * timestep;
+            camera->transform.position.y -= speed * timestep;
         }
         if (chert::Input::isKeyPressed(CHERT_KEY_D)) {
-            camera->position.x += speed * timestep;
+            camera->transform.position.x += speed * timestep;
         }
         if (chert::Input::isKeyPressed(CHERT_KEY_A)) {
-            camera->position.x -= speed * timestep;
+            camera->transform.position.x -= speed * timestep;
         }
-
-        mesh.getComponent<chert::TransformComponent>().rotation =
-            glm::rotate(mesh.getComponent<chert::TransformComponent>().rotation,
-                        glm::radians(90.0f * timestep), glm::vec3(0.0f, 1.0f, 0.0f));
 
         scene->update();
     }
 
     void renderGui() override {
-        // ImGui::ColorEdit3("Light Color", glm::value_ptr(light->color));
-        // ImGui::SliderFloat3("Light Direction", glm::value_ptr(light->direction), -1.0f, 1.0f);
         static bool showDemo = true;
         ImGui::ShowDemoWindow(&showDemo);
     }
@@ -65,7 +59,30 @@ public:
     }
 
     bool onMouseScrolled(const chert::MouseScrolledEvent &e) {
-        CHERT_DEBUG("Mouse scrolled: {0}, {1}", e.getXOffset(), e.getYOffset());
+        scene->camera->transform.position *= 1.0f - (float)e.getYOffset() * 0.08f;
+        return true;
+    }
+
+    bool onMouseMoved(const chert::MouseMovedEvent &e) {
+        if (chert::Input::isMouseButtonPressed(1)) {
+            double dx = (e.getMouseX() - previousMouseX) * 0.3f;
+            double dy = (e.getMouseY() - previousMouseY) * 0.3f;
+            auto &camera = scene->camera;
+
+            auto rotation = glm::mat4(glm::rotate(glm::mat4(1.0f), glm::radians(-(float)dx),
+                                                  glm::vec3(0.0f, 0.0f, 1.0f)));
+            glm::vec3 up{0.0f, 0.0f, 1.0f};
+            if (camera->transform.up().z < 0.0f) {
+                // Invert up vector if camera is upside down
+                up *= -1.0f;
+            }
+            auto right = glm::normalize(glm::cross(camera->transform.position, up));
+            rotation = glm::rotate(rotation, glm::radians((float)dy), right);
+            camera->transform.position = glm::mat3(rotation) * camera->transform.position;
+            camera->transform.rotation = glm::quat(rotation) * camera->transform.rotation;
+        }
+        previousMouseX = e.getMouseX();
+        previousMouseY = e.getMouseY();
         return true;
     }
 
@@ -75,11 +92,16 @@ public:
             CHERT_BIND_EVENT_FN(ExampleLayer::onWindowResize));
         dispatcher.dispatch<chert::MouseScrolledEvent>(
             CHERT_BIND_EVENT_FN(ExampleLayer::onMouseScrolled));
+        dispatcher.dispatch<chert::MouseMovedEvent>(
+            CHERT_BIND_EVENT_FN(ExampleLayer::onMouseMoved));
     }
 
 private:
     chert::Ref<chert::Scene> scene;
     chert::Entity mesh;
+
+    double previousMouseX = 0.0;
+    double previousMouseY = 0.0;
 };
 
 class Sandbox : public chert::Application {

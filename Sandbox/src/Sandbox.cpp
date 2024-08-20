@@ -1,4 +1,5 @@
 #include "Chert.h"
+#include "Panels/SceneHierarchyPanel.h"
 #include "glm/gtc/type_ptr.hpp"
 #include "imgui.h"
 
@@ -9,21 +10,25 @@ public:
         scene = chert::makeRef<chert::Scene>();
 
         // Camera is not an entity
+        // scene->camera = chert::makeRef<chert::PerspectiveCamera>(
+        //    glm::vec3{0.0f, -5.0f, 0.0f}, glm::quat_identity<float, glm::defaultp>());
         scene->camera = chert::makeRef<chert::PerspectiveCamera>(glm::vec3{0.0f, -5.0f, 0.0f},
                                                                  glm::vec3{0.0f, 0.0f, 0.0f});
 
         // Create light
-        chert::Entity light = scene->createEntity();
-        light.addComponent<chert::DirLightComponent>(glm::vec3(0.0f, 1.0f, 0.0f),
-                                                     glm::vec3(1.0f, 1.0f, 1.0f));
+        chert::Entity light = scene->createEntity("light");
+        light.addComponent<chert::DirLightComponent>(glm::vec3(0.0f, 1.0f, 0.0f));
 
         // Load object from file
         chert::Ref<chert::Model> model =
             chert::ResourceManager::loadModel("Sandbox/assets/monke.obj");
 
         // Create a mesh from obj file
-        mesh = scene->createEntity();
+        mesh = scene->createEntity("monke");
         mesh.addComponent<chert::MeshComponent>(model);
+
+        // Create scene hierarchy panel
+        sceneHierarchyPanel = chert::SceneHierarchyPanel(scene);
     }
 
     void onDetach() override {}
@@ -50,6 +55,7 @@ public:
     void renderGui() override {
         static bool showDemo = true;
         ImGui::ShowDemoWindow(&showDemo);
+        sceneHierarchyPanel.render();
     }
 
     bool onWindowResize(const chert::WindowResizeEvent &e) {
@@ -69,13 +75,14 @@ public:
             double dy = (e.getMouseY() - previousMouseY) * 0.3f;
             auto &camera = scene->camera;
 
-            auto rotation = glm::mat4(glm::rotate(glm::mat4(1.0f), glm::radians(-(float)dx),
-                                                  glm::vec3(0.0f, 0.0f, 1.0f)));
             glm::vec3 up{0.0f, 0.0f, 1.0f};
             if (camera->transform.up().z < 0.0f) {
                 // Invert up vector if camera is upside down
                 up *= -1.0f;
             }
+
+            auto rotation = glm::mat4(glm::rotate(glm::mat4(1.0f), glm::radians(-(float)dx), up));
+
             auto right = glm::normalize(glm::cross(camera->transform.position, up));
             rotation = glm::rotate(rotation, glm::radians((float)dy), right);
             camera->transform.position = glm::mat3(rotation) * camera->transform.position;
@@ -99,6 +106,8 @@ public:
 private:
     chert::Ref<chert::Scene> scene;
     chert::Entity mesh;
+
+    chert::SceneHierarchyPanel sceneHierarchyPanel;
 
     double previousMouseX = 0.0;
     double previousMouseY = 0.0;

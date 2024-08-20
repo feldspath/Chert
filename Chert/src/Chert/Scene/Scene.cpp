@@ -2,13 +2,15 @@
 #include "Chert/Core/Application.h"
 #include "Components/Light.h"
 #include "Components/Mesh.h"
+#include "Components/Tag.h"
 #include "Components/Transform.h"
 #include "Entity/Entity.h"
 
 namespace chert {
-Entity Scene::createEntity() {
+Entity Scene::createEntity(const std::string &name) {
     Entity entity(registry.create(), weak_from_this());
     entity.addComponent<TransformComponent>();
+    entity.addComponent<TagComponent>(name);
     return entity;
 }
 

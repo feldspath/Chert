@@ -16,6 +16,10 @@ public:
     TransformComponent transform;
 
 protected:
-    glm::mat4 getViewMatrix() const { return glm::inverse(transform.modelMatrix()); }
+    glm::mat4 getViewMatrix() const {
+        // Transform to OpenGL space
+        return glm::inverse(transform.modelMatrix() *
+                            glm::toMat4(TransformComponent::rotateZupToYup()));
+    }
 };
 } // namespace chert

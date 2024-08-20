@@ -45,6 +45,16 @@ public:
         return sceneRef->registry.get<T>(handle);
     }
 
+    inline uint32_t getID() {
+        checkInitialization();
+        return entt::entt_traits<entt::entity>::to_entity(handle);
+    }
+
+    inline bool operator==(const Entity &other) const { return handle == other.handle; }
+    inline bool operator!=(const Entity &other) const { return handle != other.handle; }
+
+    static Entity nullEntity() { return Entity(); }
+
 private:
     entt::entity handle = entt::null;
     std::weak_ptr<Scene> scene;

@@ -15,8 +15,6 @@ public:
 struct DirLightComponent : public LightComponent {
 public:
     DirLightComponent() = default;
-    DirLightComponent(glm::vec3 direction, glm::vec3 color, float intensity = 1.0f)
-        : LightComponent(color, intensity), direction(direction) {}
-    glm::vec3 direction = {1.0f, 0.0f, 0.0f};
+    DirLightComponent(glm::vec3 color, float intensity = 1.0f) : LightComponent(color, intensity) {}
 };
 } // namespace chert

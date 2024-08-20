@@ -35,5 +35,5 @@ void main() {
     for (int i = 0; i < dirLightCount; ++i) {
         lightSum += dirLights[i].intensity * max(dot(normal, -normalize(dirLights[i].direction)), 0.0) * dirLights[i].color;
     }
-    color = vec4(0.1, 0.6, 0.3, 1.0) * vec4(lightSum, 1.0);
+    color = vec4(lightSum, 1.0);
 }

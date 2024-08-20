@@ -25,6 +25,7 @@ public:
     void pushOverlay(std::shared_ptr<Layer> overlay);
     void detachLayer(std::shared_ptr<Layer> layer);
     void detachOverlay(std::shared_ptr<Layer> overlay);
+    void close() { running = false; }
     inline std::shared_ptr<Window> &getWindow() { return window; }
 
     virtual void init(){};

@@ -35,7 +35,7 @@ private:
 
     struct SceneData {
         glm::mat4 viewProjectionMatrix;
-        std::vector<DirLightComponent> dirLights;
+        std::vector<std::pair<DirLightComponent, TransformComponent>> dirLights;
     };
 
     SceneData sceneData;

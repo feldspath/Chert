@@ -28,11 +28,11 @@ void Renderer::beginScene(const Ref<Scene> scene) {
 
     // Copying all the DirLightComponents
     sceneData.dirLights.clear();
-    auto lightsView = scene->registry.view<DirLightComponent>();
-    for (auto lightEntity : lightsView) {
-        auto &light = lightsView.get<DirLightComponent>(lightEntity);
-        sceneData.dirLights.push_back(light);
-    }
+    scene->registry.view<DirLightComponent, TransformComponent>().each(
+        [&](auto entityID, auto &tag, auto &transform) {
+            sceneData.dirLights.push_back({tag, transform});
+        });
+
     if (CHERT_MAX_DIR_LIGHT < sceneData.dirLights.size()) {
         CHERT_CORE_WARN("Renderer only supports up to {} DirLights but {} were provided. Ignoring "
                         "the other ones.",
@@ -56,9 +56,11 @@ void Renderer::submit(Ref<Model> &model, Ref<Shader> &shader, const glm::mat4 &t
     int dirLightCount = std::min(CHERT_MAX_DIR_LIGHT, sceneData.dirLights.size());
     for (int i = 0; i < dirLightCount; ++i) {
         const auto &dirLight = sceneData.dirLights[i];
-        shader->setUniform("dirLights[" + std::to_string(i) + "].direction", dirLight.direction);
-        shader->setUniform("dirLights[" + std::to_string(i) + "].color", dirLight.color);
-        shader->setUniform("dirLights[" + std::to_string(i) + "].intensity", dirLight.intensity);
+        shader->setUniform("dirLights[" + std::to_string(i) + "].direction",
+                           dirLight.second.front());
+        shader->setUniform("dirLights[" + std::to_string(i) + "].color", dirLight.first.color);
+        shader->setUniform("dirLights[" + std::to_string(i) + "].intensity",
+                           dirLight.first.intensity);
     }
     shader->setUniform("dirLightCount", dirLightCount);
 

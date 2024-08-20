@@ -7,6 +7,8 @@
 
 namespace chert {
 class Entity {
+    friend class Scene;
+
 public:
     Entity() = default;
     Entity(entt::entity entityHandle, std::weak_ptr<Scene> scene)

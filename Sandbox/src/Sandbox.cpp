@@ -16,7 +16,7 @@ public:
                                                                  glm::vec3{0.0f, 0.0f, 0.0f});
 
         // Create light
-        chert::Entity light = scene->createEntity("light");
+        chert::Entity light = scene->createEntity("Light");
         light.addComponent<chert::DirLightComponent>(glm::vec3(0.0f, 1.0f, 0.0f));
 
         // Load object from file
@@ -24,7 +24,7 @@ public:
             chert::ResourceManager::loadModel("Sandbox/assets/monke.obj");
 
         // Create a mesh from obj file
-        mesh = scene->createEntity("monke");
+        mesh = scene->createEntity("Monke");
         mesh.addComponent<chert::MeshComponent>(model);
 
         // Create scene hierarchy panel

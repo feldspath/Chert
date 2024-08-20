@@ -34,12 +34,31 @@ void SceneHierarchyPanel::render() {
         selectionContext = Entity::nullEntity();
     }
 
+    if (ImGui::BeginPopupContextWindow(0, ImGuiPopupFlags_NoOpenOverItems |
+                                              ImGuiPopupFlags_MouseButtonRight)) {
+        if (ImGui::MenuItem("Create new entity")) {
+            scene->createEntity("Empty Entity");
+        }
+        ImGui::EndPopup();
+    }
+
     ImGui::End();
 
     // Properties
     ImGui::Begin("Properties");
     if (selectionContext != Entity::nullEntity()) {
         displayComponents(selectionContext);
+
+        if (ImGui::Button("Add component")) {
+            ImGui::OpenPopup("AddComponentPopup");
+        }
+        if (ImGui::BeginPopup("AddComponentPopup")) {
+            if (ImGui::MenuItem("Light")) {
+                selectionContext.addComponent<DirLightComponent>();
+                ImGui::CloseCurrentPopup();
+            }
+            ImGui::EndPopup();
+        }
     }
     ImGui::End();
 }
@@ -52,6 +71,17 @@ void SceneHierarchyPanel::drawEntityNode(Entity entity) {
     bool opened = ImGui::TreeNodeEx((void *)(uint64_t)(uint32_t)entity.getID(), flags, tag.c_str());
     if (ImGui::IsItemClicked()) {
         selectionContext = entity;
+    }
+
+    if (ImGui::BeginPopupContextItem()) {
+        if (ImGui::MenuItem("Destroy entity")) {
+            scene->destroyEntity(entity);
+            if (selectionContext == entity) {
+                selectionContext = Entity::nullEntity();
+                opened = false;
+            }
+        }
+        ImGui::EndPopup();
     }
 
     if (opened) {
@@ -115,7 +145,8 @@ void SceneHierarchyPanel::displayComponents(Entity entity) {
 
     displayComponentNode<DirLightComponent>(entity, "Light", [](auto &light) {
         ImGui::ColorEdit3("Color", glm::value_ptr(light.color));
-        ImGui::DragFloat("Intensity", &light.intensity, 0.1f);
+        ImGui::DragFloat("Intensity", &light.intensity, 0.1f, 0.0f, FLT_MAX, "%.3f",
+                         ImGuiSliderFlags_AlwaysClamp);
     });
 }
 } // namespace chert

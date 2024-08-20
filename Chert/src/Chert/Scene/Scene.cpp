@@ -14,6 +14,8 @@ Entity Scene::createEntity(const std::string &name) {
     return entity;
 }
 
+void Scene::destroyEntity(Entity entity) { registry.destroy(entity.handle); }
+
 void Scene::update() {
     auto &renderer = Application::get().getRenderer();
     renderer->setClearColor({0.1f, 0.1f, 0.1f, 1.0f});

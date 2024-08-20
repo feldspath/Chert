@@ -15,7 +15,8 @@ class Scene : public std::enable_shared_from_this<Scene> {
     friend class SceneHierarchyPanel;
 
 public:
-    Entity createEntity(const std::string &name = "UnnamedEntity");
+    Entity createEntity(const std::string &name = "Unnamed Entity");
+    void destroyEntity(Entity entity);
     void update();
 
     Ref<Camera> camera;

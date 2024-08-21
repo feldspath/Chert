@@ -61,7 +61,7 @@ void SceneHierarchyPanel::render() {
             }
             if (ImGui::MenuItem("Mesh")) {
                 nfdchar_t *outPath = NULL;
-                nfdresult_t result = NFD_OpenDialog(NULL, NULL, &outPath);
+                nfdresult_t result = NFD_OpenDialog("obj", NULL, &outPath);
                 if (result == NFD_OKAY) {
                     auto path = std::filesystem::path(outPath);
                     if (path.extension().string() == "obj") {

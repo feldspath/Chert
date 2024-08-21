@@ -113,6 +113,7 @@ target_include_directories(Chert PUBLIC external/glad/include)
 target_include_directories(Chert PUBLIC external/imgui/)
 target_include_directories(Chert PUBLIC external/entt/src)
 target_include_directories(Chert PUBLIC external/assimp/include)
+target_include_directories(Chert PUBLIC external/nativefiledialog/src/include)
 target_include_directories(Chert PUBLIC src/)
 
 # Libaries
@@ -127,6 +128,17 @@ set(IMGUI_FILES
 )
 add_library(imgui STATIC ${IMGUI_FILES})
 
+# nfd
+# todo: handle other platforms
+set(NFD_FILES 
+    "external/nativefiledialog/src/nfd_common.c"
+    #"external/nativefiledialog/src/nfd_gtk.c"
+    "external/nativefiledialog/src/nfd_win.cpp"
+    #"external/nativefiledialog/src/nfd_zenity.c"
+)
+add_library(nfd STATIC ${NFD_FILES})
+target_include_directories(nfd PUBLIC external/nativefiledialog/src/include)
+
 target_link_libraries(Chert glfw)
 target_link_libraries(Chert spdlog)
 target_link_libraries(Chert glad)
@@ -135,6 +147,7 @@ target_link_libraries(Chert assimp)
 find_package(OpenGL REQUIRED)
 target_link_libraries(Chert ${OPENGL_LIBRARIES})
 target_link_libraries(Chert imgui)
+target_link_libraries(Chert nfd)
 
 target_compile_definitions(Chert PUBLIC CHERT_PLATFORM_WINDOWS)
 target_compile_definitions(Chert PUBLIC "$<$<CONFIG:Debug>:CHERT_BUILD_DEBUG>")

@@ -5,6 +5,8 @@
 #include "Chert/Scene/Components/Tag.h"
 #include "imgui.h"
 
+#include "nfd.h"
+
 namespace chert {
 void SceneHierarchyPanel::render() {
     // Menu bar
@@ -58,8 +60,18 @@ void SceneHierarchyPanel::render() {
                 ImGui::CloseCurrentPopup();
             }
             if (ImGui::MenuItem("Mesh")) {
-                auto model = ResourceManager::loadModel("Editor/Assets/Models/monke.obj");
-                selectionContext.addComponent<MeshComponent>(model);
+                nfdchar_t *outPath = NULL;
+                nfdresult_t result = NFD_OpenDialog(NULL, NULL, &outPath);
+                if (result == NFD_OKAY) {
+                    auto path = std::filesystem::path(outPath);
+                    if (path.extension().string() == "obj") {
+                        auto model = ResourceManager::loadModel(outPath);
+                        selectionContext.addComponent<MeshComponent>(model);
+                    } else {
+                        CHERT_CORE_WARN("File {} is not an obj file", path.string());
+                    }
+                    free(outPath);
+                }
                 ImGui::CloseCurrentPopup();
             }
             ImGui::EndPopup();

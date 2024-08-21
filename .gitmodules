@@ -17,3 +17,6 @@
 [submodule "Chert/external/assimp"]
 	path = Chert/external/assimp
 	url = https://github.com/assimp/assimp.git
+[submodule "Chert/external/nativefiledialog"]
+	path = Chert/external/nativefiledialog
+	url = https://github.com/mlabbe/nativefiledialog

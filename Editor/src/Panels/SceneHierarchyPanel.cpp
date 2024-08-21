@@ -57,6 +57,11 @@ void SceneHierarchyPanel::render() {
                 selectionContext.addComponent<DirLightComponent>();
                 ImGui::CloseCurrentPopup();
             }
+            if (ImGui::MenuItem("Mesh")) {
+                auto model = ResourceManager::loadModel("Editor/Assets/Models/monke.obj");
+                selectionContext.addComponent<MeshComponent>(model);
+                ImGui::CloseCurrentPopup();
+            }
             ImGui::EndPopup();
         }
     }
@@ -147,6 +152,10 @@ void SceneHierarchyPanel::displayComponents(Entity entity) {
         ImGui::ColorEdit3("Color", glm::value_ptr(light.color));
         ImGui::DragFloat("Intensity", &light.intensity, 0.1f, 0.0f, FLT_MAX, "%.3f",
                          ImGuiSliderFlags_AlwaysClamp);
+    });
+
+    displayComponentNode<MeshComponent>(entity, "Mesh", [](auto &mesh) {
+        ImGui::Text("Model: %s", mesh.model->getPath().string().c_str());
     });
 }
 } // namespace chert

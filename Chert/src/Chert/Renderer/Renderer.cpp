@@ -12,7 +12,7 @@
 
 namespace chert {
 Renderer::Renderer(std::shared_ptr<RenderingContext> context) : context(context) {
-    defaultShader = context->createShader("Sandbox/assets/default.glsl");
+    defaultShader = context->createShader("Editor/Assets/Shaders/default.glsl");
     sceneData.viewProjectionMatrix = glm::mat4();
 }
 

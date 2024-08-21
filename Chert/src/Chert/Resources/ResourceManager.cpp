@@ -2,15 +2,19 @@
 #include "Chert/Core/Application.h"
 
 namespace chert {
-Ref<Model> ResourceManager::loadModel(const std::string &path) {
+Ref<Model> ResourceManager::loadModel(const std::filesystem::path &path) {
     Assimp::Importer importer;
-    const aiScene *scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
+    const aiScene *scene =
+        importer.ReadFile(path.string(), aiProcess_Triangulate | aiProcess_FlipUVs);
     if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) {
-        CHERT_CORE_ERROR("Failed to load mesh at path {0}: {1}", path, importer.GetErrorString());
+        CHERT_CORE_ERROR("Failed to load mesh at path {0}: {1}", path.string(),
+                         importer.GetErrorString());
         return nullptr;
     }
 
-    return processScene(scene->mRootNode, scene);
+    auto model = processScene(scene->mRootNode, scene);
+    model->path = path;
+    return model;
 }
 
 Ref<Model> ResourceManager::processScene(aiNode *root, const aiScene *scene) {

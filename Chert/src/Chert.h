@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Chert/Core/Application.h"
-#include "Chert/Core/EntryPoint.h"
 #include "Chert/Core/Layer.h"
 #include "Chert/Core/Log.h"
 

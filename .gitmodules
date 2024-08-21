@@ -1,22 +1,22 @@
 [submodule "Chert/external/spdlog"]
-	path = Chert/external/spdlog
+	path = Chert/External/spdlog
 	url = https://github.com/gabime/spdlog
 [submodule "Chert/external/glfw"]
-	path = Chert/external/glfw
+	path = Chert/External/glfw
 	url = https://github.com/glfw/glfw
 [submodule "Chert/external/imgui"]
-	path = Chert/external/imgui
+	path = Chert/External/imgui
 	url = git@github.com:ocornut/imgui.git
 	branch = docking
 [submodule "Chert/external/glm"]
-	path = Chert/external/glm
+	path = Chert/External/glm
 	url = git@github.com:g-truc/glm.git
 [submodule "Chert/external/entt"]
-	path = Chert/external/entt
+	path = Chert/External/entt
 	url = https://github.com/skypjack/entt
 [submodule "Chert/external/assimp"]
-	path = Chert/external/assimp
+	path = Chert/External/assimp
 	url = https://github.com/assimp/assimp.git
 [submodule "Chert/external/nativefiledialog"]
-	path = Chert/external/nativefiledialog
+	path = Chert/External/nativefiledialog
 	url = https://github.com/mlabbe/nativefiledialog

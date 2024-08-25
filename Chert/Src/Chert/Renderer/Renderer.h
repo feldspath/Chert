@@ -3,7 +3,6 @@
 #include <memory>
 
 #include "Chert/Core/Core.h"
-#include "Chert/Scene/Camera.h"
 #include "Chert/Scene/Components/Light.h"
 #include "Chert/Scene/Components/Transform.h"
 #include "Chert/Scene/Model/Model.h"

@@ -1,11 +1,13 @@
 #pragma once
 
-#include "Chert/Core/Core.h"
-#include "Chert/Scene/Scene.h"
-#include "entt/entt.hpp"
 #include <memory>
 
+#include "Chert/Core/Core.h"
+#include "entt/entt.hpp"
+
 namespace chert {
+class Scene;
+
 class Entity {
     friend class Scene;
 
@@ -23,15 +25,18 @@ public:
     template <typename T, typename... Args> T &addComponent(Args &&...args) {
         checkInitialization();
         auto sceneRef = scene.lock();
-        CHERT_ASSERT(!hasComponent<T>(),
-                     "The entity already has the component, cannot add it multiple times");
+        if (hasComponent<T>()) {
+            CHERT_CORE_ERROR("The entity already has the component, cannot add it multiple times");
+        }
         return sceneRef->registry.emplace<T>(handle, std::forward<Args>(args)...);
     }
 
     template <typename T> void removeComponent() {
         checkInitialization();
         auto sceneRef = scene.lock();
-        CHERT_ASSERT(hasComponent<T>(), "The entity does not have the component, cannot remove it");
+        if (!hasComponent<T>()) {
+            CHERT_CORE_ERROR("The entity does not have the component, cannot remove it");
+        }
         sceneRef->registry.remove<T>(handle);
     }
 

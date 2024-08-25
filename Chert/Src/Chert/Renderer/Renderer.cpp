@@ -2,8 +2,10 @@
 
 #include "Buffers/BufferLayout.h"
 #include "Chert/Events/Event.h"
+#include "Chert/Scene/Components/Camera.h"
 #include "Chert/Scene/Components/Light.h"
 #include "Chert/Scene/Components/Transform.h"
+#include "Chert/Scene/Entity/Entity.h"
 #include "Chert/Scene/Scene.h"
 #include "RenderAPI.h"
 #include "Renderer.h"
@@ -23,8 +25,14 @@ void Renderer::clear() { RenderAPI::clear(); }
 void Renderer::beginScene(const Ref<Scene> scene) {
     CHERT_ASSERT(!sceneInProgress, "Scene already in progress, call endScene "
                                    "before calling beginScene again");
-    CHERT_ASSERT(scene->camera, "Scene camera is not set")
-    sceneData.viewProjectionMatrix = scene->camera->getViewProjectionMatrix();
+
+    // Setting the viewProjectionMatrix
+    CHERT_ASSERT(scene->camera.isInitialized(), "Scene camera is not set")
+    auto &cameraTransform = scene->camera.getComponent<TransformComponent>();
+    sceneData.viewProjectionMatrix =
+        scene->camera.getComponent<CameraComponent>().camera.getProjectionMatrix() *
+        glm::inverse(cameraTransform.modelMatrix() *
+                     glm::toMat4(TransformComponent::rotateZupToYup()));
 
     // Copying all the DirLightComponents
     sceneData.dirLights.clear();

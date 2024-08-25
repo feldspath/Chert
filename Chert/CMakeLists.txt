@@ -87,14 +87,14 @@ set(CHERT_HEADERS
     "src/Chert/Renderer/Buffers/BufferLayout.h"
     "src/Chert/Renderer/Buffers/VertexArray.h"
     "src/Chert/Renderer/RenderAPI.h"
+    "src/Chert/Renderer/Camera.h"
     
     # Scene
     "src/Chert/Scene/Scene.h"
     "src/Chert/Scene/Entity/Entity.h"
     "src/Chert/Scene/Components/Transform.h"
+    "src/Chert/Scene/Components/Camera.h"
     "src/Chert/Scene/Components/Mesh.h"
-    "src/Chert/Scene/Camera.h"
-    "src/Chert/Scene/PerspectiveCamera.h"
     "src/Chert/Scene/Model/Mesh.h"
     "src/Chert/Scene/Model/Model.h"
 

@@ -1,6 +1,7 @@
 #include "SceneHierarchyPanel.h"
 #include "Chert/Core/Application.h"
 #include "Chert/Resources/ResourceManager.h"
+#include "Chert/Scene/Components/Camera.h"
 #include "Chert/Scene/Components/Mesh.h"
 #include "Chert/Scene/Components/Tag.h"
 #include "imgui.h"
@@ -64,14 +65,14 @@ void SceneHierarchyPanel::render() {
                 nfdresult_t result = NFD_OpenDialog("obj", NULL, &outPath);
                 if (result == NFD_OKAY) {
                     auto path = std::filesystem::path(outPath);
-                    if (path.extension().string() == "obj") {
-                        auto model = ResourceManager::loadModel(outPath);
-                        selectionContext.addComponent<MeshComponent>(model);
-                    } else {
-                        CHERT_CORE_WARN("File {} is not an obj file", path.string());
-                    }
+                    auto model = ResourceManager::loadModel(outPath);
+                    selectionContext.addComponent<MeshComponent>(model);
                     free(outPath);
                 }
+                ImGui::CloseCurrentPopup();
+            }
+            if (ImGui::MenuItem("Camera")) {
+                selectionContext.addComponent<CameraComponent>();
                 ImGui::CloseCurrentPopup();
             }
             ImGui::EndPopup();
@@ -168,6 +169,59 @@ void SceneHierarchyPanel::displayComponents(Entity entity) {
 
     displayComponentNode<MeshComponent>(entity, "Mesh", [](auto &mesh) {
         ImGui::Text("Model: %s", mesh.model->getPath().string().c_str());
+    });
+
+    displayComponentNode<CameraComponent>(entity, "Camera", [&](auto &camera) {
+        int type = (int)camera.camera.getType();
+        if (ImGui::Combo("Type", &type, "Perspective\0Orthographic\0")) {
+            camera.camera.setType((Camera::Type)type);
+        }
+
+        switch (camera.camera.getType()) {
+        case Camera::Type::Perspective: {
+            auto params = camera.camera.getPerspectiveParameters();
+            bool changed = false;
+            changed |= ImGui::DragFloat("FOV", &params.fov, 0.1f, 0.0f, 180.0f, "%.3f",
+                                        ImGuiSliderFlags_AlwaysClamp);
+            changed |= ImGui::DragFloat("Near", &params.near, 0.1f, 0.0f, FLT_MAX, "%.3f",
+                                        ImGuiSliderFlags_AlwaysClamp);
+            changed |= ImGui::DragFloat("Far", &params.far, 0.1f, 0.0f, FLT_MAX, "%.3f",
+                                        ImGuiSliderFlags_AlwaysClamp);
+            if (changed) {
+                params.near = std::min(params.near, params.far);
+                params.far = std::max(params.near, params.far);
+                camera.camera.setPerspective(params);
+            }
+            break;
+        }
+        case Camera::Type::Orthographic: {
+            auto params = camera.camera.getOrthographicParameters();
+            bool changed = false;
+            changed |= ImGui::DragFloat("Size", &params.width, 0.1f, 0.0f, FLT_MAX, "%.3f",
+                                        ImGuiSliderFlags_AlwaysClamp);
+            changed |= ImGui::DragFloat("Near", &params.near, 0.1f, 0.0f, FLT_MAX, "%.3f",
+                                        ImGuiSliderFlags_AlwaysClamp);
+            changed |= ImGui::DragFloat("Far", &params.far, 0.1f, 0.0f, FLT_MAX, "%.3f",
+                                        ImGuiSliderFlags_AlwaysClamp);
+            if (changed) {
+                params.near = std::min(params.near, params.far);
+                params.far = std::max(params.near, params.far);
+                camera.camera.setOrthographic(params);
+            }
+            break;
+        }
+        default:
+            break;
+        }
+
+        bool primary = scene->camera == entity;
+        if (ImGui::Checkbox("Primary Camera", &primary)) {
+            if (primary) {
+                scene->camera = entity;
+            } else {
+                scene->camera = Entity::nullEntity();
+            }
+        }
     });
 }
 } // namespace chert

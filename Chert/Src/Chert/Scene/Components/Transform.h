@@ -6,7 +6,7 @@
 
 namespace chert {
 struct TransformComponent {
-    // Default positionf: in the center of the world
+    // Default position: in the center of the world
     glm::vec3 position = {0.0f, 0.0f, 0.0f};
     // Default rotation: no rotation
     glm::quat rotation = glm::quat_identity<float, glm::defaultp>();

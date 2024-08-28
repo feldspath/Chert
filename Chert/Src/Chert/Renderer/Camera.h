@@ -10,7 +10,7 @@ class Camera {
 public:
     enum Type { Perspective = 0, Orthographic = 1 };
     struct OrthographicParameters {
-        float width = 10.0f;
+        float size = 10.0f;
         float near = 0.1f;
         float far = 100.0f;
     };
@@ -73,8 +73,8 @@ public:
         }
         case Orthographic: {
             auto parameters = std::get<OrthographicParameters>(cameraParams);
-            float base = parameters.width * 0.5f;
-            projectionMatrix = glm::ortho(-base, base, -base / aspectRatio, base / aspectRatio,
+            float base = parameters.size * 0.5f;
+            projectionMatrix = glm::ortho(-base * aspectRatio, base * aspectRatio, -base, base,
                                           parameters.near, parameters.far);
             break;
         }

@@ -197,7 +197,7 @@ void SceneHierarchyPanel::displayComponents(Entity entity) {
         case Camera::Type::Orthographic: {
             auto params = camera.camera.getOrthographicParameters();
             bool changed = false;
-            changed |= ImGui::DragFloat("Size", &params.width, 0.1f, 0.0f, FLT_MAX, "%.3f",
+            changed |= ImGui::DragFloat("Size", &params.size, 0.1f, 0.0f, FLT_MAX, "%.3f",
                                         ImGuiSliderFlags_AlwaysClamp);
             changed |= ImGui::DragFloat("Near", &params.near, 0.1f, 0.0f, FLT_MAX, "%.3f",
                                         ImGuiSliderFlags_AlwaysClamp);

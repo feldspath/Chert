@@ -16,7 +16,7 @@ class Scene : public std::enable_shared_from_this<Scene> {
 public:
     Entity createEntity(const std::string &name = "Unnamed Entity");
     void destroyEntity(Entity entity);
-    void update();
+    void update(float timestep);
 
     Entity camera;
 

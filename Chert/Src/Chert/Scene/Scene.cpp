@@ -2,6 +2,7 @@
 #include "Chert/Core/Application.h"
 #include "Components/Light.h"
 #include "Components/Mesh.h"
+#include "Components/NativeScript.h"
 #include "Components/Tag.h"
 #include "Components/Transform.h"
 #include "Entity/Entity.h"
@@ -16,7 +17,20 @@ Entity Scene::createEntity(const std::string &name) {
 
 void Scene::destroyEntity(Entity entity) { registry.destroy(entity.handle); }
 
-void Scene::update() {
+void Scene::update(float timestep) {
+    {
+        auto view = registry.view<NativeScriptComponent>();
+        for (auto &entity : view) {
+            auto &script = view.get<NativeScriptComponent>(entity);
+            // TODO: remove this
+            if (!script.script) {
+                script.script = script.instantiateScript();
+                script.script->entity = {entity, weak_from_this()};
+            }
+            script.script->onUpdate(timestep);
+        }
+    }
+
     auto &renderer = Application::get().getRenderer();
     renderer->setClearColor({0.1f, 0.1f, 0.1f, 1.0f});
     renderer->clear();

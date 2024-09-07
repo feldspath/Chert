@@ -1,6 +1,26 @@
 #include "EditorLayer.h"
 
 namespace chert {
+
+class CameraController : public NativeScript {
+public:
+    void onUpdate(float timestep) override {
+        auto &transform = getComponent<TransformComponent>();
+        float speed = 3.0f;
+        if (Input::isKeyPressed(CHERT_KEY_W)) {
+            transform.position += speed * timestep * transform.front();
+        }
+        if (Input::isKeyPressed(CHERT_KEY_S)) {
+            transform.position -= speed * timestep * transform.front();
+        }
+        if (Input::isKeyPressed(CHERT_KEY_D)) {
+            transform.position += speed * timestep * transform.right();
+        }
+        if (Input::isKeyPressed(CHERT_KEY_A)) {
+            transform.position -= speed * timestep * transform.right();
+        }
+    }
+};
 void EditorLayer::onAttach() {
     // Create scene
     scene = makeRef<Scene>();
@@ -11,6 +31,7 @@ void EditorLayer::onAttach() {
     cameraComponent.camera.setType(Camera::Type::Perspective);
     cameraComponent.camera.setAspectRatio(Application::get().getWindow()->aspectRatio());
     scene->camera.getComponent<TransformComponent>().position = glm::vec3{0.0f, -5.0f, 0.0f};
+    scene->camera.addComponent<NativeScriptComponent>().bind<CameraController>();
 
     // Create light
     Entity light = scene->createEntity("Light");
@@ -30,24 +51,7 @@ void EditorLayer::onAttach() {
     contentBrowserPanel = ContentBrowserPanel(scene);
 }
 
-void EditorLayer::update(float timestep) {
-    auto &cameraTransform = scene->camera.getComponent<TransformComponent>();
-    float speed = 3.0f;
-    if (Input::isKeyPressed(CHERT_KEY_W)) {
-        cameraTransform.position += speed * timestep * cameraTransform.front();
-    }
-    if (Input::isKeyPressed(CHERT_KEY_S)) {
-        cameraTransform.position -= speed * timestep * cameraTransform.front();
-    }
-    if (Input::isKeyPressed(CHERT_KEY_D)) {
-        cameraTransform.position += speed * timestep * cameraTransform.right();
-    }
-    if (Input::isKeyPressed(CHERT_KEY_A)) {
-        cameraTransform.position -= speed * timestep * cameraTransform.right();
-    }
-
-    scene->update();
-}
+void EditorLayer::update(float timestep) { scene->update(timestep); }
 
 void EditorLayer::renderGui() {
     static bool showDemo = true;

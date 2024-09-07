@@ -21,8 +21,10 @@
 #include "Chert/Scene/Components/Camera.h"
 #include "Chert/Scene/Components/Light.h"
 #include "Chert/Scene/Components/Mesh.h"
+#include "Chert/Scene/Components/NativeScript.h"
 #include "Chert/Scene/Components/Transform.h"
 #include "Chert/Scene/Entity/Entity.h"
+#include "Chert/Scene/Entity/NativeScript.h"
 #include "Chert/Scene/Scene.h"
 
 #include "Chert/Resources/ResourceManager.h"

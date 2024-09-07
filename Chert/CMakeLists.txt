@@ -92,9 +92,11 @@ set(CHERT_HEADERS
     # Scene
     "src/Chert/Scene/Scene.h"
     "src/Chert/Scene/Entity/Entity.h"
+    "src/Chert/Scene/Entity/NativeScript.h"
     "src/Chert/Scene/Components/Transform.h"
     "src/Chert/Scene/Components/Camera.h"
     "src/Chert/Scene/Components/Mesh.h"
+    "src/Chert/Scene/Components/NativeScript.h"
     "src/Chert/Scene/Model/Mesh.h"
     "src/Chert/Scene/Model/Model.h"
 
@@ -112,7 +114,6 @@ target_include_directories(Chert PUBLIC external/glfw/include)
 target_include_directories(Chert PUBLIC external/glad/include)
 target_include_directories(Chert PUBLIC external/imgui/)
 target_include_directories(Chert PUBLIC external/entt/src)
-target_include_directories(Chert PUBLIC external/assimp/include)
 target_include_directories(Chert PUBLIC external/nativefiledialog/src/include)
 target_include_directories(Chert PUBLIC src/)
 

@@ -72,7 +72,8 @@ void SceneHierarchyPanel::render() {
                 ImGui::CloseCurrentPopup();
             }
             if (ImGui::MenuItem("Camera")) {
-                selectionContext.addComponent<CameraComponent>();
+                auto &comp = selectionContext.addComponent<CameraComponent>();
+                comp.camera.setAspectRatio(Application::get().getWindow()->aspectRatio());
                 ImGui::CloseCurrentPopup();
             }
             ImGui::EndPopup();

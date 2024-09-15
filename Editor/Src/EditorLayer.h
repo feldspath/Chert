@@ -3,8 +3,6 @@
 #include "Chert.h"
 #include "Panels/ContentBrowserPanel.h"
 #include "Panels/SceneHierarchyPanel.h"
-#include "glm/gtc/type_ptr.hpp"
-#include "imgui.h"
 
 namespace chert {
 class EditorLayer : public Layer {
@@ -20,12 +18,9 @@ public:
 
 private:
     Ref<Scene> scene;
-    Entity mesh;
+    EditorCamera editorCamera;
 
     SceneHierarchyPanel sceneHierarchyPanel;
     ContentBrowserPanel contentBrowserPanel;
-
-    double previousMouseX = 0.0;
-    double previousMouseY = 0.0;
 };
 } // namespace chert

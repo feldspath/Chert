@@ -1,5 +1,7 @@
 #pragma once
 
+#include <sstream>
+
 #include "BaseEvent.h"
 
 namespace chert {

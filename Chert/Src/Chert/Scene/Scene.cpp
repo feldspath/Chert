@@ -18,7 +18,8 @@ Entity Scene::createEntity(const std::string &name) {
 
 void Scene::destroyEntity(Entity entity) { registry.destroy(entity.handle); }
 
-void Scene::update(float timestep) {
+void Scene::updateRuntime(float timestep) {
+    // Update the scripts
     {
         auto view = registry.view<NativeScriptComponent>();
         for (auto &entity : view) {
@@ -46,16 +47,38 @@ void Scene::update(float timestep) {
 
     // Passing the lights
     registry.view<DirLightComponent, TransformComponent>().each(
+        [&](auto entity, auto &light, auto &transform) {
+            renderer->submitLight(light, transform);
+        });
+
+    // Passing the meshes
+    registry.view<TransformComponent, MeshComponent>().each(
+        [&](auto entity, auto &transform, auto &mesh) {
+            renderer->submitModel(mesh.model, renderer->defaultShader, transform.modelMatrix());
+        });
+
+    renderer->endScene();
+}
+
+void Scene::updateEditor(float timestep, const EditorCamera &editorCamera) {
+    auto &renderer = Application::get().getRenderer();
+    renderer->setClearColor({0.1f, 0.1f, 0.1f, 1.0f});
+    renderer->clear();
+
+    // Passing the camera
+    renderer->beginScene(editorCamera.getViewProjectionMatrix());
+
+    // Passing the lights
+    registry.view<DirLightComponent, TransformComponent>().each(
         [&](auto entityID, auto &light, auto &transform) {
             renderer->submitLight(light, transform);
         });
 
     // Passing the meshes
-    auto meshesView = registry.view<TransformComponent, MeshComponent>();
-    for (auto &entity : meshesView) {
-        auto [transform, mesh] = meshesView.get<TransformComponent, MeshComponent>(entity);
-        renderer->submitModel(mesh.model, renderer->defaultShader, transform.modelMatrix());
-    }
+    registry.view<TransformComponent, MeshComponent>().each(
+        [&](auto entity, auto &transform, auto &mesh) {
+            renderer->submitModel(mesh.model, renderer->defaultShader, transform.modelMatrix());
+        });
 
     renderer->endScene();
 }

@@ -3,6 +3,7 @@
 #include <memory>
 
 #include "Chert/Core/Core.h"
+#include "Chert/Renderer/EditorCamera.h"
 #include "Chert/Scene/Entity/entity.h"
 #include "entt/entt.hpp"
 
@@ -16,7 +17,8 @@ class Scene : public std::enable_shared_from_this<Scene> {
 public:
     Entity createEntity(const std::string &name = "Unnamed Entity");
     void destroyEntity(Entity entity);
-    void update(float timestep);
+    void updateRuntime(float timestep);
+    void updateEditor(float timestep, const EditorCamera &editorCamera);
 
     Entity camera;
 

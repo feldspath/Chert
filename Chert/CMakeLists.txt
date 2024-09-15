@@ -35,6 +35,7 @@ set(CHERT_SRC
     "src/Chert/Renderer/Renderer.cpp"
     "src/Chert/Renderer/RenderAPI.cpp"
     "src/Chert/Renderer/Buffers/Buffers.cpp"
+    "src/Chert/Renderer/EditorCamera.cpp"
 
     # Scene
     "src/Chert/Scene/Scene.cpp"
@@ -88,6 +89,7 @@ set(CHERT_HEADERS
     "src/Chert/Renderer/Buffers/VertexArray.h"
     "src/Chert/Renderer/RenderAPI.h"
     "src/Chert/Renderer/Camera.h"
+    "src/Chert/Renderer/EditorCamera.h"
     
     # Scene
     "src/Chert/Scene/Scene.h"

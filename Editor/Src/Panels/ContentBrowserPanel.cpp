@@ -25,7 +25,9 @@ void ContentBrowserPanel::render() {
             } else if (path.extension().compare("obj")) {
                 Entity newEntity = scene->createEntity(path.stem().string());
                 Ref<Model> model = ResourceManager::loadModel(path.string());
-                newEntity.addComponent<MeshComponent>(model);
+                if (model) {
+                    newEntity.addComponent<MeshComponent>(model);
+                }
             }
         }
     }

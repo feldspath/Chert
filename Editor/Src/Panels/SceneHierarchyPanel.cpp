@@ -56,22 +56,24 @@ void SceneHierarchyPanel::render() {
             ImGui::OpenPopup("AddComponentPopup");
         }
         if (ImGui::BeginPopup("AddComponentPopup")) {
-            if (ImGui::MenuItem("Light")) {
+            if (!selectionContext.hasComponent<DirLightComponent>() && ImGui::MenuItem("Light")) {
                 selectionContext.addComponent<DirLightComponent>();
                 ImGui::CloseCurrentPopup();
             }
-            if (ImGui::MenuItem("Mesh")) {
+            if (!selectionContext.hasComponent<MeshComponent>() && ImGui::MenuItem("Mesh")) {
                 nfdchar_t *outPath = NULL;
                 nfdresult_t result = NFD_OpenDialog("obj", NULL, &outPath);
                 if (result == NFD_OKAY) {
                     auto path = std::filesystem::path(outPath);
                     auto model = ResourceManager::loadModel(outPath);
-                    selectionContext.addComponent<MeshComponent>(model);
+                    if (model) {
+                        selectionContext.addComponent<MeshComponent>(model);
+                    }
                     free(outPath);
                 }
                 ImGui::CloseCurrentPopup();
             }
-            if (ImGui::MenuItem("Camera")) {
+            if (!selectionContext.hasComponent<CameraComponent>() && ImGui::MenuItem("Camera")) {
                 auto &comp = selectionContext.addComponent<CameraComponent>();
                 comp.camera.setAspectRatio(Application::get().getWindow()->aspectRatio());
                 ImGui::CloseCurrentPopup();

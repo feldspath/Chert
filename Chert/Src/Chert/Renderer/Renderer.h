@@ -19,9 +19,10 @@ public:
 
     void setClearColor(const glm::vec4 &color);
     void clear();
-    void beginScene(const Ref<Scene> scene);
+    void beginScene(const glm::mat4 &viewProjectionMatrix);
+    void submitLight(const DirLightComponent &light, const TransformComponent &transform);
     void endScene();
-    void submit(Ref<Model> &vertexArray, Ref<Shader> &shader, const glm::mat4 &transform);
+    void submitModel(Ref<Model> &vertexArray, Ref<Shader> &shader, const glm::mat4 &transform);
     void onWindowResize(const WindowResizeEvent &e);
 
     inline std::shared_ptr<RenderingContext> &getRenderContext() { return context; }

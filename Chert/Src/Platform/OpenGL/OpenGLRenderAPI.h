@@ -10,5 +10,6 @@ protected:
     void drawIndexedImpl(Ref<VertexArray> &vertexArray) override;
     void setViewportImpl(unsigned int x, unsigned int y, unsigned int width,
                          unsigned int height) override;
+    void unbindCurrentVertexArrayImpl() override;
 };
 } // namespace chert

@@ -17,4 +17,5 @@ void OpenGLRenderAPI::setViewportImpl(unsigned int x, unsigned int y, unsigned i
                                       unsigned int height) {
     glViewport(x, y, width, height);
 }
+void OpenGLRenderAPI::unbindCurrentVertexArrayImpl() { glBindVertexArray(0); }
 } // namespace chert

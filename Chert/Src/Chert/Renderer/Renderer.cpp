@@ -70,6 +70,7 @@ void Renderer::submitModel(Ref<Model> &model, Ref<Shader> &shader, const glm::ma
         mesh->vertexArray->bind();
         RenderAPI::drawIndexed(mesh->vertexArray);
     }
+    RenderAPI::unbindCurrentVertexArray();
 }
 
 void Renderer::onWindowResize(const WindowResizeEvent &e) {

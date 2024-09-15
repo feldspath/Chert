@@ -54,11 +54,14 @@ void OpenGLVertexArray::addVertexBuffer(Ref<VertexBuffer> vertexBuffer) {
                               (char *)0 + e.offset);
         vertexAttribIndex++;
     }
+
+    glBindVertexArray(0);
 }
 
 void OpenGLVertexArray::setIndexBuffer(Ref<IndexBuffer> indexBuffer) {
     glBindVertexArray(vertexArrayId);
     indexBuffer->bind();
     this->indexBuffer = indexBuffer;
+    glBindVertexArray(0);
 }
 } // namespace chert

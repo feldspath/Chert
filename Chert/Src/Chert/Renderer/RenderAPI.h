@@ -20,6 +20,7 @@ public:
         instance->setViewportImpl(x, y, width, height);
     }
     static void init();
+    static void unbindCurrentVertexArray() { instance->unbindCurrentVertexArrayImpl(); }
 
 protected:
     virtual void setClearColorImpl(const glm::vec4 &color) = 0;
@@ -27,6 +28,7 @@ protected:
     virtual void drawIndexedImpl(Ref<VertexArray> &vertexBuffer) = 0;
     virtual void setViewportImpl(unsigned int x, unsigned int y, unsigned int width,
                                  unsigned int height) = 0;
+    virtual void unbindCurrentVertexArrayImpl() = 0;
 
 private:
     static std::unique_ptr<RenderAPI> RenderAPI::instance;

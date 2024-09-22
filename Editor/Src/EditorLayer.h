@@ -22,5 +22,10 @@ private:
 
     SceneHierarchyPanel sceneHierarchyPanel;
     ContentBrowserPanel contentBrowserPanel;
+
+    enum SceneState {
+        Edit,
+        Play,
+    } sceneState;
 };
 } // namespace chert

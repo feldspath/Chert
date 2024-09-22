@@ -18,26 +18,19 @@ Entity Scene::createEntity(const std::string &name) {
 
 void Scene::destroyEntity(Entity entity) { registry.destroy(entity.handle); }
 
-void Scene::updateRuntime(float timestep) {
+void Scene::updateRuntime(std::shared_ptr<Renderer> &renderer, float timestep) {
     // Update the scripts
-    {
-        auto view = registry.view<NativeScriptComponent>();
-        for (auto &entity : view) {
-            auto &script = view.get<NativeScriptComponent>(entity);
-            // TODO: remove this
-            if (!script.script) {
-                script.script = script.instantiateScript();
-                script.script->entity = {entity, weak_from_this()};
-            }
-            script.script->onUpdate(timestep);
+    registry.view<NativeScriptComponent>().each([&](auto entity, auto &script) {
+        // TODO: handle script instantiation properly
+        if (!script.script) {
+            script.script = script.instantiateScript();
+            script.script->entity = {entity, weak_from_this()};
         }
-    }
-
-    auto &renderer = Application::get().getRenderer();
-    renderer->setClearColor({0.1f, 0.1f, 0.1f, 1.0f});
-    renderer->clear();
+        script.script->onUpdate(timestep);
+    });
 
     // Passing the camera
+    // TODO: handle this crash properly
     CHERT_ASSERT(camera.isInitialized(), "Scene camera is not set");
     auto &cameraProjection = camera.getComponent<CameraComponent>().camera.getProjectionMatrix();
     auto &cameraTransform = camera.getComponent<TransformComponent>();
@@ -60,11 +53,8 @@ void Scene::updateRuntime(float timestep) {
     renderer->endScene();
 }
 
-void Scene::updateEditor(float timestep, const EditorCamera &editorCamera) {
-    auto &renderer = Application::get().getRenderer();
-    renderer->setClearColor({0.1f, 0.1f, 0.1f, 1.0f});
-    renderer->clear();
-
+void Scene::updateEditor(std::shared_ptr<Renderer> &renderer, float timestep,
+                         const EditorCamera &editorCamera) {
     // Passing the camera
     renderer->beginScene(editorCamera.getViewProjectionMatrix());
 

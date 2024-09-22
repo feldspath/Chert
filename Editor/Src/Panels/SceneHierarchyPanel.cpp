@@ -10,22 +10,6 @@
 
 namespace chert {
 void SceneHierarchyPanel::render() {
-    // Menu bar
-    if (ImGui::BeginMainMenuBar()) {
-        if (ImGui::BeginMenu("File")) {
-            if (ImGui::MenuItem("Quit", "Alt+F4")) {
-                Application::get().close();
-            }
-            ImGui::EndMenu();
-        }
-        if (ImGui::BeginMenu("Edit")) {
-            ImGui::EndMenu();
-        }
-        ImGui::EndMainMenuBar();
-    }
-
-    ImGui::DockSpaceOverViewport(ImGui::GetMainViewport(), ImGuiDockNodeFlags_PassthruCentralNode);
-
     // Scene hierarchy
     ImGui::Begin("Scene Hierarchy");
     scene->registry.view<TagComponent>().each([&](auto entityID, auto &tag) {

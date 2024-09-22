@@ -34,28 +34,92 @@ void EditorLayer::onAttach() {
     editorCamera.setAspectRatio(Application::get().getWindow()->aspectRatio());
 }
 
-void EditorLayer::update(float timestep) { scene->updateEditor(timestep, editorCamera); }
+void EditorLayer::update(float timestep) {
+
+    auto &renderer = Application::get().getRenderer();
+    renderer->setClearColor({0.1f, 0.1f, 0.1f, 1.0f});
+    renderer->clear();
+
+    switch (sceneState) {
+    case chert::EditorLayer::Edit: {
+        editorCamera.onUpdate(timestep);
+        scene->updateEditor(renderer, timestep, editorCamera);
+        break;
+    }
+    case chert::EditorLayer::Play: {
+        scene->updateRuntime(renderer, timestep);
+        break;
+    }
+    default:
+        break;
+    }
+}
 
 void EditorLayer::renderGui() {
+    ImGui::DockSpaceOverViewport(ImGui::GetMainViewport(), ImGuiDockNodeFlags_PassthruCentralNode);
+
+    // Menu bar
+    if (ImGui::BeginMainMenuBar()) {
+        if (ImGui::BeginMenu("File")) {
+            if (ImGui::MenuItem("Quit", "Alt+F4")) {
+                Application::get().close();
+            }
+            ImGui::EndMenu();
+        }
+        if (ImGui::BeginMenu("Edit")) {
+            ImGui::EndMenu();
+        }
+        ImGui::EndMainMenuBar();
+    }
+
     static bool showDemo = true;
     ImGui::ShowDemoWindow(&showDemo);
+
     sceneHierarchyPanel.render();
     contentBrowserPanel.render();
+
+    static char *stopText = "Stop";
+    static char *startText = "Start";
+
+    ImGui::Begin("Toolbar", nullptr, ImGuiWindowFlags_NoDecoration);
+    if (ImGui::Button(sceneState == Edit ? startText : stopText)) {
+        switch (sceneState) {
+        case chert::EditorLayer::Edit: {
+            // start playing scene
+            sceneState = Play;
+            break;
+        }
+        case chert::EditorLayer::Play: {
+            // stop scene
+            sceneState = Edit;
+            break;
+        }
+        default:
+            break;
+        }
+    }
+    ImGui::End();
 }
 
 bool EditorLayer::onWindowResize(const WindowResizeEvent &e) {
     const auto &window = Application::get().getWindow();
-    editorCamera.setAspectRatio(window->aspectRatio());
+    if (sceneState == Edit) {
+        editorCamera.setAspectRatio(window->aspectRatio());
+    }
     return true;
 }
 
 bool EditorLayer::onMouseScrolled(const MouseScrolledEvent &e) {
-    editorCamera.onMouseScrolled(e);
+    if (sceneState == Edit) {
+        editorCamera.onMouseScrolled(e);
+    }
     return true;
 }
 
 bool EditorLayer::onMouseMoved(const MouseMovedEvent &e) {
-    editorCamera.onMouseMoved(e);
+    if (sceneState == Edit) {
+        editorCamera.onMouseMoved(e);
+    }
     return true;
 }
 

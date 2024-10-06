@@ -1,12 +1,10 @@
 #include "EditorLayer.h"
+#include "../Components/ShipController.h"
 #include "glm/gtc/type_ptr.hpp"
 #include "imgui.h"
 
 namespace chert {
-void EditorLayer::onAttach() {
-    // Create scene
-    scene = makeRef<Scene>();
-
+static void initScene(Ref<Scene> scene) {
     // Create camera
     scene->camera = scene->createEntity("Camera");
     auto &cameraComponent = scene->camera.addComponent<CameraComponent>();
@@ -17,13 +15,36 @@ void EditorLayer::onAttach() {
     Entity light = scene->createEntity("Light");
     light.addComponent<DirLightComponent>(glm::vec3(0.0f, 1.0f, 0.0f));
 
-    // Load object from file
-    Ref<Model> model = ResourceManager::loadModel("Editor/Assets/Models/monke.obj");
+    {
+        Entity asteroid = scene->createEntity("Asteroid");
+        auto astMesh = ResourceManager::loadModel("Editor/Assets/Models/Asteroid.obj");
+        asteroid.addComponent<MeshComponent>(astMesh);
+        auto &transform = asteroid.getComponent<TransformComponent>();
+        transform.scale = {0.01f, 0.01f, 0.01f};
+        transform.position = {-5.0f, 10.0f, 0.0f};
+    }
 
-    // Create a mesh from obj file
-    auto mesh = scene->createEntity("Monke");
-    mesh.addComponent<MeshComponent>(model);
+    {
+        Entity ship = scene->createEntity("Ship");
+        ship.addComponent<NativeScriptComponent>().bind<ShipController>();
+        auto shipMesh = ResourceManager::loadModel("Editor/Assets/Models/Ship_V2.obj");
+        ship.addComponent<MeshComponent>(shipMesh);
+        auto &transform = ship.getComponent<TransformComponent>();
+        transform.scale = {0.01f, 0.01f, 0.01f};
+        transform.rotation = glm::quat(glm::radians(glm::vec3(0.0f, 0.0f, 90.0f)));
 
+        ship.addComponent<CameraReference>(scene->camera);
+    }
+}
+
+void EditorLayer::onAttach() {
+    // Create scene
+    scene = makeRef<Scene>();
+
+    // Initialize scene
+    initScene(scene);
+
+    // Editor stuff
     // Create scene hierarchy panel
     sceneHierarchyPanel = SceneHierarchyPanel(scene);
 

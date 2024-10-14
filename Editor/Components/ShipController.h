@@ -19,6 +19,12 @@ public:
 
     void onCreate() override { velocity = {0.0f, 0.0f, 0.0f}; }
 
+    void onEvent(const chert::Event &event) {
+        if (std::holds_alternative<MouseMovedEvent>(event)) {
+            CHERT_DEBUG("{}", std::get<MouseMovedEvent>(event).toString());
+        }
+    }
+
     void onUpdate(float timestep) override {
         auto &transform = getComponent<TransformComponent>();
         glm::vec3 acceleration = {0.0f, 0.0f, 0.0f};

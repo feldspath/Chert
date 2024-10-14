@@ -18,5 +18,6 @@ public:
     virtual void onCreate() {}
     virtual void onUpdate(float timestep) {}
     virtual void onDestroy() {}
+    virtual void onEvent(const Event &e) {}
 };
 } // namespace chert

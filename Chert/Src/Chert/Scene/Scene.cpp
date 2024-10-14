@@ -72,4 +72,16 @@ void Scene::updateEditor(std::shared_ptr<Renderer> &renderer, float timestep,
 
     renderer->endScene();
 }
+
+void Scene::onEvent(const Event &event) {
+    // Update the scripts
+    registry.view<NativeScriptComponent>().each([&](auto entity, auto &script) {
+        // TODO: handle script instantiation properly
+        if (!script.script) {
+            script.script = script.instantiateScript();
+            script.script->entity = {entity, weak_from_this()};
+        }
+        script.script->onEvent(event);
+    });
+}
 } // namespace chert

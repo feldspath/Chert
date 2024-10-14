@@ -128,5 +128,9 @@ void EditorLayer::onEvent(Event &e) {
     dispatcher.dispatch<WindowResizeEvent>(CHERT_BIND_EVENT_FN(EditorLayer::onWindowResize));
     dispatcher.dispatch<MouseScrolledEvent>(CHERT_BIND_EVENT_FN(EditorLayer::onMouseScrolled));
     dispatcher.dispatch<MouseMovedEvent>(CHERT_BIND_EVENT_FN(EditorLayer::onMouseMoved));
+
+    if (sceneState == Play) {
+        scene->onEvent(e);
+    }
 }
 } // namespace chert
